@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/book_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginBottom="4dp"
+        android:text="안드로이드는 정이 안생겨!"
+        android:textAlignment="viewStart"
+        android:textColor="@color/black"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/book_date"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/book_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="39dp"
+        android:text="2023.01.23"
+        android:textAlignment="viewStart"
+        android:textColor="#676767"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/book_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/book_title" />
+
+    <TextView
+        android:id="@+id/book_content"
+        android:layout_width="190dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="39dp"
+        android:text="이게 맞을까요? 잘 하고 있눈걸까요? 우히히 우끼리끼리리위루이ㅜ리우리위ㅜ리리리리리리리리리리 왼쪽 외국인이 자꾸 쳐다바요 부담스러워요"
+        android:textAlignment="viewStart"
+        android:textColor="#B7B7B7"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/book_date" />
+
+    <ImageView
+        android:id="@+id/book_post"
+        android:layout_width="108dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="22dp"
+
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/book_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/divider_horizontal_dim_dark" />
+
+    <TextView
+        android:id="@+id/book_postTitle"
+        android:layout_width="46dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="27dp"
+        android:text="안드로이드 시러"
+        android:textAlignment="viewStart"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/book_post"
+        app:layout_constraintTop_toTopOf="@+id/book_post" />
+
+    <ImageView
+        android:id="@+id/book_postprofile"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="@+id/book_post"
+        app:layout_constraintTop_toBottomOf="@+id/book_postTitle"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/book_postUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="4dp"
+        android:text="보짱"
+        android:textSize="8dp"
+        app:layout_constraintStart_toEndOf="@+id/book_postprofile"
+        app:layout_constraintTop_toBottomOf="@+id/book_postTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

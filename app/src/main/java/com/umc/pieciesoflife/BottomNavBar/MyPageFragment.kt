@@ -1,4 +1,4 @@
-package com.example.pieciesoflife.bottomNavBar
+package com.umc.pieciesoflife.BottomNavBar
 
 import android.os.Bundle
 import android.util.Log
@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
-import com.example.pieciesoflife.R
-import com.example.pieciesoflife.databinding.FragmentMyPageBinding
-import com.example.pieciesoflife.myPage.BookFragment
-import com.example.pieciesoflife.myPage.MessageFragment
-import com.example.pieciesoflife.myPage.PagerFragmentStateAdapter
+import com.umc.pieciesoflife.R
+import com.umc.pieciesoflife.databinding.FragmentMyPageBinding
+import com.umc.pieciesoflife.myPage.BookFragment
+import com.umc.pieciesoflife.myPage.MessageFragment
+import com.umc.pieciesoflife.myPage.PagerFragmentStateAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 

@@ -1,4 +1,4 @@
-package com.example.pieciesoflife.myPage
+package com.umc.pieciesoflife.myPage
 
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.example.pieciesoflife.myPage
+package com.umc.pieciesoflife.myPage
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,7 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.pieciesoflife.R
+import com.umc.pieciesoflife.myPage.BookData
+import com.umc.pieciesoflife.R
 
 
 // BookAdapter에 ViewHolder를 같이 innerclass로 생성

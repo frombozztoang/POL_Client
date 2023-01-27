@@ -1,11 +1,11 @@
-package com.example.pieciesoflife.myPage
+package com.umc.pieciesoflife.myPage
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.pieciesoflife.databinding.FragmentMessageBinding
+import com.umc.pieciesoflife.databinding.FragmentMessageBinding
 
 class MessageFragment : Fragment() {
     private lateinit var Binding: FragmentMessageBinding

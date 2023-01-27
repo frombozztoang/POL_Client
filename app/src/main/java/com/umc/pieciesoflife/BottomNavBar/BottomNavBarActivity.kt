@@ -1,11 +1,10 @@
-package com.example.pieciesoflife.bottomNavBar
+package com.umc.pieciesoflife.BottomNavBar
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import com.example.pieciesoflife.R
-import com.example.pieciesoflife.databinding.ActivityBottomNavBarBinding
+import com.umc.pieciesoflife.R
+import com.umc.pieciesoflife.databinding.ActivityBottomNavBarBinding
 
 class BottomNavBarActivity : AppCompatActivity() {
     private lateinit var binding : ActivityBottomNavBarBinding
