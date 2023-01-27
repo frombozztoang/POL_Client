@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">pieciesoflife</string>
+    <string name="align_new">최신순</string>
+    <string name="align_like">인기순</string>
 </resources>
+
+
