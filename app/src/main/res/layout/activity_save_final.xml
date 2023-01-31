@@ -4,7 +4,54 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SaveFinalActivity">
+    tools:context=".Acitivity.SaveFinalActivity">
+
+    <ImageView
+        android:id="@+id/book_post"
+        android:layout_width="108dp"
+        android:layout_height="130dp"
+
+        android:layout_marginStart="126dp"
+        android:layout_marginTop="230dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/divider_horizontal_dim_dark"
+        tools:srcCompat="@drawable/ic_book" />
+    <TextView
+        android:id="@+id/book_postTitle"
+        android:layout_width="46dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="27dp"
+        android:text="안드로이드 시러"
+        android:textAlignment="viewStart"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="@+id/book_post"
+        app:layout_constraintTop_toTopOf="@+id/book_post" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/book_postProfile"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        app:civ_border_overlay="true"
+        app:layout_constraintStart_toStartOf="@+id/book_post"
+        app:layout_constraintTop_toBottomOf="@+id/book_postTitle"
+        android:src="@drawable/ic_flag_level2" />
+    <TextView
+        android:id="@+id/book_postUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="4dp"
+        android:text="보짱"
+        android:textColor="@color/white"
+        android:textSize="8dp"
+        app:layout_constraintStart_toEndOf="@+id/book_postProfile"
+        app:layout_constraintTop_toBottomOf="@+id/book_postTitle" />
 
     <TextView
         android:id="@+id/textView58"

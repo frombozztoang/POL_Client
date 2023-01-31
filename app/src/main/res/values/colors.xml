@@ -5,6 +5,15 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
+    <color name="gray">#FF747474</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF2222</color>
+    <color name="age">#6B9A85</color>
+    <color name="matter">#93666F</color>
+    <color name="mood">#567DA7</color>
+    <color name="object">#8D8565</color>
+    <color name="person">#9467A3</color>
+    <color name="place">#5F8D8D</color>
+    <color name="year">#A56E4E</color>
 </resources>
