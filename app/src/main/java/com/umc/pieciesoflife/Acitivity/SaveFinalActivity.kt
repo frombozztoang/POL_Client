@@ -1,4 +1,4 @@
-package com.umc.pieciesoflife
+package com.umc.pieciesoflife.Acitivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

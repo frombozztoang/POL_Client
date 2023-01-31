@@ -1,10 +1,10 @@
-package com.umc.pieciesoflife
+package com.umc.pieciesoflife.Acitivity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.umc.pieciesoflife.Noti
-import com.umc.pieciesoflife.NotiRVAdapter
+import com.umc.pieciesoflife.DataClass.Noti
+import com.umc.pieciesoflife.Adapter.NotiRVAdapter
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.ActivityNotiBinding
 
@@ -19,9 +19,9 @@ class NotiActivity : AppCompatActivity(){
         val notiList: ArrayList<Noti> = arrayListOf()
 
         notiList.apply {
-            add(Noti(R.drawable.img_pol, "알림1", "1m ago"))
-            add(Noti(R.drawable.img_pol, "알림2", "2m ago"))
-            add(Noti(R.drawable.img_pol, "알림3", "3m ago"))
+            add(Noti(R.drawable.logo, "알림1", "1m ago"))
+            add(Noti(R.drawable.logo, "알림2", "2m ago"))
+            add(Noti(R.drawable.logo, "알림3", "3m ago"))
         }
 
         val notiRVAdapter = NotiRVAdapter(notiList)

@@ -3,6 +3,10 @@ package com.umc.pieciesoflife.BottomNavBar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.umc.pieciesoflife.Fragment.HomeFragment
+import com.umc.pieciesoflife.Fragment.MyBookFragment
+import com.umc.pieciesoflife.Fragment.MyPageFragment
+import com.umc.pieciesoflife.Fragment.SearchFragment
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.ActivityBottomNavBarBinding
 
@@ -45,6 +49,4 @@ class BottomNavBarActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(binding.mainFrameLayout.id, fragment).commit()
     }
-
-
 }

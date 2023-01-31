@@ -1,4 +1,4 @@
-package com.umc.pieciesoflife
+package com.umc.pieciesoflife.Acitivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.widget.ImageButton
 import android.content.Intent
 import android.view.View
 import android.widget.Button
-import com.umc.pieciesoflife.TagPersonActivity
-import com.umc.pieciesoflife.SaveTitleActivity
+import com.umc.pieciesoflife.Acitivity.SaveTitleActivity
+import com.umc.pieciesoflife.Acitivity.TagPersonActivity
 
 class StoryWriteActivity : AppCompatActivity() {
     //private TextView age;

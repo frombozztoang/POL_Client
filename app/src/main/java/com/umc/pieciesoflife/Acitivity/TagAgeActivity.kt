@@ -1,4 +1,4 @@
-package com.umc.pieciesoflife
+package com.umc.pieciesoflife.Acitivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.EditText
@@ -8,8 +8,6 @@ import android.widget.ImageButton
 import android.content.Intent
 import android.view.View
 import android.widget.Button
-import com.umc.pieciesoflife.MainIntroActivity
-import com.umc.pieciesoflife.TagYearActivity
 
 class TagAgeActivity : AppCompatActivity() {
     var editText: EditText? = null
@@ -19,7 +17,7 @@ class TagAgeActivity : AppCompatActivity() {
         editText = findViewById(R.id.editText_age)
         val back = findViewById<View>(R.id.button_back) as ImageButton //뒤로가기
         back.setOnClickListener {
-            val intent = Intent(applicationContext, MainIntroActivity::class.java)
+            val intent = Intent(applicationContext, StartNewstoryAcitivity::class.java)
             startActivity(intent) //다음 Tag 화면 띄우기
         }
         val next = findViewById<View>(R.id.button_next) as Button //다음

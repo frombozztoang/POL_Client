@@ -11,7 +11,7 @@
         android:layout_height="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/img_pol"/>
+        android:src="@drawable/ic_pol"/>
     
     <TextView
         android:id="@+id/noti_content"

@@ -20,7 +20,6 @@
         app:itemIconTint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:labelVisibilityMode="unlabeled"
-        app:menu="@menu/bottomnavbar_menu"
-        tools:ignore="MissingConstraints" />
+        app:menu="@menu/bottomnavbar_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

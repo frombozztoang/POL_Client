@@ -1,4 +1,5 @@
-package com.umc.pieciesoflife
+package com.umc.pieciesoflife.Acitivity
+
 
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.EditText
@@ -8,8 +9,8 @@ import android.widget.ImageButton
 import android.content.Intent
 import android.view.View
 import android.widget.Button
-import com.umc.pieciesoflife.SaveTitleActivity
-import com.umc.pieciesoflife.SaveColorActivity
+import com.umc.pieciesoflife.Acitivity.SaveColorActivity
+import com.umc.pieciesoflife.Acitivity.SaveTitleActivity
 
 class SaveIntroActivity : AppCompatActivity() {
     var editText: EditText? = null
