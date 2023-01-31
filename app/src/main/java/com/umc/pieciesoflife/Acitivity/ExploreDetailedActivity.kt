@@ -23,7 +23,7 @@ class ExploreDetailedActivity : AppCompatActivity() {
         }
 
         binding.btnSend.setOnClickListener{ // 알림 페이지 이동
-            val intent = Intent(this, com.umc.pieciesoflife.ChatSendActivity::class.java)
+            val intent = Intent(this, ChatSendActivity::class.java)
             startActivity(intent)
         }
 

@@ -22,7 +22,7 @@
             android:layout_marginStart="28dp"
             android:layout_marginTop="9dp"
             android:background="@android:color/transparent"
-            android:foreground="@drawable/ic_baseline_arrow_back_24_white"
+            android:foreground="@drawable/ic_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -34,7 +34,7 @@
             android:layout_marginTop="11dp"
             android:layout_marginEnd="20dp"
             android:background="@android:color/transparent"
-            android:foreground="@drawable/ic_baseline_send_24"
+            android:foreground="@drawable/ic_message"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
@@ -110,7 +110,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_baseline_favorite_border_white_24"
+            android:drawableLeft="@drawable/ic_heart"
             android:singleLine="true"
             android:text="64"
             android:textColor="@color/white"

@@ -9,11 +9,12 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.umc.pieciesoflife.R
+import com.umc.pieciesoflife.databinding.ActivityMyDetailedBinding
 
 
 class MyDetailedActivity : AppCompatActivity() {
     private val binding by lazy {
-        ActivityHomeBinding.inflate(layoutInflater)
+        ActivityMyDetailedBinding.inflate(layoutInflater)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
