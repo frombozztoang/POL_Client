@@ -230,7 +230,7 @@
                 android:paddingBottom="0dp"
                 android:text="연도"
                 android:textColor="#B7B7B7"
-                app:layout_constraintStart_toEndOf="id/btn_place" />
+                app:layout_constraintStart_toEndOf="@+id/btn_place" />
 
             <android.widget.Button
                 android:id="@+id/btn_object"

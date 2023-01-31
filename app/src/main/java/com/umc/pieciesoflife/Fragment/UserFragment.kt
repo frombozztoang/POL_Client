@@ -14,7 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.pieciesoflife.databinding.FragmentUserBinding
 
 
-class MyPageFragment : Fragment() {
+class UserFragment : Fragment() {
     private lateinit var Binding: FragmentUserBinding
 
     private lateinit var viewPager: ViewPager2
@@ -31,11 +31,6 @@ class MyPageFragment : Fragment() {
         val view:View = inflater.inflate(R.layout.fragment_user, container, false)
         viewPager = view.findViewById(R.id.viewPager)
         tabLayout =  view.findViewById(R.id.tabLayout)
-        return view
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
 
         val pagerAdapter = PagerFragmentStateAdapter(requireActivity())
         // 2개의 fragment add
@@ -48,7 +43,7 @@ class MyPageFragment : Fragment() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int){
                 super.onPageSelected(position)
-                Log.e("ViewPagerFragment", "Page ${position+1}")
+                Log.e("ViewPagerFragment", "Page 이거 뜨면 되는거다? ${position+1}")
             }
         })
 
@@ -59,6 +54,15 @@ class MyPageFragment : Fragment() {
                 1 -> tab.text = "쪽지함"
             }
         }.attach()
+
+        return view
+
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+
     }
 }
 
