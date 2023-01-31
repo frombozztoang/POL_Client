@@ -20,7 +20,7 @@ class MyBookFragment : Fragment() {
     ): View? {
         viewBinding = FragmentMybookBinding.inflate(inflater, container, false)
 
-        viewBinding.btnNewStory.setOnClickListener {
+        viewBinding.btnWrite.setOnClickListener {
             val intent = Intent(context, StartNewstoryAcitivity::class.java)
             startActivity(intent)
         }
