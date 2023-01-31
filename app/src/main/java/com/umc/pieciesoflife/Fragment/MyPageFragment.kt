@@ -36,7 +36,6 @@ class MyPageFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
         val pagerAdapter = PagerFragmentStateAdapter(requireActivity())
         // 2개의 fragment add
         pagerAdapter.addFragment(BookFragment())
