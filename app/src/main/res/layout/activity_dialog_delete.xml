@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="320dp"
-    android:layout_height="176dp">
+    android:layout_height="176dp"
+    android:layout_gravity="center">
 
     <TextView
-        android:id="@+id/tv_menu_story"
+        android:id="@+id/tv_menu_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="66dp"
         android:layout_marginTop="40dp"
-        android:text="대표 이야기로 지정하시겠습니까?"
+        android:text="자서전을 삭제하시겠습니까?"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.widget.Button
         android:id="@+id/btn_cancel"
-        android:layout_width="29dp"
+        android:layout_width="32dp"
         android:layout_height="24dp"
         android:layout_marginStart="61dp"
         android:layout_marginTop="112dp"
@@ -30,15 +30,15 @@
 
     <android.widget.Button
         android:id="@+id/btn_ok"
-        android:layout_width="29dp"
+        android:layout_width="32dp"
         android:layout_height="24dp"
+        android:layout_marginStart="231dp"
         android:layout_marginTop="112dp"
-        android:layout_marginEnd="60dp"
         android:background="@android:color/transparent"
-        android:text="확인"
-        android:textColor="#559DFF"
+        android:text="삭제"
+        android:textColor="#E05137"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

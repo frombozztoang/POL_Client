@@ -46,6 +46,15 @@
         <activity android:name=".Acitivity.TagPersonActivity" android:exported="true"/>
         <activity android:name=".Acitivity.TagPlaceActivity" android:exported="true"/>
         <activity android:name=".Acitivity.TagYearActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.BottomSheetActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.DialogColorActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.DialogColorConfirmActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.DialogDeleteActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.DialogDeleteConfirmActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.DialogPublicActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.DialogPublicConfirmActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.DialogStoryActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.DialogStoryConfirmActivity" android:exported="true"/>
         <activity android:name=".BottomNavBar.BottomNavBarActivity" android:exported="true"/>
 
     </application>
