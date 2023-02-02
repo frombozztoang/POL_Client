@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StoryWriteActivity">
+    tools:context=".Acitivity.StoryWriteActivity">
 
     <ImageButton
         android:id="@+id/button_back"
@@ -58,7 +58,7 @@
         android:layout_width="320dp"
         android:layout_height="1dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="186dp"
+        android:layout_marginTop="142dp"
         android:background="#DDDDDD"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -68,7 +68,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="133dp"
+        android:layout_marginTop="89dp"
         android:letterSpacing="0"
         android:text="무슨 일이 있었나요?"
         android:textColor="#000000"
@@ -81,7 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="60dp"
         android:letterSpacing="0"
         android:text="에"
         android:textColor="#000000"
@@ -94,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="60dp"
         android:letterSpacing="0"
         android:text="#나이"
         android:textColor="#6B9A85"
@@ -163,7 +163,7 @@
         android:layout_width="320dp"
         android:layout_height="285dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="211dp"
+        android:layout_marginTop="171dp"
         android:background="@null"
         android:ems="10"
         android:gravity="start|top"
@@ -172,4 +172,133 @@
         android:privateImeOptions="defaultInputmode=korean"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/select_tag_view"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="201dp"
+        android:background="#59000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.widget.Button
+        android:id="@+id/tag_age_button"
+        android:layout_width="56dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:singleLine="true"
+        android:text="#나이"
+        android:background="@drawable/tag_age_button"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/select_tag_view"
+        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
+        tools:ignore="TouchTargetSizeCheck" />
+    <android.widget.Button
+        android:id="@+id/tag_year_button"
+        android:layout_width="56dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="24dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:singleLine="true"
+        android:text="#연도"
+        android:background="@drawable/tag_year_button"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/select_tag_view"
+        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
+        tools:ignore="TouchTargetSizeCheck" />
+    <android.widget.Button
+        android:id="@+id/tag_mood_button"
+        android:layout_width="56dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="24dp"
+
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:singleLine="true"
+        android:text="#감정"
+        android:background="@drawable/tag_mood_button"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/select_tag_view"
+        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
+        tools:ignore="TouchTargetSizeCheck" />
+    <android.widget.Button
+        android:id="@+id/tag_place_button"
+        android:layout_width="56dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="236dp"
+        android:layout_marginTop="24dp"
+
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:singleLine="true"
+        android:text="#장소"
+        android:background="@drawable/tag_place_button"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/select_tag_view"
+        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
+        tools:ignore="TouchTargetSizeCheck" />
+    <android.widget.Button
+        android:id="@+id/tag_matter_button"
+        android:layout_width="56dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="72dp"
+
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:singleLine="true"
+        android:text="#상황"
+        android:background="@drawable/tag_matter_button"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/select_tag_view"
+        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
+        tools:ignore="TouchTargetSizeCheck" />
+    <android.widget.Button
+        android:id="@+id/tag_object_button"
+        android:layout_width="56dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="72dp"
+
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:singleLine="true"
+        android:text="#물건"
+        android:background="@drawable/tag_object_button"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/select_tag_view"
+        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
+        tools:ignore="TouchTargetSizeCheck" />
+    <android.widget.Button
+        android:id="@+id/tag_person_button"
+        android:layout_width="56dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginTop="72dp"
+
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:singleLine="true"
+        android:text="#인물"
+        android:background="@drawable/tag_person_button"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/select_tag_view"
+        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
+        tools:ignore="TouchTargetSizeCheck" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

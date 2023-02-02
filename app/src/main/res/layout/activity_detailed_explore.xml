@@ -104,22 +104,24 @@
 
         <Button
             android:id="@+id/btn_like_detailed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="36dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
-            android:backgroundTint="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_heart"
+            android:background="@drawable/img_button_like"
+            android:drawableLeft="@drawable/selector_button_like"
+            android:includeFontPadding="false"
             android:singleLine="true"
             android:text="64"
             android:textColor="@color/white"
+            android:paddingHorizontal="20dp"
             app:cornerRadius="19dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_date"
             app:strokeColor="@color/white"
-            app:strokeWidth="2dp" />
+            app:strokeWidth="1dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -128,10 +130,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_fragment_detail"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="0.0"
+        tools:listitem="@layout/item_fragment_detail" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
