@@ -3,15 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="24dp">
 
     <TextView
         android:id="@+id/book_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginBottom="4dp"
         android:text="안드로이드는 정이 안생겨!"
         android:textAlignment="viewStart"
         android:textColor="@color/black"
@@ -25,7 +23,6 @@
         android:id="@+id/book_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
         android:layout_marginBottom="39dp"
         android:text="2023.01.23"
         android:textAlignment="viewStart"
@@ -39,7 +36,6 @@
         android:id="@+id/book_content"
         android:layout_width="190dp"
         android:layout_height="53dp"
-        android:layout_marginStart="20dp"
         android:layout_marginTop="39dp"
         android:text="이게 맞을까요? 잘 하고 있눈걸까요? 우히히 우끼리끼리리위루이ㅜ리우리위ㅜ리리리리리리리리리리 왼쪽 외국인이 자꾸 쳐다바요 부담스러워요"
         android:textAlignment="viewStart"
@@ -55,14 +51,13 @@
         android:layout_marginStart="22dp"
 
         android:layout_marginTop="29dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/book_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/divider_horizontal_dim_dark" />
+        app:srcCompat="@android:drawable/divider_horizontal_dim_dark"
+        tools:srcCompat="@drawable/ic_book" />
 
     <TextView
         android:id="@+id/book_postTitle"
@@ -74,18 +69,20 @@
         android:textAlignment="viewStart"
         android:textSize="12dp"
         android:textStyle="bold"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/book_post"
         app:layout_constraintTop_toTopOf="@+id/book_post" />
 
-    <ImageView
-        android:id="@+id/book_postprofile"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/book_postProfile"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="4dp"
+        app:civ_border_overlay="true"
         app:layout_constraintStart_toStartOf="@+id/book_post"
         app:layout_constraintTop_toBottomOf="@+id/book_postTitle"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:src="@drawable/ic_flag_level2" />
 
     <TextView
         android:id="@+id/book_postUserName"
@@ -94,8 +91,9 @@
         android:layout_marginStart="6dp"
         android:layout_marginTop="4dp"
         android:text="보짱"
+        android:textColor="@color/white"
         android:textSize="8dp"
-        app:layout_constraintStart_toEndOf="@+id/book_postprofile"
+        app:layout_constraintStart_toEndOf="@+id/book_postProfile"
         app:layout_constraintTop_toBottomOf="@+id/book_postTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

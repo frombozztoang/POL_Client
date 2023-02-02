@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.umc.pieciesoflife.Fragment.HomeFragment
 import com.umc.pieciesoflife.Fragment.MyBookFragment
-import com.umc.pieciesoflife.Fragment.MyPageFragment
+import com.umc.pieciesoflife.Fragment.UserFragment
 import com.umc.pieciesoflife.Fragment.SearchFragment
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.ActivityBottomNavBarBinding
@@ -35,7 +35,7 @@ class BottomNavBarActivity : AppCompatActivity() {
                         changeFragment(MyBookFragment())
                     }
                     R.id.myPageFragment-> {
-                        changeFragment(MyPageFragment())
+                        changeFragment(UserFragment())
                     }
 
                 }

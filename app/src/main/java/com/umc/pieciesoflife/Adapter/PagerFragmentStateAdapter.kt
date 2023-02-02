@@ -18,6 +18,7 @@ class PagerFragmentStateAdapter(fragmentActivity: FragmentActivity) : FragmentSt
     fun addFragment(fragment: Fragment){
         fragments.add(fragment)
         notifyItemInserted(fragments.size - 1)
+
     }
 
     fun removeFragment(){

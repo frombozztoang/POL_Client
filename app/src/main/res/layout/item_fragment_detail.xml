@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="360dp"
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/content_question"
-        android:layout_width="wrap_content"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="sans-serif"
         android:text="Q. 안경에 담긴 이야기가 있나요?"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/content_answer"
-        android:layout_width="wrap_content"
+        android:layout_width="320dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
-        android:text="안경이 빨간색이었는데 지금 생각해보면 매우 힙합 니다. 많이들 놀리고는 했죠. 그렇지만 어린시절 제 모습 은 정말로 . 60살의 제가 보는 지금의 저도 귀여울까요?"
-        android:textSize="14sp" />
+        android:text="안경이 빨간색이었는데 지금 생각해보면 매우 힙합니다. 많이들 놀리고는 했죠. 그렇지만 어린시절 제 모습 은 정말로 . 60살의 제가 보는 지금의 저도 귀여울까요?"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/content_question" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

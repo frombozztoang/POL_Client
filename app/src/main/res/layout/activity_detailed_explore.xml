@@ -6,22 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".Acitivity.ExploreDetailedActivity">
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/tb_detailed"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/color_gradient"
-        app:layout_constraintTop_toTopOf="parent"
-        app:menu="@menu/toolbar_detailed_menu" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/color_gradient"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tb_detailed">
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <ImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="9dp"
+            android:background="@android:color/transparent"
+            android:foreground="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <ImageButton
+            android:id="@+id/btn_send"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="20dp"
+            android:background="@android:color/transparent"
+            android:foreground="@drawable/ic_message"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
         <TextView
             android:id="@+id/tv_title_detailed"
@@ -33,7 +49,8 @@
             android:textColor="@android:color/white"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/btn_back"/>
+
 
         <TextView
             android:id="@+id/tv_name_detailed"
@@ -93,7 +110,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@android:color/transparent"
-            android:drawableLeft="@drawable/ic_baseline_favorite_border_white_24"
+            android:drawableLeft="@drawable/ic_heart"
             android:singleLine="true"
             android:text="64"
             android:textColor="@color/white"
@@ -110,6 +127,8 @@
         android:id="@+id/rv_detailed"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_fragment_detail"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
