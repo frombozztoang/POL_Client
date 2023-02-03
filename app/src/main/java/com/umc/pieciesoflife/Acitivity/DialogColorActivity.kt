@@ -16,7 +16,7 @@ class DialogColorActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         viewBinding.btnOk.setOnClickListener {
-            val intent = Intent(this, DialogColorConfirmActivity::class.java)
+            val intent = Intent(this, MybookDetailedActivity::class.java)
             startActivity(intent)
         }
         viewBinding.btnCancel.setOnClickListener {

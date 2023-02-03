@@ -128,9 +128,9 @@
                 android:layout_width="58dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="20dp"
-                android:background="@drawable/img_button_chat_send"
+                android:background="@drawable/selector_button_tag_color"
                 android:text="전체"
-                android:textColor="#ffffff"
+                android:textColor="@color/selector_button_tag_textcolor"
                 app:cornerRadius="20dp"
                 app:layout_constraintStart_toStartOf="parent" />
 
@@ -139,19 +139,19 @@
                 android:layout_width="58dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="6dp"
-                android:background="@drawable/img_button_grey"
+                android:background="@drawable/selector_button_tag_color"
                 android:text="나이"
-                android:textColor="#B7B7B7"
-                app:layout_constraintStart_toEndOf="@id/btn_all"/>
+                android:textColor="@color/selector_button_tag_textcolor"
+                app:layout_constraintStart_toEndOf="@id/btn_all" />
 
             <android.widget.Button
                 android:id="@+id/btn_emo"
                 android:layout_width="58dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="6dp"
-                android:background="@drawable/img_button_grey"
+                android:background="@drawable/selector_button_tag_color"
                 android:text="감정"
-                android:textColor="#B7B7B7"
+                android:textColor="@color/selector_button_tag_textcolor"
                 app:layout_constraintStart_toEndOf="@id/btn_age" />
 
             <android.widget.Button
@@ -159,9 +159,9 @@
                 android:layout_width="58dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="6dp"
-                android:background="@drawable/img_button_grey"
+                android:background="@drawable/selector_button_tag_color"
                 android:text="인물"
-                android:textColor="#B7B7B7"
+                android:textColor="@color/selector_button_tag_textcolor"
                 app:layout_constraintStart_toEndOf="@id/btn_emo" />
 
 
@@ -170,9 +170,9 @@
                 android:layout_width="58dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="6dp"
-                android:background="@drawable/img_button_grey"
+                android:background="@drawable/selector_button_tag_color"
                 android:text="상황"
-                android:textColor="#B7B7B7"
+                android:textColor="@color/selector_button_tag_textcolor"
                 app:layout_constraintStart_toEndOf="@id/btn_people" />
 
 
@@ -181,19 +181,19 @@
                 android:layout_width="58dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="6dp"
-                android:background="@drawable/img_button_grey"
+                android:background="@drawable/selector_button_tag_color"
                 android:text="장소"
-                android:textColor="#B7B7B7"
-                app:layout_constraintStart_toEndOf="@id/btn_situ"/>
+                android:textColor="@color/selector_button_tag_textcolor"
+                app:layout_constraintStart_toEndOf="@id/btn_situ" />
 
             <android.widget.Button
                 android:id="@+id/btn_year"
                 android:layout_width="58dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="6dp"
-                android:background="@drawable/img_button_grey"
+                android:background="@drawable/selector_button_tag_color"
                 android:text="연도"
-                android:textColor="#B7B7B7"
+                android:textColor="@color/selector_button_tag_textcolor"
                 app:layout_constraintStart_toEndOf="@+id/btn_place" />
 
             <android.widget.Button
@@ -201,9 +201,9 @@
                 android:layout_width="58dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="6dp"
-                android:background="@drawable/img_button_grey"
+                android:background="@drawable/selector_button_tag_color"
                 android:text="물건"
-                android:textColor="#B7B7B7"
+                android:textColor="@color/selector_button_tag_textcolor"
                 app:layout_constraintStart_toEndOf="@id/btn_year" />
 
         </LinearLayout>
