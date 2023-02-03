@@ -2,6 +2,9 @@ package com.umc.pieciesoflife.Acitivity
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Window
+import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.pieciesoflife.Adapter.BookDetailRVAdapter
@@ -26,8 +29,11 @@ class MybookDetailedActivity : AppCompatActivity() {
             startActivity(intent)
         }
         viewBinding.btnMenu.setOnClickListener {
+
             val intent = Intent(this, DialogBottomAcitivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
+
         }
         viewBinding.btnLikeDetailed.setOnClickListener {
             viewBinding.btnLikeDetailed.isSelected = viewBinding.btnLikeDetailed.isSelected == false

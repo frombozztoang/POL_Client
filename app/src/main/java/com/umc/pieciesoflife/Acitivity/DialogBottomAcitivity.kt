@@ -3,6 +3,7 @@ package com.umc.pieciesoflife.Acitivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import com.umc.pieciesoflife.databinding.ActivityDialogBottomBinding
 
 class DialogBottomAcitivity : AppCompatActivity() {
@@ -34,4 +35,5 @@ class DialogBottomAcitivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
 }
