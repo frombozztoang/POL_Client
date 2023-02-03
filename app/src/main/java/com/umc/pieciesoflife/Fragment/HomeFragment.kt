@@ -38,6 +38,7 @@ class HomeFragment : Fragment() {
         viewBinding.btnProfile.setOnClickListener { // 마이페이지
             val mActivity = activity as BottomNavBarActivity
             mActivity.changeFragment(UserFragment())
+
         }
 
         viewBinding.btnNoti.setOnClickListener { // 알림
