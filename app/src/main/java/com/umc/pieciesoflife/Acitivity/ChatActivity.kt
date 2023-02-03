@@ -1,5 +1,6 @@
 package com.umc.pieciesoflife.Acitivity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
@@ -12,5 +13,15 @@ class ChatActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        // -> 뒤로
+        viewBinding.buttonBack.setOnClickListener {
+            finish()
+        }
+
+        // -> ChatSendActivity
+        viewBinding.buttonChat.setOnClickListener {
+            startActivity(Intent(this@ChatActivity, ChatSendActivity::class.java))
+        }
     }
 }

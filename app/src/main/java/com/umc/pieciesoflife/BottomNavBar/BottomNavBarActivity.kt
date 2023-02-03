@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import com.umc.pieciesoflife.Fragment.HomeFragment
 import com.umc.pieciesoflife.Fragment.MyBookFragment
 import com.umc.pieciesoflife.Fragment.UserFragment
-import com.umc.pieciesoflife.Fragment.SearchFragment
+import com.umc.pieciesoflife.Fragment.ExploreFragment
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.ActivityBottomNavBarBinding
 
@@ -18,7 +18,8 @@ class BottomNavBarActivity : AppCompatActivity() {
         binding = ActivityBottomNavBarBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initNavigationBar() //네이게이션 바의 각 메뉴 탭을 눌렀을 때 화면이 전환되도록 하는 함수.
+        initNavigationBar() //네이게이션 바의 각 메뉴 탭을 눌렀을 때 화면이 전환되도록 하는 함수
+        
     }
 
     fun initNavigationBar() {
@@ -29,7 +30,7 @@ class BottomNavBarActivity : AppCompatActivity() {
                         changeFragment(HomeFragment())
                     }
                     R.id.searchFragment -> {
-                        changeFragment(SearchFragment())
+                        changeFragment(ExploreFragment())
                     }
                     R.id.myBookFragment -> {
                         changeFragment(MyBookFragment())
@@ -49,4 +50,5 @@ class BottomNavBarActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(binding.mainFrameLayout.id, fragment).commit()
     }
+
 }

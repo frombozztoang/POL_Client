@@ -6,22 +6,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.pieciesoflife.Adapter.BookDetailRVAdapter
 import com.umc.pieciesoflife.DataClass.BookDetail
-import com.umc.pieciesoflife.Fragment.ExploreFragment
-import com.umc.pieciesoflife.databinding.ActivityExploreDetailedBinding
+import com.umc.pieciesoflife.Fragment.HomeFragment
+import com.umc.pieciesoflife.databinding.ActivityMybookDetailedBinding
 
-class ExploreDetailedActivity : AppCompatActivity() {
-    private lateinit var viewBinding : ActivityExploreDetailedBinding
+
+class MybookDetailedActivity : AppCompatActivity() {
+    private lateinit var viewBinding: ActivityMybookDetailedBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding = ActivityExploreDetailedBinding.inflate(layoutInflater)
+        viewBinding = ActivityMybookDetailedBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        viewBinding.btnBack.setOnClickListener{ // 뒤로가기 버튼
+        viewBinding.btnBack.setOnClickListener {
             finish()
         }
-        viewBinding.btnSend.setOnClickListener{ // 쪽지 보내기
-            val intent = Intent(this, ChatSendActivity::class.java)
+        viewBinding.btnWrite.setOnClickListener {
+            val intent = Intent(this, StoryWriteActivity::class.java)
+            startActivity(intent)
+        }
+        viewBinding.btnMenu.setOnClickListener {
+            val intent = Intent(this, DialogBottomAcitivity::class.java)
             startActivity(intent)
         }
         viewBinding.btnLikeDetailed.setOnClickListener {
@@ -40,10 +45,8 @@ class ExploreDetailedActivity : AppCompatActivity() {
 
         val bookDetailAdapter = BookDetailRVAdapter(bookDetailList)
 
-        viewBinding.RVDetailed.adapter = bookDetailAdapter
-        viewBinding.RVDetailed.layoutManager = LinearLayoutManager(this)
-
-        bookDetailAdapter.notifyDataSetChanged()
-
+        viewBinding.rvDetailed.adapter = bookDetailAdapter
+        viewBinding.rvDetailed.layoutManager = LinearLayoutManager(this)
     }
+
 }

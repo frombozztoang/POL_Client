@@ -1,6 +1,8 @@
 package com.umc.pieciesoflife.Acitivity
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.pieciesoflife.databinding.ActivityChatSendBinding
 
@@ -12,6 +14,14 @@ class ChatSendActivity: AppCompatActivity() {
         viewBinding = ActivityChatSendBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        viewBinding.buttonBack.setOnClickListener {
+            finish()
+        }
+
+        viewBinding.buttonChatSend.setOnClickListener {
+            finish()
+            Toast.makeText(this, "쪽지 발신 성공!", Toast.LENGTH_SHORT ).show()
+        }
 
     }
 

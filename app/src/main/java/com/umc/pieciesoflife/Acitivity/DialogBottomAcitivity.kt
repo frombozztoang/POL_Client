@@ -3,16 +3,14 @@ package com.umc.pieciesoflife.Acitivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
-import com.umc.pieciesoflife.databinding.ActivityBottomSheetBinding
-import com.umc.pieciesoflife.databinding.ActivityChatBinding
+import com.umc.pieciesoflife.databinding.ActivityDialogBottomBinding
 
-class BottomSheetActivity : AppCompatActivity() {
-    private lateinit var viewBinding: ActivityBottomSheetBinding
+class DialogBottomAcitivity : AppCompatActivity() {
+    private lateinit var viewBinding: ActivityDialogBottomBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewBinding = ActivityBottomSheetBinding.inflate(layoutInflater)
+        viewBinding = ActivityDialogBottomBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
 

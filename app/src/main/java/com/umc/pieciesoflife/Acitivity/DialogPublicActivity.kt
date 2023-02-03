@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.umc.pieciesoflife.databinding.ActivityDialogPublicBinding
-import com.umc.pieciesoflife.databinding.ActivityDialogStoryBinding
 
 class DialogPublicActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityDialogPublicBinding
@@ -20,7 +19,7 @@ class DialogPublicActivity : AppCompatActivity() {
             startActivity(intent)
         }
         viewBinding.btnCancel.setOnClickListener {
-            val intent = Intent(this, MyDetailedActivity::class.java)
+            val intent = Intent(this, MybookDetailedActivity::class.java)
             startActivity(intent)
         }
     }

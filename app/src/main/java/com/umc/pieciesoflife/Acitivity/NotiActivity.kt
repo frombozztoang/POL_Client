@@ -16,12 +16,17 @@ class NotiActivity : AppCompatActivity(){
         viewBinding = ActivityNotiBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        // 뒤로가기
+        viewBinding.buttonBack.setOnClickListener {
+            finish()
+        }
+
         val notiList: ArrayList<Noti> = arrayListOf()
 
         notiList.apply {
-            add(Noti(R.drawable.logo, "알림1", "1m ago"))
-            add(Noti(R.drawable.logo, "알림2", "2m ago"))
-            add(Noti(R.drawable.logo, "알림3", "3m ago"))
+            add(Noti(R.drawable.ic_pol, "알림1", "1m ago"))
+            add(Noti(R.drawable.ic_pol, "알림2", "2m ago"))
+            add(Noti(R.drawable.ic_pol, "알림3", "3m ago"))
         }
 
         val notiRVAdapter = NotiRVAdapter(notiList)

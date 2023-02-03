@@ -3,8 +3,6 @@ package com.umc.pieciesoflife.Acitivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
-import com.umc.pieciesoflife.databinding.ActivityBottomSheetBinding
 import com.umc.pieciesoflife.databinding.ActivityDialogColorBinding
 
 class DialogColorActivity : AppCompatActivity() {
@@ -20,7 +18,7 @@ class DialogColorActivity : AppCompatActivity() {
             startActivity(intent)
         }
         viewBinding.btnCancel.setOnClickListener {
-            val intent = Intent(this, MyDetailedActivity::class.java)
+            val intent = Intent(this, MybookDetailedActivity::class.java)
             startActivity(intent)
         }
     }

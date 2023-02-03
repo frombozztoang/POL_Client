@@ -3,7 +3,6 @@ package com.umc.pieciesoflife.Acitivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.umc.pieciesoflife.databinding.ActivityDialogStoryBinding
 import com.umc.pieciesoflife.databinding.ActivityDialogStoryConfirmBinding
 
 class DialogStoryConfirmActivity : AppCompatActivity() {
@@ -16,7 +15,7 @@ class DialogStoryConfirmActivity : AppCompatActivity() {
 
 
         viewBinding.btnOk.setOnClickListener {
-            val intent = Intent(this, MyDetailedActivity::class.java)
+            val intent = Intent(this, MybookDetailedActivity::class.java)
             startActivity(intent)
         }
     }

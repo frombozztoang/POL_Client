@@ -26,13 +26,10 @@
                 android:value="" />
         </activity>
         <activity android:name=".Acitivity.StartNewstoryAcitivity" android:exported="true"/>
-        <activity android:name=".Acitivity.MainActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.MyActivity" android:exported="true"/>
         <activity android:name=".Acitivity.ChatActivity" android:exported="true"/>
         <activity android:name=".Acitivity.ChatSendActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.ExploreActivity" android:exported="true"/>
         <activity android:name=".Acitivity.ExploreDetailedActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.MyDetailedActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.MybookDetailedActivity" android:exported="true"/>
         <activity android:name=".Acitivity.NotiActivity" android:exported="true"/>
         <activity android:name=".Acitivity.SaveColorActivity" android:exported="true"/>
         <activity android:name=".Acitivity.SaveFinalActivity" android:exported="true"/>
@@ -46,7 +43,7 @@
         <activity android:name=".Acitivity.TagPersonActivity" android:exported="true"/>
         <activity android:name=".Acitivity.TagPlaceActivity" android:exported="true"/>
         <activity android:name=".Acitivity.TagYearActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.BottomSheetActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.DialogBottomAcitivity" android:exported="true"/>
         <activity android:name=".Acitivity.DialogColorActivity" android:exported="true"/>
         <activity android:name=".Acitivity.DialogColorConfirmActivity" android:exported="true"/>
         <activity android:name=".Acitivity.DialogDeleteActivity" android:exported="true"/>
@@ -55,6 +52,7 @@
         <activity android:name=".Acitivity.DialogPublicConfirmActivity" android:exported="true"/>
         <activity android:name=".Acitivity.DialogStoryActivity" android:exported="true"/>
         <activity android:name=".Acitivity.DialogStoryConfirmActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.DialogUserEditActivity" android:exported="true"/>
         <activity android:name=".BottomNavBar.BottomNavBarActivity" android:exported="true"/>
 
     </application>
