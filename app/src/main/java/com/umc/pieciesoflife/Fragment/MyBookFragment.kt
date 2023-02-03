@@ -31,7 +31,7 @@ class MyBookFragment : Fragment() {
         // 마이페이지
         viewBinding.btnProfile.setOnClickListener {
             val mActivity = activity as BottomNavBarActivity
-            mActivity.changeFragment(UserFragment())
+            mActivity.binding.navigationView.selectedItemId = R.id.myPageFragment
         }
 
         //알림

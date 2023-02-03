@@ -11,7 +11,7 @@ import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.ActivityBottomNavBarBinding
 
 class BottomNavBarActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityBottomNavBarBinding
+    lateinit var binding : ActivityBottomNavBarBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
