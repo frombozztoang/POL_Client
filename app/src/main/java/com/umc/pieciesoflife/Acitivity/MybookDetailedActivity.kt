@@ -29,7 +29,6 @@ class MybookDetailedActivity : AppCompatActivity() {
             startActivity(intent)
         }
         viewBinding.btnMenu.setOnClickListener {
-
             val intent = Intent(this, DialogBottomAcitivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
