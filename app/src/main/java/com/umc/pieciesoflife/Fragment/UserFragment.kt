@@ -1,5 +1,6 @@
 package com.umc.pieciesoflife.Fragment
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +10,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Adapter.UserVPAdapter
 import com.google.android.material.tabs.TabLayout
@@ -20,7 +23,7 @@ import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
 
 
 class UserFragment : Fragment() {
-    //private lateinit var viewBinding: FragmentUserBinding
+
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
@@ -30,9 +33,6 @@ class UserFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //viewBinding = FragmentUserBinding.inflate(inflater, container, false)
-        //return viewBinding.root
-
         val view:View = inflater.inflate(R.layout.fragment_user, container, false)
         viewPager = view.findViewById(R.id.viewPager)
         tabLayout =  view.findViewById(R.id.tabLayout)
@@ -51,6 +51,7 @@ class UserFragment : Fragment() {
             val intent = Intent(context, DialogUserEditActivity::class.java)
             startActivity(intent)
         }
+
 
         // ->새로운 이야기 작성
         val btnNewStory = view.findViewById<Button>(R.id.btn_new_story)
@@ -82,6 +83,8 @@ class UserFragment : Fragment() {
 
         return view
     }
+
+
 
 }
 
