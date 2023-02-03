@@ -3,6 +3,7 @@ package com.umc.pieciesoflife.Acitivity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
 import com.umc.pieciesoflife.databinding.ActivityDialogColorBinding
 
 class DialogColorActivity : AppCompatActivity() {
@@ -11,6 +12,7 @@ class DialogColorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityDialogColorBinding.inflate(layoutInflater)
+        supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(viewBinding.root)
 
         viewBinding.btnOk.setOnClickListener {

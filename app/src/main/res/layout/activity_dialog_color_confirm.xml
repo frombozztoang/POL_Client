@@ -1,138 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Acitivity.MybookDetailedActivity">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/color_gradient"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        tools:context=".Acitivity.MybookDetailedActivity">
 
-
-        <ImageButton
-            android:id="@+id/btn_back"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="28dp"
-            android:layout_marginTop="9dp"
-            android:background="@android:color/transparent"
-            android:foreground="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-        <ImageButton
-            android:id="@+id/btn_menu"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="11dp"
-            android:layout_marginEnd="20dp"
-            android:background="@android:color/transparent"
-            android:foreground="@drawable/ic_menu"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-        <TextView
-            android:id="@+id/tv_title_detailed"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="32dp"
-            android:text="나의 유년시절 이야기"
-            android:textColor="@android:color/white"
-            android:textSize="24sp"
+            android:background="@drawable/color_gradient"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_back"/>
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tv_name_detailed"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="뺑뺑이"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_circle"
-            app:layout_constraintStart_toEndOf="@+id/iv_circle"
-            app:layout_constraintTop_toTopOf="@+id/iv_circle" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/iv_circle"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_android_black_24dp"
-            app:layout_constraintEnd_toStartOf="@+id/tv_name_detailed"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title_detailed" />
+            <ImageButton
+                android:id="@+id/btn_back"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="9dp"
+                android:background="@android:color/transparent"
+                android:foreground="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-        <TextView
-            android:id="@+id/tv_content"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:text="소개글입니다소개글"
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_name_detailed" />
+            <ImageButton
+                android:id="@+id/btn_menu"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="20dp"
+                android:background="@android:color/transparent"
+                android:foreground="@drawable/ic_menu"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-        <TextView
-            android:id="@+id/tv_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="4dp"
-            android:text="2023.01.23"
-            android:textColor="@android:color/white"
-            android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_content" />
+            <TextView
+                android:id="@+id/tv_title_detailed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="32dp"
+                android:text="나의 유년시절 이야기"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_back"/>
 
-        <Button
-            android:id="@+id/btn_like_detailed"
-            android:layout_width="80dp"
-            android:layout_height="36dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/img_button_like"
-            android:drawableLeft="@drawable/selector_button_like"
-            android:includeFontPadding="false"
-            android:singleLine="true"
-            android:text="64"
-            android:textColor="@color/white"
-            android:paddingHorizontal="20dp"
-            app:cornerRadius="19dp"
+            <TextView
+                android:id="@+id/tv_name_detailed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="뺑뺑이"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_circle"
+                app:layout_constraintStart_toEndOf="@+id/iv_circle"
+                app:layout_constraintTop_toTopOf="@+id/iv_circle" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iv_circle"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_android_black_24dp"
+                app:layout_constraintEnd_toStartOf="@+id/tv_name_detailed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title_detailed" />
+
+            <TextView
+                android:id="@+id/tv_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="소개글입니다소개글"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_name_detailed" />
+
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="4dp"
+                android:text="2023.01.23"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_content" />
+
+            <Button
+                android:id="@+id/btn_like_detailed"
+                android:layout_width="80dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/img_button_like"
+                android:drawableLeft="@drawable/selector_button_like"
+                android:includeFontPadding="false"
+                android:singleLine="true"
+                android:text="64"
+                android:textColor="@color/white"
+                android:paddingHorizontal="20dp"
+                app:cornerRadius="19dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_date"
+                app:strokeColor="@color/white"
+                app:strokeWidth="1dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_detailed"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_book_detail"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_date"
-            app:strokeColor="@color/white"
-            app:strokeWidth="1dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_detailed"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_book_detail"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
-        app:layout_constraintVertical_bias="0.0" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
