@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!--인터넷 허용-->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -46,8 +49,6 @@
         <activity android:name=".Acitivity.DialogBottomAcitivity" android:exported="true" android:screenOrientation="portrait"
             android:theme="@style/round_dialog_activity"/>
         <activity android:name=".Acitivity.DialogColorActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
-        <activity android:name=".Acitivity.DialogColorConfirmActivity" android:exported="true" android:screenOrientation="portrait"
             android:theme="@style/round_dialog_activity"/>
         <activity android:name=".Acitivity.DialogDeleteActivity" android:exported="true" android:screenOrientation="portrait"
             android:theme="@style/round_dialog_activity"/>
