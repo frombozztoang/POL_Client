@@ -61,8 +61,8 @@
             android:theme="@style/round_dialog_activity"/>
         <activity android:name=".Acitivity.DialogStoryConfirmActivity" android:exported="true" android:screenOrientation="portrait"
             android:theme="@style/round_dialog_activity"/>
-        <activity android:name=".Acitivity.DialogUserEditActivity" android:exported="true" android:theme="@style/Theme.AppCompat.DayNight.Dialog"/>
-        <activity android:name=".Acitivity.UserEditActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.DialogUserEditActivity" android:exported="true" android:theme="@style/Theme.AppCompat.DayNight.Dialog"    android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.UserEditActivity" android:exported="true"    android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".BottomNavBar.BottomNavBarActivity" android:exported="true"/>
 
     </application>
