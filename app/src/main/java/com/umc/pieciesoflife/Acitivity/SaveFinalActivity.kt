@@ -2,6 +2,8 @@ package com.umc.pieciesoflife.Acitivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
 import com.umc.pieciesoflife.Fragment.MyBookFragment
@@ -17,10 +19,12 @@ class SaveFinalActivity : AppCompatActivity() {
         viewBinding = ActivitySaveFinalBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        val manager: FragmentManager = supportFragmentManager
+        val transaction: FragmentTransaction = manager.beginTransaction()
+
         // 자서전 완성 시, 다시 MyBookFragment로 복귀
         viewBinding.buttonFinish.setOnClickListener {
-            supportFragmentManager.beginTransaction()
-            .replace(ActivityBottomNavBarBinding.inflate(layoutInflater).mainFrameLayout.id, MyBookFragment()).commit()
+            transaction.replace(R.id.mainFrameLayout, MyBookFragment()).commit()
         }
     }
 }
