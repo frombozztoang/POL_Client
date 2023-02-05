@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "58119331328",
+    "firebase_url": "https://pol-chat-default-rtdb.firebaseio.com",
+    "project_id": "pol-chat",
+    "storage_bucket": "pol-chat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:58119331328:android:1172192d7292ad2ba002e5",
+        "android_client_info": {
+          "package_name": "com.umc.pieciesoflife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "58119331328-5lmad15l85e6de0djnl8a0g3doke5vhm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQr1kaUHp1FIpwUy7rdKDOOslnHFEtXcc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "58119331328-5lmad15l85e6de0djnl8a0g3doke5vhm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

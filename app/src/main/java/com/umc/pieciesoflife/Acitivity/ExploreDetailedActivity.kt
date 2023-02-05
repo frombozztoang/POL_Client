@@ -23,6 +23,7 @@ class ExploreDetailedActivity : AppCompatActivity() {
         viewBinding.btnSend.setOnClickListener{ // 쪽지 보내기
             val intent = Intent(this, ChatSendActivity::class.java)
             startActivity(intent)
+            //이 떄, Spring Server에서 Story ID GET해서 ->ChatSendAcitivity로 값 전달
         }
         viewBinding.btnLikeDetailed.setOnClickListener {
             viewBinding.btnLikeDetailed.isSelected = viewBinding.btnLikeDetailed.isSelected == false
