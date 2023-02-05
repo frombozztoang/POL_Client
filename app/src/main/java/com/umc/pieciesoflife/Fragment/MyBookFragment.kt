@@ -43,9 +43,10 @@ class MyBookFragment : Fragment() {
             startActivity(intent)
         }
 
-        //이어서 쓰기
+        //이야기 새로 쓰기
         viewBinding.btnWrite.setOnClickListener {
             val intent = Intent(context, StartNewstoryAcitivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK // 새로운 tash로 시작
             startActivity(intent)
         }
 

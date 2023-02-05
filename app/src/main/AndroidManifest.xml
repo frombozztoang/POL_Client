@@ -28,24 +28,24 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".Acitivity.StartNewstoryAcitivity" android:exported="true"/>
+        <activity android:name=".Acitivity.StartNewstoryAcitivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.ChatActivity" android:exported="true"/>
         <activity android:name=".Acitivity.ChatSendActivity" android:exported="true"/>
         <activity android:name=".Acitivity.ExploreDetailedActivity" android:exported="true"/>
         <activity android:name=".Acitivity.MybookDetailedActivity" android:exported="true"/>
         <activity android:name=".Acitivity.NotiActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.SaveColorActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.SaveFinalActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.SaveIntroActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.SaveTitleActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.StoryWriteActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagAgeActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagMatterActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagMoodActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagObjectActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagPersonActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagPlaceActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagYearActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.SaveColorActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.SaveFinalActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.SaveIntroActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.SaveTitleActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.StoryWriteActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagAgeActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagMatterActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagMoodActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagObjectActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagPersonActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagPlaceActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagYearActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogBottomAcitivity" android:exported="true" android:screenOrientation="portrait"
             android:theme="@style/round_dialog_activity"/>
         <activity android:name=".Acitivity.DialogColorActivity" android:exported="true" android:screenOrientation="portrait"
