@@ -98,7 +98,7 @@ class MyBookFragment : Fragment() {
         }
 
         // 태그 버튼 '상황' 클릭
-        viewBinding.btnAge.setOnClickListener {
+        viewBinding.btnSitu.setOnClickListener {
             viewBinding.btnAll.isSelected = false
             viewBinding.btnAge.isSelected = false
             viewBinding.btnEmo.isSelected = false
@@ -144,8 +144,6 @@ class MyBookFragment : Fragment() {
             viewBinding.btnYear.isSelected = false
             viewBinding.btnObject.isSelected = true
         }
-
-
 
 
         //내 자서전 RV
