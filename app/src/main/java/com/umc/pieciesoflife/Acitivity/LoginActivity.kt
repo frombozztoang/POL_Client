@@ -15,6 +15,8 @@ import com.umc.pieciesoflife.databinding.ActivityLoginBinding
 
 class LoginActivity: AppCompatActivity() {
     private lateinit var viewBinding: ActivityLoginBinding
+    //앱 처음 실행?
+    var isFirst : Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,8 +86,6 @@ class LoginActivity: AppCompatActivity() {
             }
         }
     }
-
-
-
+    
 }
 
