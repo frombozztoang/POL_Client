@@ -1,5 +1,6 @@
 package com.umc.pieciesoflife.Acitivity
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -37,6 +38,8 @@ class LoginActivity: AppCompatActivity() {
             }
         }
 
+
+
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
                 when {
@@ -66,9 +69,6 @@ class LoginActivity: AppCompatActivity() {
                     }
                     else -> { // Unknown
                         Toast.makeText(this, "기타 에러", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, BottomNavBarActivity::class.java)
-                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                        finish()
                     }
                 }
             }
@@ -81,6 +81,8 @@ class LoginActivity: AppCompatActivity() {
         }
 
 
+
+        // 로그인하기 버튼 클릭 시 카카오톡 설치 유무에 따라서 카카오톡으로 로그인, 카카오 계정으로 로그인
         viewBinding.btnLogin.setOnClickListener {
             if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
                 UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
