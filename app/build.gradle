@@ -40,7 +40,8 @@ android {
 }
 
 dependencies {
-    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'//  카카오 로그인
+    //카카오 로그인
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
     implementation 'com.kakao.sdk:v2-user:2.10.0'
     implementation "com.kakao.sdk:v2-user:2.0.1"
     implementation 'androidx.viewpager2:viewpager2:1.0.0-alpha01'

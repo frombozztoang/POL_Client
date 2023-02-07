@@ -9,9 +9,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
+import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.usermgmt.StringSet.nickname
-import com.kakao.util.helper.Utility
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
 import com.umc.pieciesoflife.databinding.ActivityLoginBinding
 
@@ -24,6 +24,7 @@ class LoginActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
 
         // 로그인 정보 확인
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
