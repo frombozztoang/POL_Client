@@ -10,6 +10,7 @@ import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.usermgmt.StringSet.nickname
+import com.kakao.util.helper.Utility
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
 import com.umc.pieciesoflife.databinding.ActivityLoginBinding
 
@@ -22,6 +23,9 @@ class LoginActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        val keyHash = Utility.getKeyHash(this)
+        Log.d("Hash1", keyHash)
+
 
 
         // 로그인 정보 확인
@@ -66,6 +70,9 @@ class LoginActivity: AppCompatActivity() {
                     }
                     else -> { // Unknown
                         Toast.makeText(this, "기타 에러", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, BottomNavBarActivity::class.java)
+                        startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+                        finish()
                     }
                 }
             }
