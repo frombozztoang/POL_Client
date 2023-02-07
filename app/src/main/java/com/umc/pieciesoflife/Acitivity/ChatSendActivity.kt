@@ -22,7 +22,7 @@ class ChatSendActivity: AppCompatActivity() {
             finish()
             Toast.makeText(this, "쪽지 발신 성공!", Toast.LENGTH_SHORT ).show()
             //이 때, Spring Server에 UserID, StoryID POST
-            //Firebase에는 쪽지 내용, 시간 POST
+            //Firebase에도 User, StoryID, 쪽지 내용, 시간 POST
         }
 
     }
