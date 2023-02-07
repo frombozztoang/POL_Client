@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
+import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.usermgmt.StringSet.nickname
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
@@ -23,6 +24,8 @@ class LoginActivity: AppCompatActivity() {
         viewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        val keyHash = Utility.getKeyHash(this)
+        Log.d("Hash", keyHash)
 
         // 로그인 정보 확인
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->

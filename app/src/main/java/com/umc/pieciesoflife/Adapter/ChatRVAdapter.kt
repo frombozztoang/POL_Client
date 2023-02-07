@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.pieciesoflife.DataClass.ChatRoom
-
-class ChatRVAdapter(private val context: Context) : RecyclerView.Adapter<ChatRVAdapter.ViewHolder>() {
+/*
+class ChatRVAdapter(private val context: Context) : RecyclerView.Adapter<*ChatRVAdapter.ViewHolder>() {
 
     var chatRooms: ArrayList<ChatRoom> = arrayListOf()
     var chatRoomKeys: ArrayList<String> = arrayListOf()
@@ -25,3 +25,5 @@ class ChatRVAdapter(private val context: Context) : RecyclerView.Adapter<ChatRVA
     }
 
 }
+
+ */
