@@ -11,7 +11,6 @@ import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.usermgmt.StringSet.nickname
-import com.kakao.util.helper.Utility
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
 import com.umc.pieciesoflife.databinding.ActivityLoginBinding
 
@@ -24,9 +23,6 @@ class LoginActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-        val keyHash = Utility.getKeyHash(this)
-        Log.d("Hash1", keyHash)
-
 
         val keyHash = Utility.getKeyHash(this)
         Log.d("Hash", keyHash)
