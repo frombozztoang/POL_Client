@@ -1,4 +1,4 @@
-package com.umc.pieciesoflife.Utility
+package com.umc.pieciesoflife
 
 import android.app.Application
 import com.kakao.sdk.common.KakaoSdk
@@ -10,7 +10,7 @@ class GlobalApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        KakaoSdk.init(this, getString(R.string.kakao_native_key))
+        KakaoSdk.init(this, "10b956924e3663c525109092e81593ec")
     }
 
 }

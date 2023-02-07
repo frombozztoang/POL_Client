@@ -23,10 +23,6 @@ class LoginActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-        val keyHash = Utility.getKeyHash(this)
-        Log.d("Hash1", keyHash)
-
-
 
         // 로그인 정보 확인
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
