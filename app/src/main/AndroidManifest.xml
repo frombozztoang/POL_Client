@@ -6,7 +6,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".kakaoLogin.SocketApplication"
+        android:name=".Utility.GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -65,16 +65,19 @@
         <activity android:name=".Acitivity.DialogUserEditActivity" android:exported="true" android:theme="@style/Theme.AppCompat.DayNight.Dialog"    android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.UserEditActivity" android:exported="true"    android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".BottomNavBar.BottomNavBarActivity" android:exported="true"/>
-        <activity android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity" android:exported="true">
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:host="oauth"
+                <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
+                <data android:host="oauth"
                     android:scheme="kakao10b956924e3663c525109092e81593ec" />
             </intent-filter>
         </activity>
+
 
     </application>
 

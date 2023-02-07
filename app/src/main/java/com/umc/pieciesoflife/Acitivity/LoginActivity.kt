@@ -15,12 +15,12 @@ import com.umc.pieciesoflife.databinding.ActivityLoginBinding
 
 class LoginActivity: AppCompatActivity() {
     private lateinit var viewBinding: ActivityLoginBinding
-    lateinit var kakaoCallback: (OAuthToken?, Throwable?) -> Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
 
         // 로그인 정보 확인
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
@@ -82,16 +82,6 @@ class LoginActivity: AppCompatActivity() {
             }else{
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
-
-//
-//            if (UserApiClient.instance.isKakaoTalkLoginAvailable(this@LoginActivity)) {
-//                UserApiClient.instance.loginWithKakaoTalk(this@LoginActivity, callback = callback)
-//            } else {
-//                UserApiClient.instance.loginWithKakaoAccount(this@LoginActivity, callback = callback)
-//            }
-
-//            val intent = Intent(this, BottomNavBarActivity::class.java)
-//            startActivity(intent)
         }
     }
 
