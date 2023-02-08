@@ -60,14 +60,19 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.6.0'
-    // Firebase 앱 등록
+    // Firebase 앱 등록(Android BoM)
     implementation platform('com.google.firebase:firebase-bom:31.2.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
-    // Firebase Android BoM
-    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    // Firebase Auth
+    implementation 'com.google.firebase:firebase-auth-ktx'
+    // Firebase Firestore DB
+    implementation 'com.google.firebase:firebase-firestore-ktx:24.4.2'
     // Firebase Realtime DB
     implementation 'com.google.firebase:firebase-database-ktx'
     // Firebase Storage
     implementation 'com.google.firebase:firebase-storage-ktx'
-
+    // 카카오 로그인
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.0'
+    implementation 'com.kakao.sdk:v2-user:2.10.0'
+    implementation "com.kakao.sdk:v2-user:2.0.1"
 }

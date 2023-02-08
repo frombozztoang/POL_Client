@@ -49,6 +49,7 @@ class UserFragment : Fragment() {
         val btnEdit = view.findViewById<ImageButton>(R.id.btn_edit)
         btnEdit.setOnClickListener {
             val intent = Intent(context, DialogUserEditActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK   //  ← NEW_TASK 추가하지 않으면 기존 task와 같이 관리됩니다.
             startActivity(intent)
         }
 

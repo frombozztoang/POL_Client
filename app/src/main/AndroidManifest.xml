@@ -4,8 +4,10 @@
 
     <!--인터넷 허용-->
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        android:name=".GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,7 +22,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -28,24 +29,24 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity android:name=".Acitivity.StartNewstoryAcitivity" android:exported="true"/>
+        <activity android:name=".Acitivity.StartNewstoryAcitivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.ChatActivity" android:exported="true"/>
         <activity android:name=".Acitivity.ChatSendActivity" android:exported="true"/>
         <activity android:name=".Acitivity.ExploreDetailedActivity" android:exported="true"/>
         <activity android:name=".Acitivity.MybookDetailedActivity" android:exported="true"/>
         <activity android:name=".Acitivity.NotiActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.SaveColorActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.SaveFinalActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.SaveIntroActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.SaveTitleActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.StoryWriteActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagAgeActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagMatterActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagMoodActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagObjectActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagPersonActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagPlaceActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.TagYearActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.SaveColorActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.SaveFinalActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.SaveIntroActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.SaveTitleActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.StoryWriteActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagAgeActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagMatterActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagMoodActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagObjectActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagPersonActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagPlaceActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.TagYearActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogBottomAcitivity" android:exported="true" android:screenOrientation="portrait"
             android:theme="@style/round_dialog_activity"/>
         <activity android:name=".Acitivity.DialogColorActivity" android:exported="true" android:screenOrientation="portrait"
@@ -62,9 +63,22 @@
             android:theme="@style/round_dialog_activity"/>
         <activity android:name=".Acitivity.DialogStoryConfirmActivity" android:exported="true" android:screenOrientation="portrait"
             android:theme="@style/round_dialog_activity"/>
-        <activity android:name=".Acitivity.DialogUserEditActivity" android:exported="true" android:theme="@style/Theme.AppCompat.DayNight.Dialog"/>
-        <activity android:name=".Acitivity.UserEditActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.DialogUserEditActivity" android:exported="true" android:theme="@style/Theme.AppCompat.DayNight.Dialog"    android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.UserEditActivity" android:exported="true"    android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".BottomNavBar.BottomNavBarActivity" android:exported="true"/>
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Redirect URI: "kakao${NATIVE_APP_KEY}://oauth" -->
+                <data android:host="oauth"
+                    android:scheme="kakao10b956924e3663c525109092e81593ec" />
+            </intent-filter>
+        </activity>
+
 
     </application>
 
