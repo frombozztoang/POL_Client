@@ -22,9 +22,11 @@ class SaveFinalActivity : AppCompatActivity() {
         val manager: FragmentManager = supportFragmentManager
         val transaction: FragmentTransaction = manager.beginTransaction()
 
-        // 자서전 완성 시, 다시 MyBookFragment로 복귀
+        // 자서전 완성 시, 다시 MyBookFragment 혹은 UserFragment(새로운 이야기 작성하기 시작했던 곳)로 복귀
         viewBinding.buttonFinish.setOnClickListener {
-            transaction.replace(R.id.mainFrameLayout, MyBookFragment()).commit()
+            // MyBookFragment에서 새로운 이야기 작성하기 이후에 있는 Activity들을 함께 종료
+            this@SaveFinalActivity.finishAffinity()
+//            transaction.replace(R.id.mainFrameLayout, MyBookFragment()).commit()
         }
     }
 }
