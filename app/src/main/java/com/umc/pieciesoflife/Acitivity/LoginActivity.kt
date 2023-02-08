@@ -1,5 +1,6 @@
 package com.umc.pieciesoflife.Acitivity
 
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
@@ -82,7 +83,6 @@ class LoginActivity: AppCompatActivity() {
         }
 
 
-
         // 로그인하기 버튼 클릭 시 카카오톡 설치 유무에 따라서 카카오톡으로 로그인, 카카오 계정으로 로그인
         viewBinding.btnLogin.setOnClickListener {
             if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
@@ -91,6 +91,33 @@ class LoginActivity: AppCompatActivity() {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
+
+        // 사용자 정보 요청 (기본)
+        UserApiClient.instance.me { user, error ->
+            if (error != null) {
+                Log.e(ContentValues.TAG, "사용자 정보 요청 실패", error)
+            }
+            else if (user != null) {
+                Log.d("userInfo", "사용자 정보 요청 성공" +
+                        "\n회원번호: ${user.id}" +
+                        "\n이메일: ${user.kakaoAccount?.email}" +
+                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
+                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
+            }
+        }
+
+        // 토큰 정보 보기
+        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+            if (error != null) {
+                Log.d("Token", "토큰 정보 보기 실패", error)
+            }
+            else if (tokenInfo != null) {
+                Log.d("Token", "토큰 정보 보기 성공" +
+                        "\n회원번호: ${tokenInfo.id}" +
+                        "\n만료시간: ${tokenInfo.expiresIn} 초")
+            }
+        }
+
     }
     
 }
