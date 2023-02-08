@@ -13,22 +13,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.pieciesoflife.DTO.Question
-import com.umc.pieciesoflife.Interface.QuestionMake
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
-import com.umc.pieciesoflife.Retrofit.RetrofitClient.questionMake
-import com.umc.pieciesoflife.Retrofit.RetrofitClient.storyService
-import com.umc.pieciesoflife.databinding.ActivityChatBinding
 import com.umc.pieciesoflife.databinding.ActivityStoryWriteBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.random.Random
 
 
 class StoryWriteActivity : AppCompatActivity() {
@@ -43,7 +35,7 @@ class StoryWriteActivity : AppCompatActivity() {
         viewBinding = ActivityStoryWriteBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        val call = RetrofitClient.questionMake
+        val call = RetrofitClient.questionService
         call.response().enqueue(object: Callback<Question>{
             // 성공 처리
             override fun onResponse(call: Call<Question>, response: Response<Question>) {
@@ -51,13 +43,13 @@ class StoryWriteActivity : AppCompatActivity() {
                     val result = response.body()
                     Log.d("testt", "결과는 ${result}")
                     Log.i(javaClass.simpleName, "api 받아오기 성공 : ${response.body()?.questionTemplate}")
-
                 }
             }
             // 실패 처리
             override fun onFailure(call: Call<Question>, t: Throwable) {
-                t.printStackTrace()
+                t.message?.let { Log.e("QUESTIONTest", it) }
                 Log.d("testt", "에러입니다. ${t.message}")
+                t.printStackTrace()
             }
         })
 
