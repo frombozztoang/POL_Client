@@ -13,5 +13,5 @@ object RetrofitClient {
         .build()
 
     //Interface 클래스 파일들 추가
-    val service: StoryService = retrofit.create(StoryService::class.java)
+    val storyService: StoryService by lazy{retrofit.create(StoryService::class.java)}
 }

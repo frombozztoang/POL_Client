@@ -2,8 +2,11 @@ package com.umc.pieciesoflife.Acitivity
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.umc.pieciesoflife.Adapter.BookDetailRVAdapter
 import com.umc.pieciesoflife.DataClass.BookDetail
 import com.umc.pieciesoflife.Fragment.ExploreFragment

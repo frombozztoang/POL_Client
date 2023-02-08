@@ -97,7 +97,6 @@ class LoginActivity: AppCompatActivity() {
             }
         }
 
-
         // 로그인하기 버튼 클릭 시 카카오톡 설치 유무에 따라서 카카오톡으로 로그인, 카카오 계정으로 로그인
         viewBinding.btnLogin.setOnClickListener {
             if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
@@ -107,29 +106,6 @@ class LoginActivity: AppCompatActivity() {
             }
         }
     }
-
-    /*
-    fun FirebaseJoin() {
-        auth.createUserWithEmailAndPassword(email.toString(), password.toString()).addOnCompleteListener(this){ task ->
-            if(task.isSuccessful) {
-                try {
-                    val user = auth.currentUser
-                    val userId = user?.uid.toString()
-                    // Firebase RealtimeDB에 User 정보 추가
-                    FirebaseDatabase.getInstance().getReference("User").child("users")
-                        .child(userId).setValue(FBUser(name,userId,email))
-                    Toast.makeText(this,"Firebase 회원가입 완료", Toast.LENGTH_SHORT).show()
-                    Log.e("UserId", userId)
-                }catch (e: Exception){
-                    e.printStackTrace()
-                }
-            } else {
-                Toast.makeText(this, "Firebase 회원가입 실패", Toast.LENGTH_SHORT).show()
-            }
-        }
-
-    }
-     */
 
 }
 
