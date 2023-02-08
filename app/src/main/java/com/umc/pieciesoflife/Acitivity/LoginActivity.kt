@@ -8,16 +8,23 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.common.util.Utility
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.usermgmt.StringSet.nickname
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
+import com.umc.pieciesoflife.DataClass.FBUser
 import com.umc.pieciesoflife.databinding.ActivityLoginBinding
 
 class LoginActivity: AppCompatActivity() {
     private lateinit var viewBinding: ActivityLoginBinding
+    private lateinit var auth: FirebaseAuth
     //앱 처음 실행?
     var isFirst : Boolean = true
 
@@ -26,6 +33,16 @@ class LoginActivity: AppCompatActivity() {
         viewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        // FirebaseAuth 인스턴스 초기화화
+        auth = Firebase.auth
+        // 임의 설정
+        val email = "1@naver.com"
+        val password = "123"
+        val name = "1st"
+
+
+        val keyHash = Utility.getKeyHash(this)
+        Log.d("Hash", keyHash)
 
         // 로그인 정보 확인
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
@@ -39,7 +56,6 @@ class LoginActivity: AppCompatActivity() {
                 finish()
             }
         }
-
 
 
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
@@ -119,6 +135,31 @@ class LoginActivity: AppCompatActivity() {
         }
 
     }
-    
+
+    /*
+    fun FirebaseJoin() {
+        auth.createUserWithEmailAndPassword(email.toString(), password.toString()).addOnCompleteListener(this){ task ->
+            if(task.isSuccessful) {
+                try {
+                    val user = auth.currentUser
+                    val userId = user?.uid.toString()
+                    // Firebase RealtimeDB에 User 정보 추가
+                    FirebaseDatabase.getInstance().getReference("User").child("users")
+                        .child(userId).setValue(FBUser(name,userId,email))
+                    Toast.makeText(this,"Firebase 회원가입 완료", Toast.LENGTH_SHORT).show()
+                    Log.e("UserId", userId)
+                }catch (e: Exception){
+                    e.printStackTrace()
+                }
+            } else {
+                Toast.makeText(this, "Firebase 회원가입 실패", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+     */
+
 }
+
+
 
