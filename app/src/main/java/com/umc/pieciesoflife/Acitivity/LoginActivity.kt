@@ -98,18 +98,8 @@ class LoginActivity: AppCompatActivity() {
         }
 
 
-
         // 로그인하기 버튼 클릭 시 카카오톡 설치 유무에 따라서 카카오톡으로 로그인, 카카오 계정으로 로그인
         viewBinding.btnLogin.setOnClickListener {
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this){ task ->
-                if(task.isSuccessful){
-                    Toast.makeText(this,"Firebase 회원가입 완료", Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    Toast.makeText(this, "Firebase 회원가입 실패", Toast.LENGTH_SHORT).show()
-                }
-            }
-
             if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
                 UserApiClient.instance.loginWithKakaoTalk(this, callback = callback)
             }else{
