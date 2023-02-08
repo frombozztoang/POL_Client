@@ -2,10 +2,12 @@ package com.umc.pieciesoflife.Acitivity
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Window
 import android.widget.Button
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.pieciesoflife.Adapter.BookDetailRVAdapter
 import com.umc.pieciesoflife.DataClass.BookDetail
@@ -32,8 +34,15 @@ class MybookDetailedActivity : AppCompatActivity() {
             val intent = Intent(this, DialogBottomAcitivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             startActivity(intent)
-
         }
+
+
+            // 컬러 변경 고민중 ..!
+            // var newColor = intent.getStringExtra("color")
+
+            // viewBinding.constraintLayout2.setBackgroundDrawable(ContextCompat.getDrawable(applicationContext!!), newColor)
+
+
         viewBinding.btnLikeDetailed.setOnClickListener {
             viewBinding.btnLikeDetailed.isSelected = viewBinding.btnLikeDetailed.isSelected == false
         }

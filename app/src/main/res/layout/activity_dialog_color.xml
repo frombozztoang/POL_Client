@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.widget.Button
-            android:id="@+id/button1"
+            android:id="@+id/btn_purple"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="48dp"
@@ -47,7 +47,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <android.widget.Button
-            android:id="@+id/button2"
+            android:id="@+id/btn_blue"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="124dp"
@@ -58,7 +58,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.widget.Button
-            android:id="@+id/button3"
+            android:id="@+id/btn_peach"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="200dp"
@@ -69,7 +69,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.widget.Button
-            android:id="@+id/button4"
+            android:id="@+id/btn_green"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="276dp"
@@ -80,7 +80,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.widget.Button
-            android:id="@+id/button5"
+            android:id="@+id/btn_yellow"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="48dp"
@@ -91,7 +91,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.widget.Button
-            android:id="@+id/button6"
+            android:id="@+id/btn_pink"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="124dp"
@@ -102,7 +102,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.widget.Button
-            android:id="@+id/button7"
+            android:id="@+id/btn_mint"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="200dp"
@@ -113,7 +113,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.widget.Button
-            android:id="@+id/button8"
+            android:id="@+id/btn_lime"
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_marginStart="276dp"
