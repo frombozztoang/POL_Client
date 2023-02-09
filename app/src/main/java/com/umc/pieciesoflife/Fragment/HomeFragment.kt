@@ -1,11 +1,13 @@
 package com.umc.pieciesoflife.Fragment
 
 import android.content.Intent
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.pieciesoflife.Acitivity.MybookDetailedActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
@@ -13,13 +15,14 @@ import com.umc.pieciesoflife.Adapter.BookRVAdapter
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
 import com.umc.pieciesoflife.DataClass.Book
 import com.umc.pieciesoflife.R
-import com.umc.pieciesoflife.databinding.ActivityBottomNavBarBinding
 import com.umc.pieciesoflife.databinding.FragmentHomeBinding
 
 
 class HomeFragment : Fragment() {
     private lateinit var viewBinding: FragmentHomeBinding
     private lateinit var bookAdapter: BookRVAdapter
+    private var level = 0 // 레벨
+    private var exp : Int = 0 // 경험치
 
     var bookList: ArrayList<Book> = arrayListOf()
 
@@ -43,6 +46,34 @@ class HomeFragment : Fragment() {
         viewBinding.btnNoti.setOnClickListener { // 알림
             val intent = Intent(context, NotiActivity::class.java)
             startActivity(intent)
+        }
+
+        // SeekBar 경험치(exp)에 따라 움직이게 설정
+        viewBinding.seekBarReal.progress = exp
+        viewBinding.seekBarText.progress = exp
+        viewBinding.seekBarReal.isEnabled = true // 터치 불가
+        viewBinding.seekBarText.isEnabled = true
+
+        if ( exp < 50) {
+            viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
+            viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_gray)
+            viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_gray)
+            viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.seekbar_thumb)
+        } else if ( exp == 50) {
+            viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
+            viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_level2)
+            viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_gray)
+            viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_two_clear)
+        } else if ( exp < 100) {
+            viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
+            viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_level2)
+            viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_gray)
+            viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_two)
+        } else {
+            viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
+            viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_level2)
+            viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_level3)
+            viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_three_clear)
         }
 
         bookList.apply {

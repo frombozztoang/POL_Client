@@ -22,6 +22,7 @@ import com.umc.pieciesoflife.databinding.ActivityMybookDetailedBinding
 
 class MybookDetailedActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMybookDetailedBinding
+    private var count : Int = 46
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,9 +44,9 @@ class MybookDetailedActivity : AppCompatActivity() {
         }
 
         // DialogColorActivity로부터 배경색 intent 받아와서 적용하기
-        var newColor =intent.getStringExtra("color")
+        val newColor =intent.getStringExtra("color")
 
-            if (newColor == "purple")
+        if (newColor == "purple")
                 viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_purple)
             else if (newColor == "blue")
                 viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_blue)
@@ -63,8 +64,14 @@ class MybookDetailedActivity : AppCompatActivity() {
                 viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_lime)
 
 
+        // 좋아요 버튼 클릭 이벤트
+        viewBinding.btnLikeDetailed.text = count.toString() // 좋아요 개수 서버에서 받아오기(나중에 구현)
+
         viewBinding.btnLikeDetailed.setOnClickListener {
+            if ( viewBinding.btnLikeDetailed.isSelected == true )  count -= 1
+            else count += 1
             viewBinding.btnLikeDetailed.isSelected = viewBinding.btnLikeDetailed.isSelected == false
+            viewBinding.btnLikeDetailed.text = count.toString()
         }
 
         //RV_Deatiled 리사이클러뷰
