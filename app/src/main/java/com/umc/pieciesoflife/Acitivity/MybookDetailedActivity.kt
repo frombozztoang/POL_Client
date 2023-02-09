@@ -22,13 +22,15 @@ import com.umc.pieciesoflife.databinding.ActivityMybookDetailedBinding
 
 class MybookDetailedActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMybookDetailedBinding
-    private var count : Int = 46
+    private var count : Int = 46 // 좋아요 수
+    private var newColor : String? = "" // 자서전 배경색
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityMybookDetailedBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
 
         viewBinding.btnBack.setOnClickListener {
             finish()
@@ -40,28 +42,29 @@ class MybookDetailedActivity : AppCompatActivity() {
         viewBinding.btnMenu.setOnClickListener {
             val intent = Intent(this, DialogBottomAcitivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.putExtra("color", newColor)
             startActivity(intent)
         }
 
         // DialogColorActivity로부터 배경색 intent 받아와서 적용하기
-        val newColor =intent.getStringExtra("color")
+        newColor = intent.getStringExtra("color")
 
         if (newColor == "purple")
-                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_purple)
-            else if (newColor == "blue")
-                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_blue)
-            else if (newColor == "peach")
-                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_peach)
-            else if (newColor == "green")
-                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_green)
-            else if (newColor == "yellow")
-                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_yellow)
-            else if (newColor == "pink")
-                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_pink)
-            else if (newColor == "mint")
-                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_mint)
-            else if (newColor == "lime")
-                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_lime)
+            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_purple)
+        else if (newColor == "blue")
+            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_blue)
+        else if (newColor == "peach")
+            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_peach)
+        else if (newColor == "green")
+            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_green)
+        else if (newColor == "yellow")
+            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_yellow)
+        else if (newColor == "pink")
+            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_pink)
+        else if (newColor == "mint")
+            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_mint)
+        else if (newColor == "lime")
+            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_lime)
 
 
         // 좋아요 버튼 클릭 이벤트

@@ -8,7 +8,7 @@ import android.view.Window
 import com.umc.pieciesoflife.databinding.ActivityDialogColorBinding
 
 class DialogColorActivity : AppCompatActivity() {
-    var color : String = ""
+    var color : String = " " // 변경할 색 저장할 변수
 
     private lateinit var viewBinding: ActivityDialogColorBinding
 
@@ -18,6 +18,7 @@ class DialogColorActivity : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(viewBinding.root)
 
+        // 색 변경 버튼
         viewBinding.btnPurple.setOnClickListener( colorListener )
         viewBinding.btnBlue.setOnClickListener( colorListener )
         viewBinding.btnPeach.setOnClickListener( colorListener )
@@ -27,8 +28,8 @@ class DialogColorActivity : AppCompatActivity() {
         viewBinding.btnMint.setOnClickListener( colorListener )
         viewBinding.btnLime.setOnClickListener( colorListener )
 
+        // 오케이 버튼
         viewBinding.btnOk.setOnClickListener {
-
             val intent = Intent(this, MybookDetailedActivity::class.java)
             intent.putExtra("color", color)
             startActivity(intent)

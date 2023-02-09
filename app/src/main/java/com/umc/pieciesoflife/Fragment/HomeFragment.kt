@@ -51,8 +51,8 @@ class HomeFragment : Fragment() {
         // SeekBar 경험치(exp)에 따라 움직이게 설정
         viewBinding.seekBarReal.progress = exp
         viewBinding.seekBarText.progress = exp
-        viewBinding.seekBarReal.isEnabled = true // 터치 불가
-        viewBinding.seekBarText.isEnabled = true
+        viewBinding.seekBarReal.isEnabled = false // 터치 불가
+        viewBinding.seekBarText.isEnabled = false
 
         if ( exp < 50) {
             viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
