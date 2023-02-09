@@ -1,6 +1,7 @@
 package com.umc.pieciesoflife.Retrofit
 
 import com.umc.pieciesoflife.Interface.StoryService
+import com.umc.pieciesoflife.KakaoLogin.OAuthTokenService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -14,4 +15,5 @@ object RetrofitClient {
 
     //Interface 클래스 파일들 추가
     val service: StoryService = retrofit.create(StoryService::class.java)
+    val TokenService: OAuthTokenService = retrofit.create(OAuthTokenService::class.java)
 }

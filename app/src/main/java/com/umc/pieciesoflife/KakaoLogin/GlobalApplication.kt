@@ -1,4 +1,4 @@
-package com.umc.pieciesoflife
+package com.umc.pieciesoflife.KakaoLogin
 
 import android.app.Application
 import com.kakao.sdk.common.KakaoSdk

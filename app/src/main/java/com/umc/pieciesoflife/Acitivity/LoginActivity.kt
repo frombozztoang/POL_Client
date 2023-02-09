@@ -20,13 +20,24 @@ import com.kakao.sdk.user.UserApiClient
 import com.kakao.usermgmt.StringSet.nickname
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
 import com.umc.pieciesoflife.DataClass.FBUser
+import com.umc.pieciesoflife.KakaoLogin.OAuthTokenResponse
+import com.umc.pieciesoflife.KakaoLogin.OAuthTokenService
+import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.databinding.ActivityLoginBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
 
 class LoginActivity: AppCompatActivity() {
     private lateinit var viewBinding: ActivityLoginBinding
     private lateinit var auth: FirebaseAuth
     //앱 처음 실행?
     var isFirst : Boolean = true
+
+    // auth/kakao
+    lateinit var tokenService: OAuthTokenService
+    private var accessToken : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +55,7 @@ class LoginActivity: AppCompatActivity() {
         val keyHash = Utility.getKeyHash(this)
         Log.d("Hash", keyHash)
 
-        // 로그인 정보 확인
+//         로그인 정보 확인
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null) {
                 Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
@@ -91,7 +102,9 @@ class LoginActivity: AppCompatActivity() {
                 }
             }
             else if (token != null) {
-                Toast.makeText(this, "로그인에 성공하였습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "로그인에 성공하였습니다. accessToken : ${token.accessToken}", Toast.LENGTH_SHORT).show()
+                Log.d("accessToken",  token.accessToken)
+                accessToken = token.accessToken
                 val intent = Intent(this, BottomNavBarActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
@@ -115,12 +128,14 @@ class LoginActivity: AppCompatActivity() {
             }
             else if (user != null) {
                 Log.d("userInfo", "사용자 정보 요청 성공" +
+
                         "\n회원번호: ${user.id}" +
                         "\n이메일: ${user.kakaoAccount?.email}" +
                         "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
                         "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
             }
         }
+
 
         // 토큰 정보 보기
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
@@ -133,6 +148,29 @@ class LoginActivity: AppCompatActivity() {
                         "\n만료시간: ${tokenInfo.expiresIn} 초")
             }
         }
+
+        Runnable {
+            tokenService.postAuth("Bearer $accessToken").enqueue(object : Callback<OAuthTokenResponse> {
+                // 전송 실패
+                override fun onFailure(call: Call<OAuthTokenResponse>, t: Throwable) {
+                    Log.d("태그", t.message!!)
+                }
+
+                // 전송 성공
+                override fun onResponse(
+                    call: Call<OAuthTokenResponse>,
+                    response: Response<OAuthTokenResponse>
+                ) {
+                    Log.d("태그", "response : ${response.body()?.data}") // 정상출력
+
+                    // 전송은 성공 but 서버 4xx 에러
+                    Log.d("태그: 에러바디", "response : ${response.errorBody()}")
+                    Log.d("태그: 메시지", "response : ${response.message()}")
+                    Log.d("태그: 코드", "response : ${response.code()}")
+                }
+            })
+        }.run()
+
 
     }
 
