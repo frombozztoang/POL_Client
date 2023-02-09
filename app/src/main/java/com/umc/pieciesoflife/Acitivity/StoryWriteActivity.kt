@@ -16,9 +16,11 @@ import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.umc.pieciesoflife.DTO.Question
+import com.umc.pieciesoflife.Interface.QuestionService
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.databinding.ActivityStoryWriteBinding
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,34 +31,27 @@ class StoryWriteActivity : AppCompatActivity() {
     var mspanable: Spannable? = null
     var hashTagIsComing = 0
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_story_write)
         viewBinding = ActivityStoryWriteBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-       // val num: Long = 1
-        var question: Question
         val result = MutableLiveData<Question>()
-        val call = RetrofitClient.questionService
+        var question: Question
 
-        call.request(1).enqueue(object: Callback<Question>{
+        val call: QuestionService = RetrofitClient.questionService
+        call.getQuestion(1).enqueue(object: Callback<String>{
             // 성공 처리
-            override fun onResponse(call: Call<Question>, response: Response<Question>) {
+            override fun onResponse(call: Call<String>, response: Response<String>) {
                 if(response.isSuccessful()) { // <--> response.code == 200
-                    //result.value = response.body()
-                    //Log.d("testt", "결과는 ${result.value}")
-                    question = response.body() as Question
-                    Log.d("testt", "결과는 "+question)
                     Log.d("testt",response.toString())
                     Log.d("testt", response.body().toString())
-                //    Log.i(javaClass.simpleName, "api 받아오기 성공 : ${response.body()?.questionTemplate}")
+                    //question = response.body() as Question
                 }
             }
             // 실패 처리
-            override fun onFailure(call: Call<Question>, t: Throwable) {
-                t.message?.let { Log.e("QUESTIONTest", it) }
+            override fun onFailure(call: Call<String>, t: Throwable) {
                 Log.d("testt", "에러입니다. ${t.message}")
                 t.printStackTrace()
             }
