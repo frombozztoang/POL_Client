@@ -20,6 +20,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.pieciesoflife.Acitivity.DialogUserEditActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
+import com.umc.pieciesoflife.databinding.ActivityMainBinding
+import com.umc.pieciesoflife.databinding.FragmentUserBinding
+import com.umc.pieciesoflife.databinding.FragmentUserBookBinding
 
 
 class UserFragment : Fragment() {
@@ -27,12 +30,14 @@ class UserFragment : Fragment() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
+    private lateinit var viewBinding: FragmentUserBinding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewBinding = FragmentUserBinding.inflate(inflater, container, false)
         val view:View = inflater.inflate(R.layout.fragment_user, container, false)
         viewPager = view.findViewById(R.id.viewPager)
         tabLayout =  view.findViewById(R.id.tabLayout)
@@ -76,7 +81,7 @@ class UserFragment : Fragment() {
         //Tablayout
         TabLayoutMediator(tabLayout, viewPager){ tab, position ->
             when(position) {
-                0 -> tab.text = "좋아요 누른 자서전"
+                0 -> tab.text = "내가 좋아요 누른 자서전"
                 1 -> tab.text = "쪽지함"
             }
         }.attach()
@@ -87,6 +92,7 @@ class UserFragment : Fragment() {
 
 
 
-}
+    }
+
 
 

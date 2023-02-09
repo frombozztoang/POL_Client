@@ -79,16 +79,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="20dp"
+        android:layout_height="29dp"
         android:layout_marginTop="32dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="122dp"
+        android:theme="@style/tabLayout_Theme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_new_story" />
+        app:layout_constraintStart_toStartOf="@+id/viewPager"
+        app:layout_constraintTop_toBottomOf="@+id/btn_new_story"
+        app:tabGravity="fill"
+        app:tabIndicatorColor="#000000"
+        app:tabMode="scrollable"
+        app:tabIndicatorHeight="1dp"
+        app:tabPaddingBottom="6dp"
+        app:tabPaddingEnd="0dp"
+        app:tabIndicatorFullWidth="false"
+        app:tabPaddingStart="0dp"
+        app:tabSelectedTextColor="#32344A"
+        app:tabTextAppearance="@style/tabLayout_text"
+        app:tabTextColor="#B7B7B7" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

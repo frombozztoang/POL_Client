@@ -18,6 +18,13 @@
     <style name="round_dialog_activity" parent="@style/Theme.AppCompat.DayNight.Dialog">
         <item name="android:windowBackground">@drawable/bg_round_dialog</item>
     </style>
+    <style name="tabLayout_Theme">
+        <item name="colorAccent">#32344A</item>
+    </style>
+    <style name="tabLayout_text">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16dp</item>
+    </style>
 
 
 </resources>
