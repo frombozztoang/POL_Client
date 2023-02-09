@@ -37,6 +37,8 @@ class StoryWriteActivity : AppCompatActivity() {
         viewBinding = ActivityStoryWriteBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        val num: Int = 0
+
         val call: QuestionService = RetrofitClient.questionService
         call.getQuestion(1).enqueue(object: Callback<Question>{
             // 성공 처리
@@ -44,6 +46,7 @@ class StoryWriteActivity : AppCompatActivity() {
                 if(response.isSuccessful()) { // <--> response.code == 200
                     response.body()?.let {
                         question = it.data.questionTemplate
+                        viewBinding.tvQuestion.setText(question)
                         Log.d("testt", "$question")
                     }
 
