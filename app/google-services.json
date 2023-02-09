@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "58119331328",
-    "firebase_url": "https://pol-chat-default-rtdb.firebaseio.com",
-    "project_id": "pol-chat",
-    "storage_bucket": "pol-chat.appspot.com"
+    "project_number": "186104636278",
+    "project_id": "test-3f0e1",
+    "storage_bucket": "test-3f0e1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:58119331328:android:1172192d7292ad2ba002e5",
+        "mobilesdk_app_id": "1:186104636278:android:5c4a54ea436af03258d057",
         "android_client_info": {
           "package_name": "com.umc.pieciesoflife"
         }
       },
       "oauth_client": [
         {
-          "client_id": "58119331328-5lmad15l85e6de0djnl8a0g3doke5vhm.apps.googleusercontent.com",
+          "client_id": "186104636278-igstnb44g5s1ivo9t1b5o14jpen533io.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBQr1kaUHp1FIpwUy7rdKDOOslnHFEtXcc"
+          "current_key": "AIzaSyDMqKfd2YnfgaRJotUc4WItDoRm1fzyrsM"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "58119331328-5lmad15l85e6de0djnl8a0g3doke5vhm.apps.googleusercontent.com",
+              "client_id": "186104636278-igstnb44g5s1ivo9t1b5o14jpen533io.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

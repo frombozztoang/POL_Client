@@ -14,9 +14,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import com.umc.pieciesoflife.DTO.Question
 import com.umc.pieciesoflife.R
-import com.umc.pieciesoflife.databinding.ActivityChatBinding
+import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.databinding.ActivityStoryWriteBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class StoryWriteActivity : AppCompatActivity() {
@@ -24,11 +28,30 @@ class StoryWriteActivity : AppCompatActivity() {
     var mspanable: Spannable? = null
     var hashTagIsComing = 0
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_story_write)
         viewBinding = ActivityStoryWriteBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        val call = RetrofitClient.questionService
+        call.response().enqueue(object: Callback<Question>{
+            // 성공 처리
+            override fun onResponse(call: Call<Question>, response: Response<Question>) {
+                if(response.isSuccessful()) { // <--> response.code == 200
+                    val result = response.body()
+                    Log.d("testt", "결과는 ${result}")
+                    Log.i(javaClass.simpleName, "api 받아오기 성공 : ${response.body()?.questionTemplate}")
+                }
+            }
+            // 실패 처리
+            override fun onFailure(call: Call<Question>, t: Throwable) {
+                t.message?.let { Log.e("QUESTIONTest", it) }
+                Log.d("testt", "에러입니다. ${t.message}")
+                t.printStackTrace()
+            }
+        })
 
         //태그 담을 리스트
         val ageTagList: ArrayList<String> = arrayListOf<String>()
@@ -86,20 +109,16 @@ class StoryWriteActivity : AppCompatActivity() {
                         hashTagIsComing = 0
                     }
                     viewBinding.tagMatterButton.setOnClickListener { //상황 버튼 선택
-                        //문자열 색깔 바꾸기
                         changeMatterColor(s.toString().substring(start), start-1, start + count)
-                        //리스트에 문자열 입력하기
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str=edtTxtMine.text.toString().substring(start,start+count)
+                        Log.i(javaClass.simpleName,"str :$str")
                         matterTagList.add(str)
-                        str="" //str 초기화
+                        str=""
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagMoodButton.setOnClickListener { //감정 버튼 선택
-                        //문자열 색깔 바꾸기
                         changeMoodColor(s.toString().substring(start), start-1, start + count)
-                        //리스트에 문자열 입력하기
                         str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
                         Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
                         moodTagList.add(str)
@@ -108,9 +127,7 @@ class StoryWriteActivity : AppCompatActivity() {
                         hashTagIsComing = 0
                     }
                     viewBinding.tagObjectButton.setOnClickListener { //물건 버튼 선택
-                        //문자열 색깔 바꾸기
                         changeObjectColor(s.toString().substring(start), start-1, start + count)
-                        //리스트에 문자열 입력하기
                         str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
                         Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
                         objectTagList.add(str)
@@ -119,9 +136,7 @@ class StoryWriteActivity : AppCompatActivity() {
                         hashTagIsComing = 0
                     }
                     viewBinding.tagPersonButton.setOnClickListener { //인물  버튼 선택
-                        //문자열 색깔 바꾸기
                         changePersonColor(s.toString().substring(start), start-1, start + count)
-                        //리스트에 문자열 입력하기
                         str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
                         Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
                         personTagList.add(str)
@@ -130,9 +145,7 @@ class StoryWriteActivity : AppCompatActivity() {
                         hashTagIsComing = 0
                     }
                     viewBinding.tagPlaceButton.setOnClickListener { //장소 버튼 선택
-                        //문자열 색깔 바꾸기
                         changePlaceColor(s.toString().substring(start), start-1, start + count)
-                        //리스트에 문자열 입력하기
                         str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
                         Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
                         placeTagList.add(str)
@@ -141,9 +154,7 @@ class StoryWriteActivity : AppCompatActivity() {
                         hashTagIsComing = 0
                     }
                     viewBinding.tagYearButton.setOnClickListener { //연도 버튼 선택
-                        //문자열 색깔 바꾸기
                         changeYearColor(s.toString().substring(start), start-1, start + count)
-                        //리스트에 문자열 입력하기
                         str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
                         Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
                         yearTagList.add(str)
@@ -181,6 +192,11 @@ class StoryWriteActivity : AppCompatActivity() {
                 startActivity(intent); //다음 화면 띄우기
             }
         });*/
+
+        val next = findViewById<View>(R.id.button_next) as Button //다음 질문 생성버튼
+        next.setOnClickListener {
+
+        }
         val back = findViewById<View>(R.id.button_back) as ImageButton //뒤로가기
         back.setOnClickListener {
             val intent = Intent(applicationContext, TagPersonActivity::class.java)
@@ -282,4 +298,5 @@ class StoryWriteActivity : AppCompatActivity() {
             Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
         )
     }
+
 }
