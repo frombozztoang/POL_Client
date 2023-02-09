@@ -36,8 +36,7 @@ class LoginActivity: AppCompatActivity() {
     var isFirst : Boolean = true
 
     // auth/kakao
-    lateinit var tokenService: OAuthTokenService
-    private var accessToken : String = ""
+    private var accessToken = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,24 +50,23 @@ class LoginActivity: AppCompatActivity() {
         val password = "123"
         val name = "1st"
 
-
         val keyHash = Utility.getKeyHash(this)
         Log.d("Hash", keyHash)
 
-//         로그인 정보 확인
-        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-            if (error != null) {
-                Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
-            }
-            else if (tokenInfo != null) {
-                Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
-                val intent = Intent(this, BottomNavBarActivity::class.java)
-                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
-                finish()
-            }
-        }
+//        // 로그인 정보 확인
+//        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
+//            if (error != null) {
+//                Toast.makeText(this, "토큰 정보 보기 실패", Toast.LENGTH_SHORT).show()
+//            }
+//            else if (tokenInfo != null) {
+//                Toast.makeText(this, "토큰 정보 보기 성공", Toast.LENGTH_SHORT).show()
+//                val intent = Intent(this, BottomNavBarActivity::class.java)
+//                startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
+//                finish()
+//            }
+//        }
 
-
+        // 로그인 성공 후 토큰 발급
         val callback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
             if (error != null) {
                 when {
@@ -111,7 +109,6 @@ class LoginActivity: AppCompatActivity() {
             }
         }
 
-
         // 로그인하기 버튼 클릭 시 카카오톡 설치 유무에 따라서 카카오톡으로 로그인, 카카오 계정으로 로그인
         viewBinding.btnLogin.setOnClickListener {
             if(UserApiClient.instance.isKakaoTalkLoginAvailable(this)){
@@ -136,7 +133,6 @@ class LoginActivity: AppCompatActivity() {
             }
         }
 
-
         // 토큰 정보 보기
         UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
             if (error != null) {
@@ -149,11 +145,12 @@ class LoginActivity: AppCompatActivity() {
             }
         }
 
-        Runnable {
+        // auth/kakao retrofit
+            val tokenService = RetrofitClient.TokenService
             tokenService.postAuth("Bearer $accessToken").enqueue(object : Callback<OAuthTokenResponse> {
                 // 전송 실패
                 override fun onFailure(call: Call<OAuthTokenResponse>, t: Throwable) {
-                    Log.d("태그", t.message!!)
+                    Log.d("kakao", t.message!!)
                 }
 
                 // 전송 성공
@@ -161,41 +158,22 @@ class LoginActivity: AppCompatActivity() {
                     call: Call<OAuthTokenResponse>,
                     response: Response<OAuthTokenResponse>
                 ) {
-                    Log.d("태그", "response : ${response.body()?.data}") // 정상출력
+                    val result = response.body()
+                    Log.d("kakao", " ${result}")
+                    Log.i(javaClass.simpleName, "api 받아오기 성공 : ${response.body()?.data}")
+
+                    Log.d("kakao", "response : ${response.body()?.data}") // 정상출력
 
                     // 전송은 성공 but 서버 4xx 에러
-                    Log.d("태그: 에러바디", "response : ${response.errorBody()}")
-                    Log.d("태그: 메시지", "response : ${response.message()}")
-                    Log.d("태그: 코드", "response : ${response.code()}")
+                    Log.d("kakao: 에러바디", "response : ${response.errorBody()}")
+                    Log.d("kakao: 메시지", "response : ${response.message()}")
+                    Log.d("kakao: 코드", "response : ${response.code()}")
                 }
             })
-        }.run()
 
 
-    }
-
-    /*
-    fun FirebaseJoin() {
-        auth.createUserWithEmailAndPassword(email.toString(), password.toString()).addOnCompleteListener(this){ task ->
-            if(task.isSuccessful) {
-                try {
-                    val user = auth.currentUser
-                    val userId = user?.uid.toString()
-                    // Firebase RealtimeDB에 User 정보 추가
-                    FirebaseDatabase.getInstance().getReference("User").child("users")
-                        .child(userId).setValue(FBUser(name,userId,email))
-                    Toast.makeText(this,"Firebase 회원가입 완료", Toast.LENGTH_SHORT).show()
-                    Log.e("UserId", userId)
-                }catch (e: Exception){
-                    e.printStackTrace()
-                }
-            } else {
-                Toast.makeText(this, "Firebase 회원가입 실패", Toast.LENGTH_SHORT).show()
-            }
-        }
 
     }
-     */
 
 }
 

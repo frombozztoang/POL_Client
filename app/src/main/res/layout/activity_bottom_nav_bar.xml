@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="9"
-    android:orientation="vertical">
+    android:backgroundTint="#3F51B5"
+    android:orientation="vertical"
+    android:weightSum="9">
 
     <FrameLayout
         android:id="@+id/mainFrameLayout"
@@ -18,10 +19,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:addStatesFromChildren="false"
+        android:clickable="false"
         app:itemBackground="@color/white"
-        app:itemIconTint="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:itemIconTint="@drawable/selector_item_icon_tint"
         app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/bottomnavbar_menu" />
 
 </LinearLayout>
