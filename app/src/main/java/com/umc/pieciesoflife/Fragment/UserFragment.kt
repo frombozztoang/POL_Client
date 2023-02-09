@@ -19,7 +19,7 @@ import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
 import com.umc.pieciesoflife.Interface.UserService
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
-import com.umc.pieciesoflife.UserDto.User
+import com.umc.pieciesoflife.DTO.UserDto.User
 import com.umc.pieciesoflife.databinding.FragmentUserBinding
 import retrofit2.Call
 import retrofit2.Callback

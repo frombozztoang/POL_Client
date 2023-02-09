@@ -1,4 +1,4 @@
-package com.umc.pieciesoflife.UserDto
+package com.umc.pieciesoflife.DTO.UserDto
 
 import com.google.gson.annotations.SerializedName
 
