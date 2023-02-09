@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.common.util.Utility
+import com.kakao.sdk.user.UserApi
 import com.kakao.sdk.user.UserApiClient
 import com.kakao.usermgmt.StringSet.nickname
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
@@ -36,7 +37,9 @@ class LoginActivity: AppCompatActivity() {
     var isFirst : Boolean = true
 
     // auth/kakao
-    private var accessToken = ""
+    var accessToken = ""
+    var profileImgUrl = ""
+    var ninkname = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,10 +102,29 @@ class LoginActivity: AppCompatActivity() {
                     }
                 }
             }
+
+            // 로그인 성공
             else if (token != null) {
                 Toast.makeText(this, "로그인에 성공하였습니다. accessToken : ${token.accessToken}", Toast.LENGTH_SHORT).show()
+
+                // accessToken 새로 발급
                 Log.d("accessToken",  token.accessToken)
                 accessToken = token.accessToken
+
+                // user 프로필, 닉네임 저장
+                UserApiClient.instance.me { user, error ->
+                    if (error != null) {
+                        Log.e(ContentValues.TAG, "사용자 정보 요청 실패", error)
+                    }
+                    else if (user != null) {
+                        Log.d("userInfo", "사용자 정보 요펑 성공")
+                        profileImgUrl = user.kakaoAccount?.profile?.thumbnailImageUrl.toString()
+                        ninkname = user.kakaoAccount?.profile?.nickname.toString()
+                        Log.d("Save User Info ", "프로필 : $profileImgUrl \n닉네임 : $ninkname")
+
+                    }
+                }
+
                 val intent = Intent(this, BottomNavBarActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
@@ -118,32 +140,7 @@ class LoginActivity: AppCompatActivity() {
             }
         }
 
-        // 사용자 정보 요청 (기본)
-        UserApiClient.instance.me { user, error ->
-            if (error != null) {
-                Log.e(ContentValues.TAG, "사용자 정보 요청 실패", error)
-            }
-            else if (user != null) {
-                Log.d("userInfo", "사용자 정보 요청 성공" +
 
-                        "\n회원번호: ${user.id}" +
-                        "\n이메일: ${user.kakaoAccount?.email}" +
-                        "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
-                        "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
-            }
-        }
-
-        // 토큰 정보 보기
-        UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
-            if (error != null) {
-                Log.d("Token", "토큰 정보 보기 실패", error)
-            }
-            else if (tokenInfo != null) {
-                Log.d("Token", "토큰 정보 보기 성공" +
-                        "\n회원번호: ${tokenInfo.id}" +
-                        "\n만료시간: ${tokenInfo.expiresIn} 초")
-            }
-        }
 
         // auth/kakao retrofit
             val tokenService = RetrofitClient.TokenService
@@ -159,7 +156,7 @@ class LoginActivity: AppCompatActivity() {
                     response: Response<OAuthTokenResponse>
                 ) {
                     val result = response.body()
-                    Log.d("kakao", " ${result}")
+                    Log.d("kakao", " $result")
                     Log.i(javaClass.simpleName, "api 받아오기 성공 : ${response.body()?.data}")
 
                     Log.d("kakao", "response : ${response.body()?.data}") // 정상출력

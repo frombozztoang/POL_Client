@@ -1,8 +1,12 @@
 package com.umc.pieciesoflife.Retrofit
 
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.umc.pieciesoflife.Interface.QuestionService
 import com.umc.pieciesoflife.Interface.StoryService
+import com.umc.pieciesoflife.Interface.UserService
 import com.umc.pieciesoflife.KakaoLogin.OAuthTokenService
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -20,5 +24,6 @@ object RetrofitClient {
     val storyService: StoryService by lazy {retrofit.create(StoryService::class.java)}
     val questionService: QuestionService by lazy {retrofit.create(QuestionService::class.java)}
     val TokenService: OAuthTokenService by lazy {retrofit.create(OAuthTokenService::class.java)}
+    val userService: UserService by lazy {retrofit.create(UserService::class.java)}
 
 }
