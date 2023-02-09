@@ -1,13 +1,10 @@
 package com.umc.pieciesoflife.Interface
 
-import com.umc.pieciesoflife.DTO.Question
-import com.umc.pieciesoflife.DataClass.ChatMessage
+import com.umc.pieciesoflife.DTO.QuestionDto.Question
 import retrofit2.Call
-import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface QuestionService {
     @GET("/question/{tagId}")
@@ -15,5 +12,5 @@ interface QuestionService {
     "Authorization: Token")
     fun getQuestion(
         @Path("tagId") tagId : Long
-    ) : Call<String>
+    ) : Call<Question>
 }
