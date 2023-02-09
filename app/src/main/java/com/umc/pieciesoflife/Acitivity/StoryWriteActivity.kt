@@ -14,6 +14,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.MutableLiveData
 import com.umc.pieciesoflife.DTO.Question
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
@@ -35,14 +36,22 @@ class StoryWriteActivity : AppCompatActivity() {
         viewBinding = ActivityStoryWriteBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+       // val num: Long = 1
+        var question: Question
+        val result = MutableLiveData<Question>()
         val call = RetrofitClient.questionService
-        call.response().enqueue(object: Callback<Question>{
+
+        call.request(1).enqueue(object: Callback<Question>{
             // 성공 처리
             override fun onResponse(call: Call<Question>, response: Response<Question>) {
                 if(response.isSuccessful()) { // <--> response.code == 200
-                    val result = response.body()
-                    Log.d("testt", "결과는 ${result}")
-                    Log.i(javaClass.simpleName, "api 받아오기 성공 : ${response.body()?.questionTemplate}")
+                    //result.value = response.body()
+                    //Log.d("testt", "결과는 ${result.value}")
+                    question = response.body() as Question
+                    Log.d("testt", "결과는 "+question)
+                    Log.d("testt",response.toString())
+                    Log.d("testt", response.body().toString())
+                //    Log.i(javaClass.simpleName, "api 받아오기 성공 : ${response.body()?.questionTemplate}")
                 }
             }
             // 실패 처리
