@@ -89,11 +89,6 @@ class UserFragment : Fragment() {
             }
         }.attach()
 
-//        val profileImg = LoginActivity().profileImgUrl
-//        val ninkname = LoginActivity().ninkname
-//        val score = 0
-//        val level = 0
-
         val call: UserService = RetrofitClient.userService
         call.getUserInfo("Bearer $accessToken").enqueue(object : Callback<User> {
             // 전송 실패
