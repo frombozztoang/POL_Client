@@ -32,7 +32,6 @@ import retrofit2.Retrofit
 
 class LoginActivity: AppCompatActivity() {
     private lateinit var viewBinding: ActivityLoginBinding
-    private lateinit var auth: FirebaseAuth
     //앱 처음 실행?
     var isFirst : Boolean = true
 
@@ -46,12 +45,6 @@ class LoginActivity: AppCompatActivity() {
         viewBinding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        // FirebaseAuth 인스턴스 초기화화
-        auth = Firebase.auth
-        // 임의 설정
-        val email = "1@naver.com"
-        val password = "123"
-        val name = "1st"
 
         val keyHash = Utility.getKeyHash(this)
         Log.d("Hash", keyHash)

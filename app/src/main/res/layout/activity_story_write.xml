@@ -38,18 +38,12 @@
         android:id="@+id/button_next"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="300dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginEnd="20dp"
         android:background="#00ff0000"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:padding="0dp"
         android:text="다음"
         android:textColor="@color/black"
         android:textSize="16dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TouchTargetSizeCheck" />
 
@@ -57,24 +51,23 @@
         android:id="@+id/view"
         android:layout_width="320dp"
         android:layout_height="1dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="142dp"
         android:background="#DDDDDD"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView49"
+        app:layout_constraintBottom_toTopOf="@+id/editTextTextMultiLine_write_story"/>
 
     <TextView
         android:id="@+id/textView49"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="89dp"
         android:letterSpacing="0"
         android:text="무슨 일이 있었나요?"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/textView47"/>
 
     <TextView
         android:id="@+id/textView47"
@@ -95,7 +88,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="60dp"
-        android:letterSpacing="0"
         android:text="#나이"
         android:textColor="#6B9A85"
         android:textSize="20sp"
@@ -104,74 +96,71 @@
 
     <TextView
         android:id="@+id/textView46"
-        android:layout_width="wrap_content"
+        android:layout_width="203dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="520dp"
-        android:text="답변하기 곤란한 질문은 건너뛰어도 돼요."
+        android:layout_marginBottom="20dp"
+        android:text="어려운 질문은 건너뛰어도 돼요."
         android:textColor="#747474"
         android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/textView45"/>
 
     <Button
         android:id="@+id/button_skip_question"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="236dp"
-        android:layout_marginTop="504dp"
+        android:layout_width="95dp"
+        android:layout_height="29dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/round_button"
         android:backgroundTint="#F9F9F9"
-
-        android:insetTop="11dp"
-        android:insetBottom="11dp"
         android:text="질문 건너뛰기"
         android:textColor="#747474"
         android:textSize="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button_finish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="224dp"
-        android:layout_marginTop="540dp"
-        android:backgroundTint="#F9F9F9"
-
-        android:insetTop="11dp"
-        android:insetBottom="11dp"
-        android:text="이야기 그만두기"
-        android:textColor="#747474"
-        android:textSize="12dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button_finish"/>
 
     <TextView
         android:id="@+id/textView45"
-        android:layout_width="wrap_content"
+        android:layout_width="181dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="557dp"
+        android:layout_marginBottom="51dp"
         android:text="이야기는 언제든지 이어쓸 수 있어요."
         android:textColor="#747474"
         android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
+        android:id="@+id/button_finish"
+        android:layout_width="106dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="45dp"
+        android:background="@drawable/round_button"
+        android:backgroundTint="#F9F9F9"
+        android:text="이야기 그만두기"
+        android:textColor="#747474"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 
     <EditText
         android:id="@+id/editTextTextMultiLine_write_story"
-        android:layout_width="320dp"
+        android:layout_width="match_parent"
         android:layout_height="285dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="171dp"
+        android:layout_marginTop="49dp"
+        android:layout_marginHorizontal="20dp"
         android:background="@null"
         android:ems="10"
         android:gravity="start|top"
         android:hint="내용을 입력하세요"
         android:inputType="textMultiLine"
-        android:privateImeOptions="defaultInputmode=korean"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView49" />
 
     <View
         android:id="@+id/select_tag_view"
@@ -188,117 +177,89 @@
         android:layout_height="32dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
-
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:singleLine="true"
         android:text="#나이"
         android:background="@drawable/tag_age_button"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/select_tag_view"
-        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toTopOf="@+id/select_tag_view" />
+
     <android.widget.Button
         android:id="@+id/tag_year_button"
         android:layout_width="56dp"
         android:layout_height="32dp"
         android:layout_marginStart="92dp"
         android:layout_marginTop="24dp"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:singleLine="true"
         android:text="#연도"
         android:background="@drawable/tag_year_button"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/select_tag_view"
-        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toTopOf="@+id/select_tag_view" />
+
     <android.widget.Button
         android:id="@+id/tag_mood_button"
         android:layout_width="56dp"
         android:layout_height="32dp"
         android:layout_marginStart="164dp"
         android:layout_marginTop="24dp"
-
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:singleLine="true"
         android:text="#감정"
         android:background="@drawable/tag_mood_button"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/select_tag_view"
-        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toTopOf="@+id/select_tag_view" />
+
     <android.widget.Button
         android:id="@+id/tag_place_button"
         android:layout_width="56dp"
         android:layout_height="32dp"
         android:layout_marginStart="236dp"
         android:layout_marginTop="24dp"
-
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:singleLine="true"
         android:text="#장소"
         android:background="@drawable/tag_place_button"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/select_tag_view"
-        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toTopOf="@+id/select_tag_view" />
+
     <android.widget.Button
         android:id="@+id/tag_matter_button"
         android:layout_width="56dp"
         android:layout_height="32dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="72dp"
-
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:singleLine="true"
+        android:layout_marginTop="16dp"
         android:text="#상황"
         android:background="@drawable/tag_matter_button"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/select_tag_view"
-        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/tag_age_button"/>
+
     <android.widget.Button
         android:id="@+id/tag_object_button"
         android:layout_width="56dp"
         android:layout_height="32dp"
         android:layout_marginStart="92dp"
-        android:layout_marginTop="72dp"
-
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:singleLine="true"
+        android:layout_marginTop="16dp"
         android:text="#물건"
         android:background="@drawable/tag_object_button"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/select_tag_view"
-        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/tag_year_button"/>
+
     <android.widget.Button
         android:id="@+id/tag_person_button"
         android:layout_width="56dp"
         android:layout_height="32dp"
         android:layout_marginStart="164dp"
-        android:layout_marginTop="72dp"
-
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:singleLine="true"
+        android:layout_marginTop="16dp"
         android:text="#인물"
         android:background="@drawable/tag_person_button"
         android:textColor="@color/white"
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/select_tag_view"
-        app:layout_constraintTop_toTopOf="@+id/select_tag_view"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/tag_mood_button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

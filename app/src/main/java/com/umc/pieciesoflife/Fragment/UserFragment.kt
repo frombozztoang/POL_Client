@@ -1,6 +1,5 @@
 package com.umc.pieciesoflife.Fragment
 
-import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -16,11 +15,11 @@ import com.umc.pieciesoflife.Adapter.UserVPAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.pieciesoflife.Acitivity.DialogUserEditActivity
-import com.umc.pieciesoflife.Acitivity.LoginActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
-import com.umc.pieciesoflife.DTO.User
+import com.umc.pieciesoflife.Interface.UserService
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
+import com.umc.pieciesoflife.UserDto.User
 import com.umc.pieciesoflife.databinding.FragmentUserBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -95,25 +94,32 @@ class UserFragment : Fragment() {
 //        val score = 0
 //        val level = 0
 
-        val userService = RetrofitClient.userService
-        userService.getUserInfo("Bearer $accessToken").enqueue(object : Callback<User> {
+        val call: UserService = RetrofitClient.userService
+        call.getUserInfo("Bearer $accessToken").enqueue(object : Callback<User> {
             // 전송 실패
             override fun onFailure(call: Call<User>, t: Throwable) {
                 Log.d("getUserInfo", t.message!!)
             }
 
             // 전송 성공
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                val result = response.body()
-                Log.d("getUserInfo", " $result")
-                Log.i(javaClass.simpleName, "api 받아오기 성공 : ${response.body()?.data}")
-
-                Log.d("getUserInfo", "response : ${response.body()}") // 정상출력
-
-                // 전송은 성공 but 서버 4xx 에러
-                Log.d("getUserInfo: 에러바디", "response : ${response.errorBody()}")
-                Log.d("getUserInfo: 메시지", "response : ${response.message()}")
-                Log.d("getUserInfo: 코드", "response : ${response.code()}")
+            override fun onResponse(call: Call<User>, response: Response<User>){
+                response.body()?.let {
+                    val profileImgUrl = it.data.profileImgUrl
+                    val nickname = it.data.nickname
+                    val score = it.data.score
+                    val level = it.data.level
+                    Log.d("성공" , "profile : $profileImgUrl \nninkname : $nickname \nscore : $score \nlevel : $level")
+                } ?: Log.d("Body is null", "몸통은 비었다.")
+//                val result = response.body()
+//                Log.d("getUserInfo", " $result")
+//                Log.i(javaClass.simpleName, "api 받아오기 성공 : ${response.body()}")
+//
+//                Log.d("getUserInfo", "response : ${response.body()}") // 정상출력
+//
+//                // 전송은 성공 but 서버 4xx 에러
+//                Log.d("getUserInfo: 에러바디", "response : ${response.errorBody()}")
+//                Log.d("getUserInfo: 메시지", "response : ${response.message()}")
+//                Log.d("getUserInfo: 코드", "response : ${response.code()}")
 
 
             }
