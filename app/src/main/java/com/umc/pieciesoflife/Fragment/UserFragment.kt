@@ -1,5 +1,7 @@
 package com.umc.pieciesoflife.Fragment
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +11,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Adapter.UserVPAdapter
 import com.google.android.material.tabs.TabLayout
@@ -24,14 +29,18 @@ import com.umc.pieciesoflife.databinding.FragmentUserBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.properties.Delegates
 
 
 class UserFragment : Fragment() {
 
-
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
-    private lateinit var viewBinding: FragmentUserBinding
+
+    lateinit var profileImgUrl :String
+    lateinit var nickname :String
+    var score by Delegates.notNull<Int>()
+    var level by Delegates.notNull<Int>()
 
     val accessToken = "LoginActivity().accessToken"
 
@@ -40,10 +49,12 @@ class UserFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewBinding = FragmentUserBinding.inflate(inflater, container, false)
         val view:View = inflater.inflate(R.layout.fragment_user, container, false)
         viewPager = view.findViewById(R.id.viewPager)
         tabLayout =  view.findViewById(R.id.tabLayout)
+
+        val userName = view.findViewById<TextView>(R.id.username)
+        val imgProfile = view.findViewById<ImageView>(R.id.img_profile)
         val pagerAdapter = UserVPAdapter(requireActivity())
 
         // ->알림
@@ -57,6 +68,8 @@ class UserFragment : Fragment() {
         val btnEdit = view.findViewById<ImageButton>(R.id.btn_edit)
         btnEdit.setOnClickListener {
             val intent = Intent(context, DialogUserEditActivity::class.java)
+            intent.putExtra("nickname",nickname)
+            intent.putExtra("imgProfile", profileImgUrl)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK   //  ← NEW_TASK 추가하지 않으면 기존 task와 같이 관리됩니다.
             startActivity(intent)
         }
@@ -99,11 +112,17 @@ class UserFragment : Fragment() {
             // 전송 성공
             override fun onResponse(call: Call<User>, response: Response<User>){
                 response.body()?.let {
-                    val profileImgUrl = it.data.profileImgUrl
-                    val nickname = it.data.nickname
-                    val score = it.data.score
-                    val level = it.data.level
-                    Log.d("성공" , "profile : $profileImgUrl \nninkname : $nickname \nscore : $score \nlevel : $level")
+                     profileImgUrl = it.data.profileImgUrl
+                     nickname = it.data.nickname
+                     score = it.data.score
+                     level = it.data.level
+
+                    userName.setText(nickname)
+                    Glide.with(imgProfile.context)
+                        .load(profileImgUrl)
+                        .into(imgProfile)
+
+                    Log.d("성공" , "profile : $profileImgUrl \nnickname : $nickname \nscore : $score \nlevel : $level")
                 } ?: Log.d("Body is null", "몸통은 비었다.")
 //                val result = response.body()
 //                Log.d("getUserInfo", " $result")
@@ -115,10 +134,9 @@ class UserFragment : Fragment() {
 //                Log.d("getUserInfo: 에러바디", "response : ${response.errorBody()}")
 //                Log.d("getUserInfo: 메시지", "response : ${response.message()}")
 //                Log.d("getUserInfo: 코드", "response : ${response.code()}")
-
-
             }
         })
+
 
 
 

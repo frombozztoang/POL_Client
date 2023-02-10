@@ -1,7 +1,7 @@
 package com.umc.pieciesoflife.Interface
 
 
-import com.umc.pieciesoflife.UserDto.User
+import com.umc.pieciesoflife.DTO.UserDto.User
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
 import com.umc.pieciesoflife.Fragment.MyBookFragment
 import com.umc.pieciesoflife.Fragment.UserFragment
@@ -23,6 +24,13 @@ class UserEditActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityUserEditBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+        val userIntent = intent
+        val nickname = userIntent.getStringExtra("nickname")
+        val profileImgUrl = userIntent.getStringExtra("imgProfile")
+
+        Glide.with(this).load(profileImgUrl).into(viewBinding.imgProfile)
+        viewBinding.editNickName.setText(nickname)
 
         // 뒤로가기
         viewBinding.btnUserEditCancel.setOnClickListener {

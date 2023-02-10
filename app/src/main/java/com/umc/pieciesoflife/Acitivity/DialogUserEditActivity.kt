@@ -20,6 +20,9 @@ class DialogUserEditActivity: AppCompatActivity(){
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE) // 팝업창 타이틀 없애기
         window?.setGravity(Gravity.BOTTOM) // 팝업창 아래로
 
+        val userIntent = intent
+        val nickname = userIntent.getStringExtra("nickname")
+        val profileImgUrl = userIntent.getStringExtra("imgProfile")
 
         viewBinding = ActivityDialogUserEditBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
@@ -32,6 +35,8 @@ class DialogUserEditActivity: AppCompatActivity(){
 
         viewBinding.btnProfileEdit.setOnClickListener{
             val intent = Intent(this, UserEditActivity::class.java)
+            intent.putExtra("nickname",nickname)
+            intent.putExtra("imgProfile", profileImgUrl)
             startActivity(intent)
         }
 
