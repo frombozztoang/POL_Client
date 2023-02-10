@@ -1,6 +1,7 @@
 package com.umc.pieciesoflife.Interface
 
-import com.umc.pieciesoflife.UserDto.test
+
+import com.umc.pieciesoflife.DTO.UserDto.User
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -10,5 +11,5 @@ interface UserService {
     @GET("user/info")
     fun getUserInfo(
         @Header("Bearer") accessToken: String
-    ): Call<test>
+    ): Call<User>
 }
