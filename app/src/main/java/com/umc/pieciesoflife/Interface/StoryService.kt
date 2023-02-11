@@ -55,8 +55,8 @@ interface StoryService {
 
     // 둘러보기 - 상세보기
     @GET("story/{storyId}")
-    fun getStoryDetailExplore(
-        @Header("Authorization") accessToken : String,
+    fun getStoryDetail(
+        // @Header("Authorization") accessToken : String,
         @Path("storyId") storyId: Int
     ) : Call<StoryDetail>
 
@@ -104,8 +104,8 @@ interface StoryService {
     // 이야기 삭제
     @DELETE("story/{storyId}")
     fun deleteStory(
-        @Header("content-type") contentType : String,
-        @Header("Authorization") accessToken : String,
+        // @Header("content-type") contentType : String,
+        // @Header("Authorization") accessToken : String,
         @Path("storyId") storyId: Int
     ) : Call<StoryDelete> // StoryPost를 해야될수도, ResponseBody 일수도?
 }
