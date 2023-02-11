@@ -5,30 +5,22 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseAuthException
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.ktx.Firebase
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.AuthErrorCause
 import com.kakao.sdk.common.util.Utility
-import com.kakao.sdk.user.UserApi
 import com.kakao.sdk.user.UserApiClient
-import com.kakao.usermgmt.StringSet.nickname
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
-import com.umc.pieciesoflife.DataClass.FBUser
-import com.umc.pieciesoflife.KakaoLogin.OAuthTokenResponse
-import com.umc.pieciesoflife.KakaoLogin.OAuthTokenService
+import com.umc.pieciesoflife.DTO.KakaoDto.Kakao
+import com.umc.pieciesoflife.DTO.UserDto.User
+import com.umc.pieciesoflife.GlobalApplication
+import com.umc.pieciesoflife.Interface.KakaoService
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.databinding.ActivityLoginBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 
 class LoginActivity: AppCompatActivity() {
     private lateinit var viewBinding: ActivityLoginBinding
@@ -39,6 +31,7 @@ class LoginActivity: AppCompatActivity() {
     var accessToken = ""
     var profileImgUrl = ""
     var ninkname = ""
+    var jwtToken = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,9 +93,10 @@ class LoginActivity: AppCompatActivity() {
             else if (token != null) {
                 Toast.makeText(this, "로그인에 성공하였습니다. accessToken : ${token.accessToken}", Toast.LENGTH_SHORT).show()
 
-                // accessToken 새로 발급
+                // accessToken 발급, 저장
                 Log.d("accessToken",  token.accessToken)
                 accessToken = token.accessToken
+                GlobalApplication.prefs.setString("accessToken",accessToken)
 
                 // user 프로필, 닉네임 저장
                 UserApiClient.instance.me { user, error ->
@@ -118,6 +112,26 @@ class LoginActivity: AppCompatActivity() {
                     }
                 }
 
+                // auth/kakao jwt token 발급, 저장
+                val call : KakaoService =  RetrofitClient.kakaoService
+                call.getAuth(accessToken).enqueue(object : Callback<Kakao> {
+                    // 전송 실패
+                    override fun onFailure(call: Call<Kakao>, t: Throwable) {
+                        Log.d("kakao", t.message!!)
+                    }
+
+                    // 전송 성공
+                    override fun onResponse(call: Call<Kakao>, response: Response<Kakao>) {
+                        response.body()?.let {
+                            Log.d("auth/kakao 받아오기 성공 ", "${response.body()}")
+
+                            jwtToken = "${response.body()?.data?.accessToken}"
+                            GlobalApplication.prefs.setString("jwtToken",jwtToken)
+
+                        }?: Log.d("response body null", "LoginActivity jwtToken 받아오기 실패!!!")
+                    }
+                })
+
                 val intent = Intent(this, BottomNavBarActivity::class.java)
                 startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP))
                 finish()
@@ -132,37 +146,6 @@ class LoginActivity: AppCompatActivity() {
                 UserApiClient.instance.loginWithKakaoAccount(this, callback = callback)
             }
         }
-
-
-
-        // auth/kakao retrofit
-            val tokenService = RetrofitClient.TokenService
-            tokenService.postAuth("Bearer $accessToken").enqueue(object : Callback<OAuthTokenResponse> {
-                // 전송 실패
-                override fun onFailure(call: Call<OAuthTokenResponse>, t: Throwable) {
-                    Log.d("kakao", t.message!!)
-                }
-
-                // 전송 성공
-                override fun onResponse(
-                    call: Call<OAuthTokenResponse>,
-                    response: Response<OAuthTokenResponse>
-                ) {
-                    val result = response.body()
-                    Log.d("kakao", " $result")
-                    Log.i(javaClass.simpleName, "api 받아오기 성공 : ${response.body()?.data}")
-
-                    Log.d("kakao", "response : ${response.body()?.data}") // 정상출력
-
-                    // 전송은 성공 but 서버 4xx 에러
-                    Log.d("kakao: 에러바디", "response : ${response.errorBody()}")
-                    Log.d("kakao: 메시지", "response : ${response.message()}")
-                    Log.d("kakao: 코드", "response : ${response.code()}")
-                }
-            })
-
-
-
     }
 
 }
