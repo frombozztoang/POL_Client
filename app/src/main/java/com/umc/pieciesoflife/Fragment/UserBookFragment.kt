@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.pieciesoflife.Acitivity.ExploreDetailedActivity
 import com.umc.pieciesoflife.Acitivity.MybookDetailedActivity
 import com.umc.pieciesoflife.Adapter.BookRVAdapter
+import com.umc.pieciesoflife.DTO.StoryDto.StoryExploreData
 import com.umc.pieciesoflife.DataClass.Book
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.FragmentUserBookBinding
@@ -19,7 +20,7 @@ class UserBookFragment : Fragment() {
     private lateinit var Binding: FragmentUserBookBinding
     private lateinit var bookAdapter: BookRVAdapter   //RV어댑터 생성
 
-    val bookList: ArrayList<Book> = arrayListOf()
+    val bookList: ArrayList<StoryExploreData> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -44,7 +45,7 @@ class UserBookFragment : Fragment() {
         bookAdapter = BookRVAdapter(bookList)
         Binding.rvBook.adapter = bookAdapter
         Binding.rvBook.layoutManager = LinearLayoutManager(context)
-
+        /*
         bookList.apply {
             add(
                 Book(
@@ -105,5 +106,7 @@ class UserBookFragment : Fragment() {
             bookAdapter.notifyDataSetChanged()
 
         }
+
+         */
     }
 }
