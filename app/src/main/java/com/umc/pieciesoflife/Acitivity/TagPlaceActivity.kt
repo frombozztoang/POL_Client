@@ -9,23 +9,33 @@ import android.view.View
 import android.widget.Button
 import com.umc.pieciesoflife.Acitivity.TagMatterActivity
 import com.umc.pieciesoflife.Acitivity.TagMoodActivity
+import com.umc.pieciesoflife.databinding.ActivityTagPlaceBinding
 
 class TagPlaceActivity : AppCompatActivity() {
+    private lateinit var viewBinding : ActivityTagPlaceBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tag_place)
-        val back = findViewById<View>(R.id.button_back) as ImageButton //뒤로가기
-        back.setOnClickListener {
-            val intent = Intent(applicationContext, TagMoodActivity::class.java)
-            startActivity(intent) //다음 Tag 화면 띄우기
-        }
-        val next = findViewById<View>(R.id.button_next) as Button
-        next.setOnClickListener {
+        viewBinding = ActivityTagPlaceBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
+
+        var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
+
+        var TagContent : String = viewBinding.editTextPlace.text.toString()
+        var TagId : Int = 4
+
+        tagHash.put(TagId, TagContent)
+
+        viewBinding.buttonNext.setOnClickListener {
             val intent = Intent(applicationContext, TagMatterActivity::class.java)
+            intent.putExtra("TagHash", tagHash)
             startActivity(intent) //다음 화면 띄우기
         }
-        val skip = findViewById<View>(R.id.button_skip_question) as Button
-        skip.setOnClickListener {
+        viewBinding.buttonBack.setOnClickListener {
+            val intent = Intent(applicationContext, TagMoodActivity::class.java)
+            startActivity(intent) //이전 Tag 화면 띄우기
+        }
+        viewBinding.buttonSkipQuestion.setOnClickListener {
             val intent = Intent(applicationContext, TagMatterActivity::class.java)
             startActivity(intent) //다음 화면 띄우기
         }

@@ -9,23 +9,35 @@ import android.view.View
 import android.widget.Button
 import com.umc.pieciesoflife.Acitivity.TagObjectActivity
 import com.umc.pieciesoflife.Acitivity.TagPlaceActivity
+import com.umc.pieciesoflife.databinding.ActivityTagMatterBinding
+import com.umc.pieciesoflife.databinding.ActivityTagMoodBinding
 
 class TagMatterActivity : AppCompatActivity() {
+    private lateinit var viewBinding:ActivityTagMatterBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tag_matter)
-        val back = findViewById<View>(R.id.button_back) as ImageButton //뒤로가기
-        back.setOnClickListener {
-            val intent = Intent(applicationContext, TagPlaceActivity::class.java)
-            startActivity(intent) //다음 Tag 화면 띄우기
-        }
-        val next = findViewById<View>(R.id.button_next) as Button //다음
-        next.setOnClickListener {
+        viewBinding = ActivityTagMatterBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
+
+        var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
+
+        var TagContent : String = viewBinding.editTextMatter.text.toString()
+        var TagId : Int = 5
+
+        tagHash.put(TagId, TagContent)
+
+        viewBinding.buttonNext.setOnClickListener {
             val intent = Intent(applicationContext, TagObjectActivity::class.java)
+            intent.putExtra("TagHash", tagHash)
+
             startActivity(intent) //다음 화면 띄우기
         }
-        val skip = findViewById<View>(R.id.button_skip_question) as Button
-        skip.setOnClickListener {
+        viewBinding.buttonBack.setOnClickListener {
+            val intent = Intent(applicationContext, TagPlaceActivity::class.java)
+            startActivity(intent) //이전 Tag 화면 띄우기
+        }
+        viewBinding.buttonSkipQuestion.setOnClickListener {
             val intent = Intent(applicationContext, TagObjectActivity::class.java)
             startActivity(intent) //다음 화면 띄우기
         }
