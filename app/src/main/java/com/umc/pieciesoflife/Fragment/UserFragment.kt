@@ -24,10 +24,12 @@ import com.umc.pieciesoflife.Acitivity.DialogUserEditActivity
 import com.umc.pieciesoflife.Acitivity.LoginActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
+import com.umc.pieciesoflife.DTO.MyPageDto.MyPage
 import com.umc.pieciesoflife.Interface.UserService
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.DTO.UserDto.User
 import com.umc.pieciesoflife.GlobalApplication
+import com.umc.pieciesoflife.Interface.MyPageService
 import com.umc.pieciesoflife.databinding.FragmentUserBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -82,13 +84,11 @@ class UserFragment : Fragment() {
             startActivity(intent)
         }
 
-
         // ->새로운 이야기 작성
         val btnNewStory = view.findViewById<Button>(R.id.btn_new_story)
         btnNewStory.setOnClickListener {
             startActivity(Intent(context, StartNewstoryAcitivity::class.java))
         }
-
 
         //ViewPager
         // 2개의 fragment add
@@ -117,6 +117,21 @@ class UserFragment : Fragment() {
 
         Log.d("힝", accessToken)
         Log.d("내가 받은 서버톤큰", jwtToken)
+
+
+        val myPageCall : MyPageService = RetrofitClient.myPageService
+        myPageCall.getMyPage("Bearer $jwtToken").enqueue(object : Callback<MyPage> {
+            // 전송 실패
+            override fun onFailure(call: Call<MyPage>, t: Throwable) {
+                Log.d("getUserInfo", t.message!!)
+            }
+
+            override fun onResponse(call: Call<MyPage>, response: Response<MyPage>) {
+                response.body()?.let {
+                    Log.d("MyPage call" , "${response.body()}")
+                } ?: Log.d("Body is null", "몸통은 비었다.")
+            }
+        })
 
 
 
@@ -148,21 +163,8 @@ class UserFragment : Fragment() {
 
                     Log.d("성공" , "profile : $profileImgUrl \nnickname : $nickname \nscore : $score \nlevel : $level")
                 } ?: Log.d("Body is null", "몸통은 비었다.")
-//                val result = response.body()
-//                Log.d("getUserInfo", " $result")
-//                Log.i(javaClass.simpleName, "api 받아오기 성공 : ${response.body()}")
-//
-//                Log.d("getUserInfo", "response : ${response.body()}") // 정상출력
-//
-//                // 전송은 성공 but 서버 4xx 에러
-//                Log.d("getUserInfo: 에러바디", "response : ${response.errorBody()}")
-//                Log.d("getUserInfo: 메시지", "response : ${response.message()}")
-//                Log.d("getUserInfo: 코드", "response : ${response.code()}")
             }
         })
-
-
-
 
         return view
     }

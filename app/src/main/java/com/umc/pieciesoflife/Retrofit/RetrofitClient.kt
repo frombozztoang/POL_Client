@@ -4,10 +4,7 @@ package com.umc.pieciesoflife.Retrofit
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.umc.pieciesoflife.GlobalApplication
-import com.umc.pieciesoflife.Interface.QuestionService
-import com.umc.pieciesoflife.Interface.UserService
-import com.umc.pieciesoflife.Interface.KakaoService
-import com.umc.pieciesoflife.Interface.StoryService
+import com.umc.pieciesoflife.Interface.*
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -55,5 +52,6 @@ object RetrofitClient {
     val questionService: QuestionService by lazy {retrofit.create(QuestionService::class.java)}
     val kakaoService: KakaoService by lazy {retrofit.create(KakaoService::class.java)}
     val userService: UserService by lazy {retrofit.create(UserService::class.java)}
+    val myPageService: MyPageService by lazy {retrofit.create(MyPageService::class.java)}
 
 }
