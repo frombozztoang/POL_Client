@@ -24,13 +24,21 @@ class UserEditActivity:AppCompatActivity() {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityUserEditBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        var profileImgUrl = ""
+        var defaultFile = ""
 
         val userIntent = intent
-        val nickname = userIntent.getStringExtra("nickname")
-        val profileImgUrl = userIntent.getStringExtra("imgProfile")
 
-        Glide.with(this).load(profileImgUrl).into(viewBinding.imgProfile)
+        val nickname = userIntent.getStringExtra("nickname")
         viewBinding.editNickName.setText(nickname)
+
+        if(userIntent.getStringExtra("imgProfile")!=null) {
+            profileImgUrl = userIntent.getStringExtra("imgProfile")!!
+            Glide.with(this).load(profileImgUrl).into(viewBinding.imgProfile)
+        } else {
+            viewBinding.imgProfile.setImageResource(com.umc.pieciesoflife.R.drawable.ic_pol)
+        }
+
 
         // 뒤로가기
         viewBinding.btnUserEditCancel.setOnClickListener {

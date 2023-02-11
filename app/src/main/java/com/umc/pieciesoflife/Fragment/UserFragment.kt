@@ -1,5 +1,6 @@
 package com.umc.pieciesoflife.Fragment
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -20,11 +21,13 @@ import com.umc.pieciesoflife.Adapter.UserVPAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.pieciesoflife.Acitivity.DialogUserEditActivity
+import com.umc.pieciesoflife.Acitivity.LoginActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
 import com.umc.pieciesoflife.Interface.UserService
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.DTO.UserDto.User
+import com.umc.pieciesoflife.GlobalApplication
 import com.umc.pieciesoflife.databinding.FragmentUserBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,12 +40,12 @@ class UserFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
 
-    lateinit var profileImgUrl :String
+    var profileImgUrl =""
     lateinit var nickname :String
     var score by Delegates.notNull<Int>()
     var level by Delegates.notNull<Int>()
 
-    val accessToken = "LoginActivity().accessToken"
+//    val accessToken = LoginActivity().accessToken
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,7 +72,12 @@ class UserFragment : Fragment() {
         btnEdit.setOnClickListener {
             val intent = Intent(context, DialogUserEditActivity::class.java)
             intent.putExtra("nickname",nickname)
-            intent.putExtra("imgProfile", profileImgUrl)
+            if(profileImgUrl != null) {
+                intent.putExtra("imgProfile", profileImgUrl)
+            } else {
+                intent.putExtra("defaultFile", "R.drawable.ic_pol")
+            }
+
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK   //  ← NEW_TASK 추가하지 않으면 기존 task와 같이 관리됩니다.
             startActivity(intent)
         }
@@ -80,6 +88,7 @@ class UserFragment : Fragment() {
         btnNewStory.setOnClickListener {
             startActivity(Intent(context, StartNewstoryAcitivity::class.java))
         }
+
 
         //ViewPager
         // 2개의 fragment add
@@ -102,25 +111,40 @@ class UserFragment : Fragment() {
             }
         }.attach()
 
+        // accessToken 조회
+        var accessToken =  GlobalApplication.prefs.getString("accessToken", "default-value")
+        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+
+        Log.d("힝", accessToken)
+        Log.d("내가 받은 서버톤큰", jwtToken)
+
+
+
+
         val call: UserService = RetrofitClient.userService
-        call.getUserInfo("Bearer $accessToken").enqueue(object : Callback<User> {
+        call.getUserInfo("Bearer $jwtToken").enqueue(object : Callback<User> {
             // 전송 실패
             override fun onFailure(call: Call<User>, t: Throwable) {
                 Log.d("getUserInfo", t.message!!)
             }
 
             // 전송 성공
+            @SuppressLint("UseCompatLoadingForDrawables")
             override fun onResponse(call: Call<User>, response: Response<User>){
                 response.body()?.let {
-                     profileImgUrl = it.data.profileImgUrl
+                    if(it.data.profileImgUrl != null) {
+                        profileImgUrl = it.data.profileImgUrl
+                        Glide.with(imgProfile.context)
+                            .load(profileImgUrl)
+                            .into(imgProfile)
+                    } else { // 기본 이미지 지정 -> intent로 값 넘겨야 해서 지정
+                        imgProfile.setImageResource(R.drawable.ic_pol)
+                    }
                      nickname = it.data.nickname
                      score = it.data.score
                      level = it.data.level
 
-                    userName.setText(nickname)
-                    Glide.with(imgProfile.context)
-                        .load(profileImgUrl)
-                        .into(imgProfile)
+                     userName.setText(nickname)
 
                     Log.d("성공" , "profile : $profileImgUrl \nnickname : $nickname \nscore : $score \nlevel : $level")
                 } ?: Log.d("Body is null", "몸통은 비었다.")

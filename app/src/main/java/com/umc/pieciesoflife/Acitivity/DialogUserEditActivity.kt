@@ -20,9 +20,16 @@ class DialogUserEditActivity: AppCompatActivity(){
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE) // 팝업창 타이틀 없애기
         window?.setGravity(Gravity.BOTTOM) // 팝업창 아래로
 
+        var profileImgUrl = ""
+        var defaultFile = ""
         val userIntent = intent
         val nickname = userIntent.getStringExtra("nickname")
-        val profileImgUrl = userIntent.getStringExtra("imgProfile")
+
+        if(userIntent.getStringExtra("imgProfile")!=null) {
+            profileImgUrl = userIntent.getStringExtra("imgProfile")!!
+        } else {
+            defaultFile = userIntent.getStringExtra("defaultFile")!!
+        }
 
         viewBinding = ActivityDialogUserEditBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
@@ -36,7 +43,12 @@ class DialogUserEditActivity: AppCompatActivity(){
         viewBinding.btnProfileEdit.setOnClickListener{
             val intent = Intent(this, UserEditActivity::class.java)
             intent.putExtra("nickname",nickname)
-            intent.putExtra("imgProfile", profileImgUrl)
+            if(profileImgUrl != "") {
+                intent.putExtra("imgProfile", profileImgUrl)
+            } else {
+                intent.putExtra("defaultFile", "R.drawable.ic_pol")
+            }
+
             startActivity(intent)
         }
 
