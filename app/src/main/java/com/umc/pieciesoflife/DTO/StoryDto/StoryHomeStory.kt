@@ -3,7 +3,7 @@ package com.umc.pieciesoflife.DTO.StoryDto
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class StoryHomeExploreStory(
+data class StoryHomeStory(
     @SerializedName("backgroundColor") @Expose val backgroundColor: String,
     @SerializedName("date") @Expose val date: String,
     @SerializedName("description") @Expose val description: String,
