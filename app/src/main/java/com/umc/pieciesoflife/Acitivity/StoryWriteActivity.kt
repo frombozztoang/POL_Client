@@ -37,6 +37,9 @@ class StoryWriteActivity : AppCompatActivity() {
         viewBinding = ActivityStoryWriteBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
+        Log.d("TagHash", "$tagHash")
+
         val num: Int = 0
         var qnaHashMap = HashMap<String, String>() //QnA
         var answer : String = ""

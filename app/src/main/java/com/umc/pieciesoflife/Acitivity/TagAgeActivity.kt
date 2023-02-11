@@ -6,30 +6,43 @@ import android.os.Bundle
 import com.umc.pieciesoflife.R
 import android.widget.ImageButton
 import android.content.Intent
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import com.umc.pieciesoflife.databinding.ActivityTagAgeBinding
 
 class TagAgeActivity : AppCompatActivity() {
-    var editText: EditText? = null
+    private lateinit var viewBinding: ActivityTagAgeBinding
+    lateinit var tagHash : HashMap<Int, String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tag_age)
-        editText = findViewById(R.id.editText_age)
-        val back = findViewById<View>(R.id.button_back) as ImageButton //뒤로가기
-        back.setOnClickListener {
-            val intent = Intent(applicationContext, StartNewstoryAcitivity::class.java)
-            startActivity(intent) //다음 Tag 화면 띄우기
-        }
-        val next = findViewById<View>(R.id.button_next) as Button //다음
-        next.setOnClickListener {
+        viewBinding = ActivityTagAgeBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
+
+        tagHash = HashMap()
+
+        var TagContent : String = viewBinding.editTextAge.text.toString()
+        var TagId : Int = 1
+
+        tagHash.put(TagId, TagContent)
+
+        viewBinding.buttonNext.setOnClickListener {
             val intent = Intent(applicationContext, TagYearActivity::class.java)
-            // val input = editText.getText().toString() //텍스트 입력값 받아옴
-            startActivity(intent) //다음 Tag 화면 띄우기
+            intent.putExtra("TagHash", tagHash)
+            startActivity(intent)
         }
-        val skip = findViewById<View>(R.id.button_skip_question) as Button //이야기 건너뛰기
-        skip.setOnClickListener {
+        viewBinding.buttonBack.setOnClickListener {
+            val intent = Intent(applicationContext, StartNewstoryAcitivity::class.java)
+            startActivity(intent) //이전 Tag 화면 띄우기
+        }
+        viewBinding.buttonSkipQuestion.setOnClickListener {
             val intent = Intent(applicationContext, TagYearActivity::class.java)
             startActivity(intent) //다음 화면 띄우기
         }
+
+
+
     }
 }
