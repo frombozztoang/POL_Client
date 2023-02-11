@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.kakao.sdk.user.UserApiClient
+import com.kakao.usermgmt.StringSet.properties
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
 import com.umc.pieciesoflife.databinding.ActivityMainBinding
 
@@ -19,6 +20,8 @@ class MainActivity:AppCompatActivity() {
 
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+
+
 
         // 로그인 정보 확인
         // 로그인 기록 없으면 로그인 화면으로 넘어감
@@ -44,11 +47,12 @@ class MainActivity:AppCompatActivity() {
                         else if (user != null) {
                             Log.d("userInfo", "사용자 정보 요청 성공" +
                                     "\n회원번호: ${user.id}" +
-                                    "\n이메일: ${user.kakaoAccount?.email}" +
                                     "\n닉네임: ${user.kakaoAccount?.profile?.nickname}" +
                                     "\n프로필사진: ${user.kakaoAccount?.profile?.thumbnailImageUrl}")
                         }
+
                     }
+
 
                     // 토큰 정보 보기
                     UserApiClient.instance.accessTokenInfo { tokenInfo, error ->
