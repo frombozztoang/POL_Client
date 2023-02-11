@@ -58,7 +58,7 @@ interface StoryService {
         "Authorization: Token")
     fun postStoryLike(
         @Path("storyId") storyId: Int,
-        @Field("isLiked") isLiked: Boolean
+        @Body isLiked: Boolean
     ) : Call<StoryLike>
 
     // 대표이야기로 설정
@@ -67,7 +67,7 @@ interface StoryService {
         "Authorization: Token")
     fun patchStoryMain(
         @Path("storyId") storyId: Int,
-        @Field("isMain") isMain: Boolean
+        @Body isMain: Boolean
     ) : Call<StoryMain>
 
     // 공개로 설정
@@ -76,7 +76,7 @@ interface StoryService {
         "Authorization: Token")
     fun patchStoryOpen(
         @Path("storyId") storyId: Int,
-        @Field("isOpened") isOpen: Boolean
+        @Body isOpened: Boolean
     ) : Call<StoryOpen>
 
     // 표지색 설정
@@ -85,7 +85,7 @@ interface StoryService {
         "Authorization: Token")
     fun patchStoryColor(
         @Path("storyId") storyId: Int,
-        @Field("color") color: String
+        @Body color: String
     ) : Call<StoryColor>
 
     // 이야기 삭제
@@ -94,5 +94,5 @@ interface StoryService {
         "Authorization: Token")
     fun deleteStory(
         @Path("storyId") storyId: Int
-    ) : Call<StoryDelete> // StoryPost를 해야될수도.
+    ) : Call<StoryDelete> // StoryPost를 해야될수도, ResponseBody 일수도?
 }
