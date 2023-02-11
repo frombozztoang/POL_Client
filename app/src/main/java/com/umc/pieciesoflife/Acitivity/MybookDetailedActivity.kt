@@ -35,10 +35,6 @@ class MybookDetailedActivity : AppCompatActivity() {
         viewBinding.btnBack.setOnClickListener {
             finish()
         }
-        viewBinding.btnWrite.setOnClickListener {
-            val intent = Intent(this, StoryWriteActivity::class.java)
-            startActivity(intent)
-        }
         viewBinding.btnMenu.setOnClickListener {
             val intent = Intent(this, DialogBottomAcitivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
