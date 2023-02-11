@@ -7,6 +7,7 @@ import com.umc.pieciesoflife.GlobalApplication
 import com.umc.pieciesoflife.Interface.QuestionService
 import com.umc.pieciesoflife.Interface.UserService
 import com.umc.pieciesoflife.Interface.KakaoService
+import com.umc.pieciesoflife.Interface.StoryService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -50,7 +51,7 @@ object RetrofitClient {
 
 
     //Interface 클래스 파일들 추가
-    //val storyService: StoryService by lazy {retrofit.create(StoryService::class.java)}
+    val storyService: StoryService by lazy {retrofit.create(StoryService::class.java)}
     val questionService: QuestionService by lazy {retrofit.create(QuestionService::class.java)}
     val kakaoService: KakaoService by lazy {retrofit.create(KakaoService::class.java)}
     val userService: UserService by lazy {retrofit.create(UserService::class.java)}

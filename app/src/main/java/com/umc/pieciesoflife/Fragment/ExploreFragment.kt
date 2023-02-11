@@ -2,6 +2,7 @@ package com.umc.pieciesoflife.Fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -9,14 +10,23 @@ import com.umc.pieciesoflife.Acitivity.ExploreDetailedActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Adapter.BookRVAdapter
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
+import com.umc.pieciesoflife.DTO.QuestionDto.Question
+import com.umc.pieciesoflife.DTO.StoryDto.StoryExplore
+import com.umc.pieciesoflife.DTO.StoryDto.StoryExploreStory
 import com.umc.pieciesoflife.DataClass.Book
+import com.umc.pieciesoflife.Interface.QuestionService
+import com.umc.pieciesoflife.Interface.StoryService
 import com.umc.pieciesoflife.R
+import com.umc.pieciesoflife.Retrofit.RetrofitClient
+import com.umc.pieciesoflife.Retrofit.RetrofitClient.storyService
 import com.umc.pieciesoflife.databinding.FragmentExploreBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ExploreFragment : Fragment() {
     private lateinit var viewBinding: FragmentExploreBinding
     private lateinit var bookAdapter: BookRVAdapter
-
     var bookList : ArrayList<Book> = arrayListOf()
 
     override fun onCreateView(
@@ -71,6 +81,44 @@ class ExploreFragment : Fragment() {
             }
         })
 
+        storyService.getStoryExplore(1,0,8,"like").enqueue(object : Callback<StoryExplore>{
+            override fun onResponse(call: Call<StoryExplore>, response: Response<StoryExplore>) {
+                if(response.isSuccessful){
+                    // 정상적으로 통신이 성공된 경우
+                    var result = response.body()
+                    Log.d("testtt", "onResponse 성공: " + result?.toString());
+
+                } else{
+                    // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                    Log.d("testtt", "onResponse 실패")
+                }
+            }
+
+            override fun onFailure(call: Call<StoryExplore>, t: Throwable) {
+                // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
+                Log.d("YMC", "onFailure 에러: " + t.message.toString());
+            }
+        })
+
+
+//        val call: StoryService = RetrofitClient.storyService
+//        call.getStoryExplore(1,1,8,"like").enqueue(object: Callback<StoryExplore> {
+//            // 성공시
+//            override fun onResponse(call: Call<StoryExplore>, response: Response<StoryExplore>) {
+//                if (response.isSuccessful) { // <--> response.code == 200
+//                    response.body()?.let {
+//                        val responsed2 = it.data.storyList
+//                        viewBinding.tvExplore.text = responsed2.toString()
+//                        Log.d("testtt", "$responsed2")
+//                    }
+//                }
+//            }
+//            // 실패 처리
+//            override fun onFailure(call: Call<StoryExplore>, t: Throwable) {
+//                Log.d("testtt", "에러입니다. ${t.message}")
+//                t.printStackTrace()
+//            }
+//        })
 
         return viewBinding.root
     }
