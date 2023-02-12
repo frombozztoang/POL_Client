@@ -14,23 +14,22 @@ import com.umc.pieciesoflife.databinding.ActivityTagAgeBinding
 
 class TagAgeActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityTagAgeBinding
-
+    //var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityTagAgeBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        var tagHash = HashMap<Int, String>()
         var TagContent : String = ""
-        var TagId = "1"
+        var TagId = 1
 
-        //여기서부터 다시 확인하고 넣어지나 봐야함
         viewBinding.buttonNext.setOnClickListener {
             TagContent = viewBinding.editTextAge.text.toString()
-            val tagArray: Array<Array<String?>> = Array(10) { arrayOfNulls<String?>(2) }
-            tagArray[0]=arrayOf(TagId,TagContent)
-            Log.i("content","$tagArray") //확인
+            tagHash.put(TagId,TagContent) //태그아이디&태그내용 넣기
+            Log.i("content","$tagHash") //확인
             val intent = Intent(applicationContext, TagYearActivity::class.java)
-            intent.putExtra("TagArray", tagArray)
+            intent.putExtra("TagArray", tagHash)
             startActivity(intent)
         }
         viewBinding.buttonBack.setOnClickListener {

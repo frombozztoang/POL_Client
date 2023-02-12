@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.umc.pieciesoflife.R
 import android.widget.ImageButton
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.umc.pieciesoflife.Acitivity.StoryWriteActivity
@@ -21,12 +22,14 @@ class TagPersonActivity : AppCompatActivity() {
 
         var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
 
-        var TagContent : String = viewBinding.editTextPerson.text.toString()
+        var TagContent : String = ""
         var TagId : Int = 7
 
-        tagHash.put(TagId, TagContent)
 
         viewBinding.buttonNext.setOnClickListener {
+            TagContent = viewBinding.editTextPerson.text.toString()
+            tagHash.put(TagId, TagContent)
+            Log.i("content","$tagHash") //확인
             val intent = Intent(applicationContext, StoryWriteActivity::class.java)
             intent.putExtra("TagHash", tagHash)
             startActivity(intent) //다음 화면 띄우기

@@ -20,11 +20,9 @@ class TagYearActivity : AppCompatActivity() {
         viewBinding = ActivityTagYearBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        var tagHash = HashMap<Int, String>()
-        var TagContent : String = viewBinding.editTextYear.text.toString()
+        var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
+        var TagContent : String = ""
         var TagId : Int = 2
-
-        tagHash.put(TagId, TagContent)
 
         viewBinding.buttonNext.setOnClickListener {
             TagContent = viewBinding.editTextYear.text.toString()
