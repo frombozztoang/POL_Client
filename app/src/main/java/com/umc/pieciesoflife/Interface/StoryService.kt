@@ -44,13 +44,12 @@ interface StoryService {
     // 태그 필터링 조회 (나의 자서전1)
     @GET("story/filter/{tagId}")
     fun getStoryFilter(
-        @Header("content-type") contentType : String,
         @Header("Authorization") accessToken : String,
         @Path("tagId") tagId: Int,
         @Query("page") page : Int,
         @Query("size") size : Int,
         @Query("sort") sort : String
-    ) : Call<StoryFilter>
+    ) : Call<StoryExplore>
 
 
     // 둘러보기 - 상세보기
