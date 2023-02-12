@@ -41,7 +41,7 @@ class StoryWriteActivity : AppCompatActivity() {
         Log.d("TagHash", "$tagHash")
 
         val num: Int = 0
-        var qnaHashMap = HashMap<String, String>() //QnA
+        var qnaHash = HashMap<String, String>() //QnA
         var answer : String = ""
         val call: QuestionService = RetrofitClient.questionService
         call.getQuestion(1).enqueue(object: Callback<Question>{
@@ -173,8 +173,8 @@ class StoryWriteActivity : AppCompatActivity() {
         val next = findViewById<View>(R.id.button_next) as Button //다음 질문 생성버튼
         next.setOnClickListener {
             answer = viewBinding.editTextTextMultiLineWriteStory.text.toString()
-            qnaHashMap.put(answer,question) //QnA 저장 해시맵
-            Log.i("qnaHashMap", "$qnaHashMap")
+            qnaHash.put(answer,question) //QnA 저장 해시맵
+            Log.i("qnaHash", "$qnaHash")
             initQuestion(viewBinding.editTextTextMultiLineWriteStory) //질문 초기화
         }
         val back = findViewById<View>(R.id.button_back) as ImageButton //뒤로가기

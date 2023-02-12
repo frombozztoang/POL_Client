@@ -38,6 +38,7 @@ class TagYearActivity : AppCompatActivity() {
         }
         viewBinding.buttonSkipQuestion.setOnClickListener {
             val intent = Intent(applicationContext, TagMoodActivity::class.java)
+            intent.putExtra("TagHash", tagHash)
             startActivity(intent) //다음 화면 띄우기
         }
     }
