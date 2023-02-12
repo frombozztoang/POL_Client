@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="#상황"
-            android:textColor="#6B9A85"
+            android:textColor="#93666F"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@+id/textView1"
             app:layout_constraintTop_toTopOf="parent" />

@@ -11,6 +11,6 @@ interface QuestionService {
     @Headers("content-type: application/json",
     "Authorization: Token")
     fun getQuestion(
-        @Path("tagId") tagId : Long
+        @Path("tagId") tagId : Int
     ) : Call<Question>
 }
