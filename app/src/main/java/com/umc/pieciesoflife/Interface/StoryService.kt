@@ -55,7 +55,7 @@ interface StoryService {
     // 둘러보기 - 상세보기
     @GET("story/{storyId}")
     fun getStoryDetail(
-        // @Header("Authorization") accessToken : String,
+        @Header("Authorization") accessToken : String,
         @Path("storyId") storyId: Int
     ) : Call<StoryDetail>
 

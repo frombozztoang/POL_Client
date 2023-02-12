@@ -1,6 +1,7 @@
 package com.umc.pieciesoflife.Fragment
 
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,11 +15,14 @@ import com.umc.pieciesoflife.Adapter.StoryRVAdapter
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
 import com.umc.pieciesoflife.DTO.StoryDto.Story
 import com.umc.pieciesoflife.DTO.StoryDto.StoryData
+import com.umc.pieciesoflife.DTO.UserDto.User
 import com.umc.pieciesoflife.GlobalApplication
 import com.umc.pieciesoflife.R
+import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.Retrofit.RetrofitClient.storyService
 import com.umc.pieciesoflife.databinding.FragmentHomeBinding
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 
@@ -80,10 +84,66 @@ class HomeFragment : Fragment() {
             viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_three_clear)
         }
 
-        // "application/json","Bearer $jwtToken",1,0,3,"recent"
+        // 프로그레스 바 API 호출
+        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+        RetrofitClient.userService.getUserInfo("Bearer $jwtToken").enqueue(object :
+            Callback<User> {
+            // 성공 처리
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) { // <--> response.code == 200
+                    response.body()?.let {
+                        val score = it.data.score
+                        val level = it.data.level
+
+                        // SeekBar 경험치(score)에 따라 움직이게 설정
+                        viewBinding.seekBarReal.progress = score
+                        viewBinding.seekBarText.progress = score
+                        viewBinding.seekBarReal.isEnabled = false // 터치 불가
+                        viewBinding.seekBarText.isEnabled = false
+
+                        if ( score < 50) {
+                            viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
+                            viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_gray)
+                            viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_gray)
+                            viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.seekbar_thumb)
+                            viewBinding.lv1.setTypeface(null, Typeface.BOLD)
+                        } else if ( score == 50) {
+                            viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
+                            viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_level2)
+                            viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_gray)
+                            viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_two_clear)
+                            viewBinding.lv2.setTypeface(null, Typeface.BOLD)
+                        } else if ( score < 100) {
+                            viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
+                            viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_level2)
+                            viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_gray)
+                            viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_two)
+                            viewBinding.lv2.setTypeface(null, Typeface.BOLD)
+                        } else {
+                            viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
+                            viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_level2)
+                            viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_level3)
+                            viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_three_clear)
+                            viewBinding.lv2.setTypeface(null, Typeface.BOLD)
+                            viewBinding.lv3.setTypeface(null, Typeface.BOLD)
+                        }
+                        Log.d("testtt", "$score")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
+                Log.d("testtt", "onFailure 에러: " + t.message.toString());
+            }
+        }
+        )
+
 
         // 사용자 대표 이야기 리사이클러뷰
-        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+
+        // "application/json","Bearer $jwtToken",1,0,3,"recent"
+
         storyService.getStoryHome("application/json","Bearer $jwtToken",1,0,3,"recent").enqueue(object :
             retrofit2.Callback<Story> {
             // 성공 처리
