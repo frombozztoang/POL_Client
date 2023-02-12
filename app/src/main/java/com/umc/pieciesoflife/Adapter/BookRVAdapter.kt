@@ -1,12 +1,20 @@
 package com.umc.pieciesoflife.Adapter
 
+import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.google.common.io.Resources.getResource
+import com.squareup.picasso.Picasso
+import com.umc.pieciesoflife.DTO.StoryDto.StoryExplore
+import com.umc.pieciesoflife.DTO.StoryDto.StoryExploreData
 import com.umc.pieciesoflife.DataClass.Book
 import com.umc.pieciesoflife.databinding.ItemBookBinding
 
-class BookRVAdapter(private val bookList: ArrayList<Book>): RecyclerView.Adapter<BookRVAdapter.DataViewHolder>() {
+class BookRVAdapter(private var bookList: ArrayList<StoryExploreData>): RecyclerView.Adapter<BookRVAdapter.DataViewHolder>() {
 
     //클릭 interface 정의
     interface MyItemClickListener{
@@ -29,26 +37,32 @@ class BookRVAdapter(private val bookList: ArrayList<Book>): RecyclerView.Adapter
             }
         }
 
-        fun bind(book: Book){
+        fun bind(book: StoryExploreData){
             viewBining.bookTitle.text = book.title
-            viewBining.bookDate.text = book.date
-            viewBining.bookContent.text = book.content
-            viewBining.bookPost.setImageResource(book.postImg)
-            viewBining.bookPostTitle.text = book.postTitle
-            viewBining.bookPostProfile.setImageResource(book.profileImg)
-            viewBining.bookPostUserName.text = book.userName
+            viewBining.bookDate.text = book.createdDate
+            viewBining.bookContent.text = book.description
+            viewBining.bookPost.setImageResource(com.umc.pieciesoflife.R.drawable.ic_book)
+            viewBining.bookPost.setColorFilter(Color.parseColor("#000000")) // ("book.color")
+            viewBining.bookPostTitle.text = book.title
+            if(book.profileImgUrl != null) {
+                Picasso.get().load(book.profileImgUrl).into(viewBining.bookPostProfile)
+            } else {
+                viewBining.bookPostProfile.setImageResource(com.umc.pieciesoflife.R.drawable.ic_pol)
+            }
+            viewBining.bookPostUserName.text = book.nickname
         }
     }
 
     //데이터 개별 추가
-    fun addItem(book: Book){
+    fun addItem(book: StoryExploreData){
         bookList.add(book)
         notifyDataSetChanged()
     }
 
     //데이터 일괄 추가
-    fun addItems(bookList: ArrayList<Book>){
-        //this.bookList = bookList
+    fun addItems(bookList: ArrayList<StoryExploreData>){
+        this.bookList = bookList
+        notifyDataSetChanged()
     }
 
     //데이터 개별 삭제

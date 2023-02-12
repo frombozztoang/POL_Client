@@ -14,31 +14,34 @@ import com.umc.pieciesoflife.databinding.ActivityTagAgeBinding
 
 class TagAgeActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityTagAgeBinding
-    lateinit var tagHash : HashMap<Int, String>
-
+    //var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityTagAgeBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        tagHash = HashMap()
+        var tagHash = HashMap<Int, String>()
+        var TagContent : String = ""
+        var TagId = 1
 
-        var TagContent : String = viewBinding.editTextAge.text.toString()
-        var TagId : Int = 1
-
-        tagHash.put(TagId, TagContent)
-
+        //다음
         viewBinding.buttonNext.setOnClickListener {
+            TagContent = viewBinding.editTextAge.text.toString()
+            tagHash.put(TagId,TagContent) //태그아이디&태그내용 넣기
+            Log.i("content","$tagHash") //확인
             val intent = Intent(applicationContext, TagYearActivity::class.java)
             intent.putExtra("TagHash", tagHash)
             startActivity(intent)
         }
+        //뒤로가기
         viewBinding.buttonBack.setOnClickListener {
             val intent = Intent(applicationContext, StartNewstoryAcitivity::class.java)
             startActivity(intent) //이전 Tag 화면 띄우기
         }
+        //질문 건너뛰기
         viewBinding.buttonSkipQuestion.setOnClickListener {
             val intent = Intent(applicationContext, TagYearActivity::class.java)
+            intent.putExtra("TagHash", tagHash)
             startActivity(intent) //다음 화면 띄우기
         }
 

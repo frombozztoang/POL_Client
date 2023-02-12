@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.umc.pieciesoflife.R
 import android.widget.ImageButton
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.viewbinding.ViewBinding
@@ -22,12 +23,14 @@ class TagMoodActivity : AppCompatActivity() {
 
         var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
 
-        var TagContent : String = viewBinding.editTextMood.text.toString()
+        var TagContent : String = ""
         var TagId : Int = 3
 
-        tagHash.put(TagId, TagContent)
 
         viewBinding.buttonNext.setOnClickListener {
+            TagContent = viewBinding.editTextMood.text.toString()
+            tagHash.put(TagId, TagContent)
+            Log.i("content","$tagHash") //확인
             val intent = Intent(applicationContext, TagPlaceActivity::class.java)
             intent.putExtra("TagHash", tagHash)
             startActivity(intent) //다음 화면 띄우기
@@ -38,6 +41,7 @@ class TagMoodActivity : AppCompatActivity() {
         }
         viewBinding.buttonSkipQuestion.setOnClickListener {
             val intent = Intent(applicationContext, TagPlaceActivity::class.java)
+            intent.putExtra("TagHash", tagHash)
             startActivity(intent) //다음 화면 띄우기
         }
     }

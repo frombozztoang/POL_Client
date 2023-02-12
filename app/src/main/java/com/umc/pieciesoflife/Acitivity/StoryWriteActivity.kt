@@ -41,7 +41,8 @@ class StoryWriteActivity : AppCompatActivity() {
         Log.d("TagHash", "$tagHash")
 
         val num: Int = 0
-
+        var qnaHash = HashMap<String, String>() //QnA
+        var answer : String = ""
         val call: QuestionService = RetrofitClient.questionService
         call.getQuestion(1).enqueue(object: Callback<Question>{
             // 성공 처리
@@ -50,9 +51,7 @@ class StoryWriteActivity : AppCompatActivity() {
                     response.body()?.let {
                         question = it.data.questionTemplate
                         viewBinding.tvQuestion.setText(question)
-                        Log.d("testt", "$question")
                     }
-
                 }
             }
             // 실패 처리
@@ -61,15 +60,6 @@ class StoryWriteActivity : AppCompatActivity() {
                 t.printStackTrace()
             }
         })
-
-        //태그 담을 리스트
-        val ageTagList: ArrayList<String> = arrayListOf<String>()
-        val matterTagList: ArrayList<String> = arrayListOf<String>()
-        val moodTagList: ArrayList<String> = arrayListOf<String>()
-        val objectTagList: ArrayList<String> = arrayListOf<String>()
-        val personTagList: ArrayList<String> = arrayListOf<String>()
-        val placeTagList: ArrayList<String> = arrayListOf<String>()
-        val yearTagList: ArrayList<String> = arrayListOf<String>()
 
         var str = "" //리스트에 입력할 문자열
 
@@ -112,7 +102,6 @@ class StoryWriteActivity : AppCompatActivity() {
                         //리스트에 문자열 입력하기
                         str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
                         Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        ageTagList.add(str)
                         str="" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
@@ -121,7 +110,6 @@ class StoryWriteActivity : AppCompatActivity() {
                         changeMatterColor(s.toString().substring(start), start-1, start + count)
                         str=edtTxtMine.text.toString().substring(start,start+count)
                         Log.i(javaClass.simpleName,"str :$str")
-                        matterTagList.add(str)
                         str=""
                         setTagInvisible()
                         hashTagIsComing = 0
@@ -130,7 +118,6 @@ class StoryWriteActivity : AppCompatActivity() {
                         changeMoodColor(s.toString().substring(start), start-1, start + count)
                         str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
                         Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        moodTagList.add(str)
                         str="" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
@@ -139,7 +126,6 @@ class StoryWriteActivity : AppCompatActivity() {
                         changeObjectColor(s.toString().substring(start), start-1, start + count)
                         str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
                         Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        objectTagList.add(str)
                         str="" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
@@ -148,7 +134,6 @@ class StoryWriteActivity : AppCompatActivity() {
                         changePersonColor(s.toString().substring(start), start-1, start + count)
                         str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
                         Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        personTagList.add(str)
                         str="" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
@@ -157,7 +142,6 @@ class StoryWriteActivity : AppCompatActivity() {
                         changePlaceColor(s.toString().substring(start), start-1, start + count)
                         str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
                         Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        placeTagList.add(str)
                         str="" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
@@ -166,7 +150,6 @@ class StoryWriteActivity : AppCompatActivity() {
                         changeYearColor(s.toString().substring(start), start-1, start + count)
                         str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
                         Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        yearTagList.add(str)
                         str="" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
@@ -186,25 +169,13 @@ class StoryWriteActivity : AppCompatActivity() {
             }
         })
 
-        /*age=findViewById(R.id.textView48);
-        Intent intent_data = getIntent();
-        String input=intent_data.getStringExtra("age");
-        if (input!=null)
-            age.setText(input);*/
-
-        //이 파트가 api 이용해서 답변 저장, 질문 새로고침 해야함. 일단 skip.
-        /*Button next = (Button) findViewById(R.id.button_next); //다음 질문 새로고침
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), );
-                startActivity(intent); //다음 화면 띄우기
-            }
-        });*/
 
         val next = findViewById<View>(R.id.button_next) as Button //다음 질문 생성버튼
         next.setOnClickListener {
-
+            answer = viewBinding.editTextTextMultiLineWriteStory.text.toString()
+            qnaHash.put(answer,question) //QnA 저장 해시맵
+            Log.i("qnaHash", "$qnaHash")
+            initQuestion(viewBinding.editTextTextMultiLineWriteStory) //질문 초기화
         }
         val back = findViewById<View>(R.id.button_back) as ImageButton //뒤로가기
         back.setOnClickListener {
@@ -221,6 +192,10 @@ class StoryWriteActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, SaveTitleActivity::class.java)
             startActivity(intent) //다음 화면 띄우기
         }
+    }
+    fun initQuestion(editText: EditText) {
+        editText.setText("")
+        editText.setSelection(editText.text.length)
     }
     fun setTagVisible(){
         viewBinding.selectTagView.visibility=View.VISIBLE

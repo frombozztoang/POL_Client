@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.umc.pieciesoflife.R
 import android.widget.ImageButton
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.umc.pieciesoflife.Acitivity.TagObjectActivity
@@ -21,16 +22,16 @@ class TagMatterActivity : AppCompatActivity() {
         setContentView(viewBinding.root)
 
         var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
-
-        var TagContent : String = viewBinding.editTextMatter.text.toString()
+        var TagContent : String = ""
         var TagId : Int = 5
 
-        tagHash.put(TagId, TagContent)
 
         viewBinding.buttonNext.setOnClickListener {
+            TagContent = viewBinding.editTextMatter.text.toString()
+            tagHash.put(TagId, TagContent)
+            Log.i("content","$tagHash") //확인
             val intent = Intent(applicationContext, TagObjectActivity::class.java)
             intent.putExtra("TagHash", tagHash)
-
             startActivity(intent) //다음 화면 띄우기
         }
         viewBinding.buttonBack.setOnClickListener {
@@ -39,6 +40,7 @@ class TagMatterActivity : AppCompatActivity() {
         }
         viewBinding.buttonSkipQuestion.setOnClickListener {
             val intent = Intent(applicationContext, TagObjectActivity::class.java)
+            intent.putExtra("TagHash", tagHash)
             startActivity(intent) //다음 화면 띄우기
         }
     }
