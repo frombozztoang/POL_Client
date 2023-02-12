@@ -24,7 +24,7 @@ class TagPlaceActivity : AppCompatActivity() {
         var TagContent : String = ""
         var TagId : Int = 4
 
-
+        //다음
         viewBinding.buttonNext.setOnClickListener {
             TagContent = viewBinding.editTextPlace.text.toString()
             tagHash.put(TagId, TagContent)
@@ -33,12 +33,15 @@ class TagPlaceActivity : AppCompatActivity() {
             intent.putExtra("TagHash", tagHash)
             startActivity(intent) //다음 화면 띄우기
         }
+        //뒤로가기
         viewBinding.buttonBack.setOnClickListener {
             val intent = Intent(applicationContext, TagMoodActivity::class.java)
             startActivity(intent) //이전 Tag 화면 띄우기
         }
+        //이야기 건너뛰기
         viewBinding.buttonSkipQuestion.setOnClickListener {
             val intent = Intent(applicationContext, TagMatterActivity::class.java)
+            intent.putExtra("TagHash", tagHash)
             startActivity(intent) //다음 화면 띄우기
         }
     }
