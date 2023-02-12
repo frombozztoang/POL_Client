@@ -1,8 +1,6 @@
 package com.umc.pieciesoflife.Fragment
 
 import android.annotation.SuppressLint
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +19,6 @@ import com.umc.pieciesoflife.Adapter.UserVPAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.umc.pieciesoflife.Acitivity.DialogUserEditActivity
-import com.umc.pieciesoflife.Acitivity.LoginActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
 import com.umc.pieciesoflife.DTO.MyPageDto.MyPage
@@ -30,7 +27,6 @@ import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.DTO.UserDto.User
 import com.umc.pieciesoflife.GlobalApplication
 import com.umc.pieciesoflife.Interface.MyPageService
-import com.umc.pieciesoflife.databinding.FragmentUserBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
