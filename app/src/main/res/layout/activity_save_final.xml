@@ -107,7 +107,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_date2"
+        android:id="@+id/textView_Intro"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="422dp"

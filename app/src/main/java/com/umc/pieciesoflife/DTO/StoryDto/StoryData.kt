@@ -2,7 +2,7 @@ package com.umc.pieciesoflife.DTO.StoryDto
 
 import com.google.gson.annotations.SerializedName
 
-data class StoryExploreData(
+data class StoryData(
     @SerializedName("color") val color: String,
     @SerializedName("createdDate") val createdDate: String,
     @SerializedName("description") val description: String,

@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.pieciesoflife.Acitivity.MybookDetailedActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
-import com.umc.pieciesoflife.Adapter.BookRVAdapter
-import com.umc.pieciesoflife.Adapter.MyBookRVAdapter
+import com.umc.pieciesoflife.Adapter.StoryRVAdapter
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
 import com.umc.pieciesoflife.DTO.StoryDto.*
 import com.umc.pieciesoflife.R
@@ -25,11 +24,10 @@ import retrofit2.Response
 
 class MyBookFragment : Fragment() {
     private lateinit var viewBinding: FragmentMybookBinding
-    private lateinit var bookAdapter: BookRVAdapter
-    // 스토리 태그랑 스토리 리스트 담고 스토리 리스트 담아온거를 다른 찐 booklist에 담기
-    // 띄울 때는 그것만 띄우기
 
-    var bookList: ArrayList<StoryExploreData> = arrayListOf()
+    private lateinit var bookAdapter: StoryRVAdapter
+    var bookList: ArrayList<StoryData> = arrayListOf()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +37,7 @@ class MyBookFragment : Fragment() {
         viewBinding = FragmentMybookBinding.inflate(inflater, container, false)
 
         //리사이클러뷰 어댑터 설정
-        bookAdapter = BookRVAdapter(bookList)
+        bookAdapter = StoryRVAdapter(bookList)
         viewBinding.rvMybooks.adapter = bookAdapter
         viewBinding.rvMybooks.layoutManager = LinearLayoutManager(context)
 
@@ -118,7 +116,7 @@ class MyBookFragment : Fragment() {
 
 
         // -> 자서전 상세보기 .. 얘도 !!
-        bookAdapter.setMyItemClickListener(object : BookRVAdapter.MyItemClickListener{
+        bookAdapter.setMyItemClickListener(object : StoryRVAdapter.MyItemClickListener{
             override fun onItemClick(position: Int) {
                 val intent = Intent(context, MybookDetailedActivity::class.java)
                 startActivity(intent)
@@ -140,20 +138,23 @@ class MyBookFragment : Fragment() {
         bookAdapter.clear()
     }
 
+   lateinit var storyTag: String
+
     private fun initRecycler(tagId: Int) {
 //        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
         val JWTTOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLsnbTrs7TtmIQiLCJuaWNrbmFtZSI6IuydtOuztO2YhCIsImlkIjoxNywiZXhwIjoxNjc3MDYwNzE5fQ.qVi4R1_Khq8ZW2FibwW1FEVrIm3cfZj_bxRWAMjIltmiEqpqbiAuRtKyB-9GlMOpUgev-vteTBKhlMiYRpdODg"
-        storyService.getStoryFilter("Bearer $JWTTOKEN",tagId,1, 5,"").enqueue(object : Callback<StoryExplore> {
+        storyService.getStoryFilter("Bearer $JWTTOKEN",tagId,0, 5,"").enqueue(object : Callback<Story> {
             // 성공 처리
-            override fun onResponse(call: Call<StoryExplore>, response: Response<StoryExplore>) {
+            override fun onResponse(call: Call<Story>, response: Response<Story>) {
                 if (response.isSuccessful) { // <--> response.code == 200
                     response.body()?.let {
-                        bookList = it.dataList as ArrayList<StoryExploreData>
+
+                        bookList = it.dataList as ArrayList<StoryData>
                         bookAdapter.addItems(bookList)
                     }
                 }
             }
-            override fun onFailure(call: Call<StoryExplore>, t: Throwable) {
+            override fun onFailure(call: Call<Story>, t: Throwable) {
                 // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                 Log.d("testtt", "onFailure 에러: " + t.message.toString());
             }

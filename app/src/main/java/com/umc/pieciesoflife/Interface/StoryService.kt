@@ -1,7 +1,7 @@
 package com.umc.pieciesoflife.Interface
 
 
-import com.umc.pieciesoflife.DTO.StoryDto.StoryExplore
+import com.umc.pieciesoflife.DTO.StoryDto.Story
 import com.umc.pieciesoflife.DTO.StoryDto.*
 import retrofit2.Call
 import retrofit2.http.*
@@ -17,19 +17,19 @@ interface StoryService {
         @Query("page") page : Int,
         @Query("size") size : Int,
         @Query("sort") sort : String
-    ): Call<StoryExplore>
+    ): Call<Story>
 
 
-//    // 홈 화면
-//    @GET("/story/main")
-//    fun getStoryHome(
-//        @Header("content-type") contentType : String,
-//        @Header("Authorization") accessToken : String,
-//        @Query("cursorId") cursorId : Int,
-//        @Query("page") page : Int,
-//        @Query("size") size : Int,
-//        @Query("sort") sort : String
-//    ): Call<StoryHome>
+    // 홈 화면(HomeFragment)
+    @GET("/story/main")
+    fun getStoryHome(
+        @Header("content-type") contentType : String,
+        @Header("Authorization") accessToken : String,
+        @Query("cursorId") cursorId : Int,
+        @Query("page") page : Int,
+        @Query("size") size : Int,
+        @Query("sort") sort : String
+    ): Call<Story>
 
     // 이야기 생성
     @POST("/Story")
@@ -49,7 +49,7 @@ interface StoryService {
         @Query("page") page : Int,
         @Query("size") size : Int,
         @Query("sort") sort : String
-    ) : Call<StoryExplore>
+    ) : Call<Story>
 
 
     // 둘러보기 - 상세보기
