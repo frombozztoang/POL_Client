@@ -1,20 +1,14 @@
 package com.umc.pieciesoflife.Adapter
 
-import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.google.common.io.Resources.getResource
 import com.squareup.picasso.Picasso
-import com.umc.pieciesoflife.DTO.StoryDto.StoryExplore
-import com.umc.pieciesoflife.DTO.StoryDto.StoryExploreData
-import com.umc.pieciesoflife.DataClass.Book
+import com.umc.pieciesoflife.DTO.StoryDto.StoryData
 import com.umc.pieciesoflife.databinding.ItemBookBinding
 
-class BookRVAdapter(private var bookList: ArrayList<StoryExploreData>): RecyclerView.Adapter<BookRVAdapter.DataViewHolder>() {
+class StoryRVAdapter(private var bookList: ArrayList<StoryData>): RecyclerView.Adapter<StoryRVAdapter.DataViewHolder>() {
 
     //클릭 interface 정의
     interface MyItemClickListener{
@@ -37,12 +31,12 @@ class BookRVAdapter(private var bookList: ArrayList<StoryExploreData>): Recycler
             }
         }
 
-        fun bind(book: StoryExploreData){
+        fun bind(book: StoryData){
             viewBining.bookTitle.text = book.title
             viewBining.bookDate.text = book.createdDate
             viewBining.bookContent.text = book.description
             viewBining.bookPost.setImageResource(com.umc.pieciesoflife.R.drawable.ic_book)
-            viewBining.bookPost.setColorFilter(Color.parseColor("#000000")) // ("book.color")
+            viewBining.bookPost.setColorFilter(Color.parseColor(book.color)) // ("book.color")
             viewBining.bookPostTitle.text = book.title
             if(book.profileImgUrl != null) {
                 Picasso.get().load(book.profileImgUrl).into(viewBining.bookPostProfile)
@@ -54,13 +48,13 @@ class BookRVAdapter(private var bookList: ArrayList<StoryExploreData>): Recycler
     }
 
     //데이터 개별 추가
-    fun addItem(book: StoryExploreData){
+    fun addItem(book: StoryData){
         bookList.add(book)
         notifyDataSetChanged()
     }
 
     //데이터 일괄 추가
-    fun addItems(bookList: ArrayList<StoryExploreData>){
+    fun addItems(bookList: ArrayList<StoryData>){
         this.bookList = bookList
         notifyDataSetChanged()
     }

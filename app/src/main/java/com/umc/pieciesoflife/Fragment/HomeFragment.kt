@@ -1,9 +1,8 @@
 package com.umc.pieciesoflife.Fragment
 
 import android.content.Intent
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,21 +10,25 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.pieciesoflife.Acitivity.MybookDetailedActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
-import com.umc.pieciesoflife.Adapter.BookRVAdapter
+import com.umc.pieciesoflife.Adapter.StoryRVAdapter
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
-import com.umc.pieciesoflife.DTO.StoryDto.StoryExploreData
-import com.umc.pieciesoflife.DataClass.Book
+import com.umc.pieciesoflife.DTO.StoryDto.Story
+import com.umc.pieciesoflife.DTO.StoryDto.StoryData
+import com.umc.pieciesoflife.GlobalApplication
 import com.umc.pieciesoflife.R
+import com.umc.pieciesoflife.Retrofit.RetrofitClient.storyService
 import com.umc.pieciesoflife.databinding.FragmentHomeBinding
+import retrofit2.Call
+import retrofit2.Response
 
 
 class HomeFragment : Fragment() {
     private lateinit var viewBinding: FragmentHomeBinding
-    private lateinit var bookAdapter: BookRVAdapter
+    private lateinit var bookAdapter: StoryRVAdapter
     private var level = 0 // 레벨
     private var exp : Int = 0 // 경험치
 
-    var bookList: ArrayList<StoryExploreData> = arrayListOf()
+    var bookList: ArrayList<StoryData> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +37,7 @@ class HomeFragment : Fragment() {
     ): View? {
         viewBinding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        bookAdapter = BookRVAdapter(bookList)
+        bookAdapter = StoryRVAdapter(bookList)
         viewBinding.rvMyTitles.adapter = bookAdapter
         viewBinding.rvMyTitles.layoutManager = LinearLayoutManager(context)
 
@@ -76,49 +79,33 @@ class HomeFragment : Fragment() {
             viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_level3)
             viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_three_clear)
         }
-/*
-        bookList.apply {
-            add(
-                Book(
-                    profileImg = R.drawable.ic_flag_level2,
-                    userName = "mary",
-                    date = "2023.11.12",
-                    title = "대표이야기1",
-                    content = "어쩔티비 ",
-                    postTitle = "첫번째 하아",
-                    postImg = R.drawable.ic_book
-                )
-            )
-            add(
-                Book(
-                    profileImg = R.drawable.ic_flag_level2,
-                    userName = "mary",
-                    date = "2023.11.12",
-                    title = "대표이야기2",
-                    content = "어쩔티비 ",
-                    postTitle = "두번째 하아",
-                    postImg = R.drawable.ic_book
-                )
-            )
-            add(
-                Book(
-                    profileImg = R.drawable.ic_flag_level2,
-                    userName = "mary",
-                    date = "2023.11.12",
-                    title = "대표이야기3",
-                    content = "어쩔티비 ",
-                    postTitle = "하아...",
-                    postImg = R.drawable.ic_book
-                )
-            )
 
-            bookAdapter.notifyDataSetChanged()
+        // "application/json","Bearer $jwtToken",1,0,3,"recent"
+
+        // 사용자 대표 이야기 리사이클러뷰
+        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+        storyService.getStoryHome("application/json","Bearer $jwtToken",1,0,3,"recent").enqueue(object :
+            retrofit2.Callback<Story> {
+            // 성공 처리
+            override fun onResponse(call: Call<Story>, response: Response<Story>) {
+                if (response.isSuccessful) { // <--> response.code == 200
+                    response.body()?.let {
+                        bookList = it.dataList as ArrayList<StoryData>
+                        bookAdapter.addItems(bookList)
+                        Log.d("testtt", "$bookList")
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<Story>, t: Throwable) {
+                // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
+                Log.d("testtt", "onFailure 에러: " + t.message.toString());
+            }
         }
-
- */
+        )
 
         // -> 자서전 상세보기 .. 얘도 우선 걍 넘김
-        bookAdapter.setMyItemClickListener(object : BookRVAdapter.MyItemClickListener{
+        bookAdapter.setMyItemClickListener(object : StoryRVAdapter.MyItemClickListener{
             override fun onItemClick(position: Int) {
                 val intent = Intent(context, MybookDetailedActivity::class.java)
                 startActivity(intent)

@@ -10,18 +10,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.pieciesoflife.Acitivity.MybookDetailedActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
-import com.umc.pieciesoflife.Adapter.BookRVAdapter
+import com.umc.pieciesoflife.Adapter.StoryRVAdapter
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
-import com.umc.pieciesoflife.DTO.StoryDto.StoryExploreData
-import com.umc.pieciesoflife.DataClass.Book
+import com.umc.pieciesoflife.DTO.StoryDto.StoryData
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.FragmentMybookBinding
 
 
 class MyBookFragment : Fragment() {
     private lateinit var viewBinding: FragmentMybookBinding
-    private lateinit var bookAdapter: BookRVAdapter
-    var bookList: ArrayList<StoryExploreData> = arrayListOf()
+    private lateinit var bookAdapter: StoryRVAdapter
+    var bookList: ArrayList<StoryData> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +30,7 @@ class MyBookFragment : Fragment() {
         viewBinding = FragmentMybookBinding.inflate(inflater, container, false)
 
         //리사이클러뷰 어댑터 설정
-        bookAdapter = BookRVAdapter(bookList)
+        bookAdapter = StoryRVAdapter(bookList)
         viewBinding.rvMybooks.adapter = bookAdapter
         viewBinding.rvMybooks.layoutManager = LinearLayoutManager(context)
 
@@ -172,7 +171,7 @@ class MyBookFragment : Fragment() {
 
 
         // -> 자서전 상세보기 .. 얘도 !!
-        bookAdapter.setMyItemClickListener(object : BookRVAdapter.MyItemClickListener{
+        bookAdapter.setMyItemClickListener(object : StoryRVAdapter.MyItemClickListener{
             override fun onItemClick(position: Int) {
                 val intent = Intent(context, MybookDetailedActivity::class.java)
                 startActivity(intent)

@@ -8,11 +8,10 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.pieciesoflife.Acitivity.ExploreDetailedActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
-import com.umc.pieciesoflife.Adapter.BookRVAdapter
+import com.umc.pieciesoflife.Adapter.StoryRVAdapter
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
-import com.umc.pieciesoflife.DTO.StoryDto.StoryExplore
-import com.umc.pieciesoflife.DTO.StoryDto.StoryExploreData
-import com.umc.pieciesoflife.DataClass.Book
+import com.umc.pieciesoflife.DTO.StoryDto.Story
+import com.umc.pieciesoflife.DTO.StoryDto.StoryData
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient.storyService
 import com.umc.pieciesoflife.databinding.FragmentExploreBinding
@@ -22,8 +21,8 @@ import retrofit2.Response
 
 class ExploreFragment : Fragment() {
     private lateinit var viewBinding: FragmentExploreBinding
-    private lateinit var bookAdapter: BookRVAdapter
-    var bookList : ArrayList<StoryExploreData> = arrayListOf()
+    private lateinit var bookAdapter: StoryRVAdapter
+    var bookList : ArrayList<StoryData> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,7 +32,7 @@ class ExploreFragment : Fragment() {
         viewBinding = FragmentExploreBinding.inflate(inflater, container, false)
 
         //리사이클러뷰 어댑터 설정
-        bookAdapter = BookRVAdapter(bookList)
+        bookAdapter = StoryRVAdapter(bookList)
         viewBinding.rvExplore.adapter = bookAdapter
         viewBinding.rvExplore.layoutManager = LinearLayoutManager(context)
 
@@ -70,7 +69,7 @@ class ExploreFragment : Fragment() {
         }
 
         // -> 자서전 상세보기 페이지(ExploreDetailedActivity) .. 우선은 걍 intent만 해놓음 서버 연결 후, 클릭된 자서전 내용으로 떠야됌
-        bookAdapter.setMyItemClickListener(object : BookRVAdapter.MyItemClickListener{
+        bookAdapter.setMyItemClickListener(object : StoryRVAdapter.MyItemClickListener{
             override fun onItemClick(position: Int) {
                 val intent = Intent(context, ExploreDetailedActivity::class.java)
                 startActivity(intent)
@@ -82,19 +81,19 @@ class ExploreFragment : Fragment() {
 
     // 최신순
     private fun newRecycler() {
-        storyService.getStoryExplore(1,0,8,"recent").enqueue(object : Callback<StoryExplore> {
+        storyService.getStoryExplore(1,0,8,"recent").enqueue(object : Callback<Story> {
             // 성공 처리
-            override fun onResponse(call: Call<StoryExplore>, response: Response<StoryExplore>) {
+            override fun onResponse(call: Call<Story>, response: Response<Story>) {
                 if (response.isSuccessful) { // <--> response.code == 200
                     response.body()?.let {
-                        bookList = it.dataList as ArrayList<StoryExploreData>
+                        bookList = it.dataList as ArrayList<StoryData>
                         bookAdapter.addItems(bookList)
                         Log.d("testtt", "$bookList")
                     }
                 }
             }
 
-            override fun onFailure(call: Call<StoryExplore>, t: Throwable) {
+            override fun onFailure(call: Call<Story>, t: Throwable) {
                 // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                 Log.d("testtt", "onFailure 에러: " + t.message.toString());
             }
@@ -105,19 +104,19 @@ class ExploreFragment : Fragment() {
 
     // 인기순
     private fun likeRecycler() {
-        storyService.getStoryExplore(1,0,8,"like").enqueue(object : Callback<StoryExplore> {
+        storyService.getStoryExplore(1,0,8,"like").enqueue(object : Callback<Story> {
             // 성공 처리
-            override fun onResponse(call: Call<StoryExplore>, response: Response<StoryExplore>) {
+            override fun onResponse(call: Call<Story>, response: Response<Story>) {
                 if (response.isSuccessful) { // <--> response.code == 200
                     response.body()?.let {
-                        bookList = it.dataList as ArrayList<StoryExploreData>
+                        bookList = it.dataList as ArrayList<StoryData>
                         bookAdapter.addItems(bookList)
                         Log.d("testtt", "$bookList")
                     }
                 }
             }
 
-            override fun onFailure(call: Call<StoryExplore>, t: Throwable) {
+            override fun onFailure(call: Call<Story>, t: Throwable) {
                 // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                 Log.d("testtt", "onFailure 에러: " + t.message.toString());
             }
