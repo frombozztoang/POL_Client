@@ -41,16 +41,16 @@ interface StoryService {
         @Body storyQna: StoryQna
     ) : Call<StoryPost>
 
-//    // 태그 필터링 조회 (나의 자서전1)
-//    @GET("story/filter/{tagId}")
-//    fun getStoryTagFilter(
-//        @Header("content-type") contentType : String,
-//        @Header("Authorization") accessToken : String,
-//        @Path("tagId") tagId: Int,
-//        @Query("page") page : Int,
-//        @Query("size") size : Int,
-//        @Query("sort") sort : String
-//    ) : Call<StoryTagFilter>
+    // 태그 필터링 조회 (나의 자서전1)
+    @GET("story/filter/{tagId}")
+    fun getStoryFilter(
+        @Header("content-type") contentType : String,
+        @Header("Authorization") accessToken : String,
+        @Path("tagId") tagId: Int,
+        @Query("page") page : Int,
+        @Query("size") size : Int,
+        @Query("sort") sort : String
+    ) : Call<StoryFilter>
 
 
     // 둘러보기 - 상세보기
