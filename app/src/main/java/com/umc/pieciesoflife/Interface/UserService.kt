@@ -10,6 +10,6 @@ interface UserService {
     // user 정보 조회
     @GET("user/info")
     fun getUserInfo(
-        @Header("Bearer") accessToken: String
+        @Header("Authorization") accessToken: String
     ): Call<User>
 }
