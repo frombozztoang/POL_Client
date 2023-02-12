@@ -13,6 +13,7 @@ import com.umc.pieciesoflife.Acitivity.MybookDetailedActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Adapter.BookRVAdapter
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
+import com.umc.pieciesoflife.DTO.StoryDto.StoryExploreData
 import com.umc.pieciesoflife.DataClass.Book
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.FragmentHomeBinding
@@ -24,7 +25,7 @@ class HomeFragment : Fragment() {
     private var level = 0 // 레벨
     private var exp : Int = 0 // 경험치
 
-    var bookList: ArrayList<Book> = arrayListOf()
+    var bookList: ArrayList<StoryExploreData> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -75,7 +76,7 @@ class HomeFragment : Fragment() {
             viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_level3)
             viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_three_clear)
         }
-
+/*
         bookList.apply {
             add(
                 Book(
@@ -113,6 +114,8 @@ class HomeFragment : Fragment() {
 
             bookAdapter.notifyDataSetChanged()
         }
+
+ */
 
         // -> 자서전 상세보기 .. 얘도 우선 걍 넘김
         bookAdapter.setMyItemClickListener(object : BookRVAdapter.MyItemClickListener{

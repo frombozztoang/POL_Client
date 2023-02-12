@@ -12,6 +12,7 @@ import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
 import com.umc.pieciesoflife.Adapter.BookRVAdapter
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
+import com.umc.pieciesoflife.DTO.StoryDto.StoryExploreData
 import com.umc.pieciesoflife.DataClass.Book
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.FragmentMybookBinding
@@ -20,7 +21,7 @@ import com.umc.pieciesoflife.databinding.FragmentMybookBinding
 class MyBookFragment : Fragment() {
     private lateinit var viewBinding: FragmentMybookBinding
     private lateinit var bookAdapter: BookRVAdapter
-    var bookList: ArrayList<Book> = arrayListOf()
+    var bookList: ArrayList<StoryExploreData> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -182,6 +183,7 @@ class MyBookFragment : Fragment() {
     }
 
     private fun dateRecycler() {
+    /*
         //서버연결 후에는 bookList 통한 "bookAdapter.addItems(Book( ... ))" 이용하면 편함!!!!! - 지금껀 임시얀
         bookList.apply{
             add(
@@ -219,9 +221,11 @@ class MyBookFragment : Fragment() {
             )
             bookAdapter.notifyDataSetChanged()
         }
+        */
     }
 
     private fun ageRecycler() {
+    /*
         //서버연결 후에는 bookList 통한 "bookAdapter.addItems(Book( ... ))" 이용하면 편함!!!!! - 지금껀 임시얀
         bookList.apply{
             add(
@@ -259,6 +263,10 @@ class MyBookFragment : Fragment() {
             )
             bookAdapter.notifyDataSetChanged()
         }
+
+     */
+
     }
+
 }
 

@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.umc.pieciesoflife.R
 import android.widget.ImageButton
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.umc.pieciesoflife.Acitivity.TagAgeActivity
@@ -19,14 +20,16 @@ class TagYearActivity : AppCompatActivity() {
         viewBinding = ActivityTagYearBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
-
+        var tagHash = HashMap<Int, String>()
         var TagContent : String = viewBinding.editTextYear.text.toString()
         var TagId : Int = 2
 
         tagHash.put(TagId, TagContent)
 
         viewBinding.buttonNext.setOnClickListener {
+            TagContent = viewBinding.editTextYear.text.toString()
+            tagHash.put(TagId, TagContent)
+            Log.i("content","$tagHash") //확인
             val intent = Intent(applicationContext, TagMoodActivity::class.java)
             intent.putExtra("TagHash", tagHash)
             startActivity(intent) //다음 화면 띄우기
