@@ -1,6 +1,7 @@
 package com.umc.pieciesoflife.Acitivity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.Spannable
@@ -30,6 +31,9 @@ class StoryWriteActivity : AppCompatActivity() {
     var mspanable: Spannable? = null
     var hashTagIsComing = 0
     lateinit var question: String
+    var tagIds = mutableListOf<Int>()
+    var num : Int = 0
+    lateinit var tagHash : HashMap<Int, String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,29 +41,26 @@ class StoryWriteActivity : AppCompatActivity() {
         viewBinding = ActivityStoryWriteBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
+        tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
         Log.d("TagHash", "$tagHash")
 
-        val num: Int = 0
+        // tagContent에 값이 있을 시에, tagIds에 add
+        for (i: Int in 1..7) {
+            var tagContent = tagHash.get(i).toString()
+            if (tagContent != null) tagIds.add(i)
+        }
+
+        Log.d("TagIds", "$tagIds")
+
+        // 랜덤 태그 생성
+        num = tagIds.random()
+        randomTag(num)
+
         var qnaHash = HashMap<String, String>() //QnA
-        var answer : String = ""
-        val call: QuestionService = RetrofitClient.questionService
-        call.getQuestion(1).enqueue(object: Callback<Question>{
-            // 성공 처리
-            override fun onResponse(call: Call<Question>, response: Response<Question>) {
-                if(response.isSuccessful()) { // <--> response.code == 200
-                    response.body()?.let {
-                        question = it.data.questionTemplate
-                        viewBinding.tvQuestion.setText(question)
-                    }
-                }
-            }
-            // 실패 처리
-            override fun onFailure(call: Call<Question>, t: Throwable) {
-                Log.d("testt", "에러입니다. ${t.message}")
-                t.printStackTrace()
-            }
-        })
+        var answer: String = ""
+
+        // 랜덤선택된 태그에 관한 초기 질문 생성
+        initQuestion(viewBinding.editTextTextMultiLineWriteStory)
 
         var str = "" //리스트에 입력할 문자열
 
@@ -91,66 +92,66 @@ class StoryWriteActivity : AppCompatActivity() {
                     hashTagIsComing = 0
                 }
                 if (hashTagIsComing != 0) {
-                    str= concat(str,startChar) as String
+                    str = concat(str, startChar) as String
                     changeTheColorDefault(s.toString().substring(start), start, start + count)
                     hashTagIsComing++
 
                     //태그 버튼 선택 ->리스트에 인풋&글자 색 바꾸기&태그 선택화면 내리기
                     viewBinding.tagAgeButton.setOnClickListener { //나이 버튼 선택
                         //문자열 색깔 바꾸기
-                        changeAgeColor(s.toString().substring(start), start-1, start + count)
+                        changeAgeColor(s.toString().substring(start), start - 1, start + count)
                         //리스트에 문자열 입력하기
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        str="" //str 초기화
+                        str = edtTxtMine.text.toString().substring(start, start + count) //str 문자열 자르기
+                        Log.i(javaClass.simpleName, "str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str = "" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagMatterButton.setOnClickListener { //상황 버튼 선택
-                        changeMatterColor(s.toString().substring(start), start-1, start + count)
-                        str=edtTxtMine.text.toString().substring(start,start+count)
-                        Log.i(javaClass.simpleName,"str :$str")
-                        str=""
+                        changeMatterColor(s.toString().substring(start), start - 1, start + count)
+                        str = edtTxtMine.text.toString().substring(start, start + count)
+                        Log.i(javaClass.simpleName, "str :$str")
+                        str = ""
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagMoodButton.setOnClickListener { //감정 버튼 선택
-                        changeMoodColor(s.toString().substring(start), start-1, start + count)
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        str="" //str 초기화
+                        changeMoodColor(s.toString().substring(start), start - 1, start + count)
+                        str = edtTxtMine.text.toString().substring(start, start + count) //str 문자열 자르기
+                        Log.i(javaClass.simpleName, "str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str = "" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagObjectButton.setOnClickListener { //물건 버튼 선택
-                        changeObjectColor(s.toString().substring(start), start-1, start + count)
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        str="" //str 초기화
+                        changeObjectColor(s.toString().substring(start), start - 1, start + count)
+                        str = edtTxtMine.text.toString().substring(start, start + count) //str 문자열 자르기
+                        Log.i(javaClass.simpleName, "str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str = "" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagPersonButton.setOnClickListener { //인물  버튼 선택
-                        changePersonColor(s.toString().substring(start), start-1, start + count)
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        str="" //str 초기화
+                        changePersonColor(s.toString().substring(start), start - 1, start + count)
+                        str = edtTxtMine.text.toString().substring(start, start + count) //str 문자열 자르기
+                        Log.i(javaClass.simpleName, "str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str = "" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagPlaceButton.setOnClickListener { //장소 버튼 선택
-                        changePlaceColor(s.toString().substring(start), start-1, start + count)
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        str="" //str 초기화
+                        changePlaceColor(s.toString().substring(start), start - 1, start + count)
+                        str = edtTxtMine.text.toString().substring(start, start + count) //str 문자열 자르기
+                        Log.i(javaClass.simpleName, "str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str = "" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagYearButton.setOnClickListener { //연도 버튼 선택
-                        changeYearColor(s.toString().substring(start), start-1, start + count)
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        str="" //str 초기화
+                        changeYearColor(s.toString().substring(start), start - 1, start + count)
+                        str = edtTxtMine.text.toString().substring(start, start + count) //str 문자열 자르기
+                        Log.i(javaClass.simpleName, "str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str = "" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
@@ -169,33 +170,70 @@ class StoryWriteActivity : AppCompatActivity() {
             }
         })
 
-
-        val next = findViewById<View>(R.id.button_next) as Button //다음 질문 생성버튼
-        next.setOnClickListener {
+        // 새로운 질문 생성
+        viewBinding.buttonNext.setOnClickListener {
             answer = viewBinding.editTextTextMultiLineWriteStory.text.toString()
-            qnaHash.put(answer,question) //QnA 저장 해시맵
+            qnaHash.put(answer, question) //QnA 저장 해시맵
             Log.i("qnaHash", "$qnaHash")
-            initQuestion(viewBinding.editTextTextMultiLineWriteStory) //질문 초기화
+            //랜덤 질문
+            num = tagIds.random()
+            randomTag(num)
+            // 랜덤 선택된 태그에 관한 질문 생성
+            initQuestion(viewBinding.editTextTextMultiLineWriteStory)
         }
-        val back = findViewById<View>(R.id.button_back) as ImageButton //뒤로가기
-        back.setOnClickListener {
+        // 질문 건너뛰기 - 새로운 질문 생성
+        viewBinding.buttonSkipQuestion.setOnClickListener {
+            //랜덤 질문
+            num = tagIds.random()
+            randomTag(num)
+            // 랜덤 선택된 태그에 관한 질문 생성
+            initQuestion(viewBinding.editTextTextMultiLineWriteStory)
+        }
+        // 이전 Tag 화면 띄우기
+        viewBinding.buttonBack.setOnClickListener {
             val intent = Intent(applicationContext, TagPersonActivity::class.java)
-            startActivity(intent) //다음 Tag 화면 띄우기
+            startActivity(intent)
         }
-        val stop = findViewById<View>(R.id.button_finish) as Button //이야기 그만하기
-        stop.setOnClickListener {
+        // 자서전 완성
+        viewBinding.buttonFinish.setOnClickListener {
             val intent = Intent(applicationContext, SaveTitleActivity::class.java)
-            startActivity(intent) //다음 화면 띄우기
-        }
-        val skip = findViewById<View>(R.id.button_skip_question) as Button //이야기 건너뛰기
-        skip.setOnClickListener {
-            val intent = Intent(applicationContext, SaveTitleActivity::class.java)
-            startActivity(intent) //다음 화면 띄우기
+            intent.putExtra("QnaHash", qnaHash)
+            intent.putExtra("TagHash", tagHash)
+            startActivity(intent)
         }
     }
+
+    // 랜덤 태그 생성
+    fun randomTag(num : Int){
+        viewBinding.textViewTag.setText("#"+tagHash.get(num))
+        if (num==1)         viewBinding.textViewTag.setTextColor(Color.parseColor("#6B9A85"))
+        if (num==2)         viewBinding.textViewTag.setTextColor(Color.parseColor("#A56E4E"))
+        if (num==3)         viewBinding.textViewTag.setTextColor(Color.parseColor("#567DA7"))
+        if (num==4)         viewBinding.textViewTag.setTextColor(Color.parseColor("#5F8D8D"))
+        if (num==5)         viewBinding.textViewTag.setTextColor(Color.parseColor("#93666F"))
+        if (num==6)         viewBinding.textViewTag.setTextColor(Color.parseColor("#8D8565"))
+        if (num==7)         viewBinding.textViewTag.setTextColor(Color.parseColor("#9467A3"))
+    }
+
+    // 랜덤 선택된 태그에 관한 질문 생성
     fun initQuestion(editText: EditText) {
-        editText.setText("")
-        editText.setSelection(editText.text.length)
+        val call: QuestionService = RetrofitClient.questionService
+        call.getQuestion(num).enqueue(object: Callback<Question>{
+            // 성공 처리
+            override fun onResponse(call: Call<Question>, response: Response<Question>) {
+                if(response.isSuccessful()) { // <--> response.code == 200
+                    response.body()?.let {
+                        question = it.data.questionTemplate
+                        viewBinding.tvQuestion.setText(question)
+                    }
+                }
+            }
+            // 실패 처리
+            override fun onFailure(call: Call<Question>, t: Throwable) {
+                Log.d("testt", "에러입니다. ${t.message}")
+                t.printStackTrace()
+            }
+        })
     }
     fun setTagVisible(){
         viewBinding.selectTagView.visibility=View.VISIBLE

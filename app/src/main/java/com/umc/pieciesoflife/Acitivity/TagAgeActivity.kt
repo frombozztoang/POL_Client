@@ -14,7 +14,7 @@ import com.umc.pieciesoflife.databinding.ActivityTagAgeBinding
 
 class TagAgeActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityTagAgeBinding
-    //var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivityTagAgeBinding.inflate(layoutInflater)
