@@ -21,7 +21,7 @@ class TagMatterActivity : AppCompatActivity() {
         viewBinding = ActivityTagMatterBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        var tagHash = HashMap<Int, String>()
+        var tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
         var TagContent : String = ""
         var TagId : Int = 5
 
@@ -32,7 +32,6 @@ class TagMatterActivity : AppCompatActivity() {
             Log.i("content","$tagHash") //확인
             val intent = Intent(applicationContext, TagObjectActivity::class.java)
             intent.putExtra("TagHash", tagHash)
-
             startActivity(intent) //다음 화면 띄우기
         }
         viewBinding.buttonBack.setOnClickListener {
