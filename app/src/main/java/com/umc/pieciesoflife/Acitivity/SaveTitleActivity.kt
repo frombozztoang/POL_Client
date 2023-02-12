@@ -9,19 +9,30 @@ import android.view.View
 import android.widget.Button
 import com.umc.pieciesoflife.Acitivity.SaveIntroActivity
 import com.umc.pieciesoflife.Acitivity.StoryWriteActivity
+import com.umc.pieciesoflife.databinding.ActivitySaveIntroBinding
+import com.umc.pieciesoflife.databinding.ActivitySaveTitleBinding
 
 class SaveTitleActivity : AppCompatActivity() {
+    private lateinit var viewBinding: ActivitySaveTitleBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_save_title)
-        val back = findViewById<View>(R.id.button_back) as ImageButton //뒤로가기
-        back.setOnClickListener {
+        viewBinding = ActivitySaveTitleBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
+
+        var bookTitle = ""
+
+        //뒤로가기 (이야기 작성)
+        viewBinding.buttonBack.setOnClickListener {
             val intent = Intent(applicationContext, StoryWriteActivity::class.java)
             startActivity(intent) //다음 Tag 화면 띄우기
         }
-        val next = findViewById<View>(R.id.button_next) as Button //다음
-        next.setOnClickListener {
+        //다음 (한줄소개 작성)
+        viewBinding.buttonNext.setOnClickListener {
+            bookTitle=viewBinding.titleTxt.text.toString()
             val intent = Intent(applicationContext, SaveIntroActivity::class.java)
+            intent.putExtra("bookTitle", bookTitle)
             startActivity(intent) //다음 화면 띄우기
         }
     }

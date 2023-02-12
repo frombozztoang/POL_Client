@@ -40,7 +40,6 @@
         android:hint="눌러서 입력하기"
         android:inputType="textPersonName"
         android:privateImeOptions="defaultInputmode=korean"
-        android:textColor="#6B9A85"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
