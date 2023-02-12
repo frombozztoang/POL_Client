@@ -125,4 +125,3 @@ class HomeFragment : Fragment() {
         return viewBinding.root
     }
 }
-

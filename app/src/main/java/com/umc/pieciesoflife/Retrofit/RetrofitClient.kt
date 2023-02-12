@@ -14,6 +14,7 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.create
 import java.io.IOException
 import java.lang.reflect.Type
 
@@ -53,5 +54,6 @@ object RetrofitClient {
     val kakaoService: KakaoService by lazy {retrofit.create(KakaoService::class.java)}
     val userService: UserService by lazy {retrofit.create(UserService::class.java)}
     val myPageService: MyPageService by lazy {retrofit.create(MyPageService::class.java)}
+    val chatService: ChatService by lazy { retrofit.create(ChatService::class.java) }
 
 }
