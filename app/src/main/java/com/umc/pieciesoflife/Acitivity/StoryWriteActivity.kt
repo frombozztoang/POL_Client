@@ -172,14 +172,15 @@ class StoryWriteActivity : AppCompatActivity() {
             override fun afterTextChanged(s: Editable) {}
         })
 
-        // 새로운 질문 생성 (다음)
+        // 새로운 질문 생성 (저장)
         viewBinding.buttonNext.setOnClickListener {
+            // QnaHash에 값 넣기
             answer = viewBinding.editTextTextMultiLineWriteStory.text.toString()
-            val question_new=tagContent+" "+question
+            val question_new="["+tagContent+"]"+question
             qnaHash.put(answer, question_new) //QnA 저장 해시맵
             Log.i("tagHash", "$tagHash")
             Log.i("qnaHash", "$qnaHash")
-            //랜덤 질문
+            // 랜덤 태그 생성
             num = tagIds.random()
             randomTag(num)
             tagContent= tagHash[num].toString() //태그 컨텐츠도 질문태그에 맞게 업데이트
@@ -224,15 +225,15 @@ class StoryWriteActivity : AppCompatActivity() {
             for (i in answerList.indices) {
                 if (answerList[i] == null || questionList[i] == null || tagIdList[i] == null) {
                 }
-                storyQnaList.add(StoryQna(questionList[i], answerList[i], tagIdList[i])) //얘도 마찬가지!!
+                storyQnaList.add(StoryQna(tagIdList[i], questionList[i], answerList[i])) //얘도 마찬가지!!
             }
             Log.i("storyTagList","$storyTagList")
             Log.i("storyqnaList","$storyQnaList")
 
             val intent = Intent(applicationContext, SaveTitleActivity::class.java)
             //이건 내가 바로 final로 넘겨봤는데 자꾸 오류떠서 걍 페이지마다 인텐트로 넘겼어요 ㅎㅎ...
-            intent.putExtra("storyQnaList검토","$storyQnaList")
-            intent.putExtra("storyTagList검토","$storyTagList")
+            intent.putExtra("storyQnaList","$storyQnaList")
+            intent.putExtra("storyTagList","$storyTagList")
             startActivity(intent)
         }
     }
@@ -269,6 +270,7 @@ class StoryWriteActivity : AppCompatActivity() {
             }
         })
     }
+
     fun setTagVisible(){
         viewBinding.selectTagView.visibility=View.VISIBLE
         viewBinding.tagAgeButton.visibility=View.VISIBLE

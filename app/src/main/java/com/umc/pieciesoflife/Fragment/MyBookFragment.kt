@@ -143,7 +143,7 @@ class MyBookFragment : Fragment() {
     private fun initRecycler(tagId: Int) {
 //        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
         val JWTTOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLsnbTrs7TtmIQiLCJuaWNrbmFtZSI6IuydtOuztO2YhCIsImlkIjoxNywiZXhwIjoxNjc3MDYwNzE5fQ.qVi4R1_Khq8ZW2FibwW1FEVrIm3cfZj_bxRWAMjIltmiEqpqbiAuRtKyB-9GlMOpUgev-vteTBKhlMiYRpdODg"
-        storyService.getStoryFilter("Bearer $JWTTOKEN",tagId,0, 5,"").enqueue(object : Callback<Story> {
+        storyService.getStoryFilter("application/json","Bearer $JWTTOKEN",tagId,0, 5,"").enqueue(object : Callback<Story> {
             // 성공 처리
             override fun onResponse(call: Call<Story>, response: Response<Story>) {
                 if (response.isSuccessful) { // <--> response.code == 200
