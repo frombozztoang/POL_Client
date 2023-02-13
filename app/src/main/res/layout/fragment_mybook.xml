@@ -189,12 +189,10 @@
                 android:layout_width="58dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="6dp"
-                android:layout_marginEnd="20dp"
                 android:background="@drawable/selector_button_tag_color"
                 android:text="물건"
                 android:textColor="@color/selector_button_tag_textcolor"
                 app:layout_constraintStart_toEndOf="@id/btn_situ" />
-
 
             <android.widget.Button
                 android:id="@+id/btn_people"
@@ -206,11 +204,6 @@
                 android:text="인물"
                 android:textColor="@color/selector_button_tag_textcolor"
                 app:layout_constraintStart_toEndOf="@id/btn_emo" />
-
-
-
-
-
 
         </LinearLayout>
     </HorizontalScrollView>

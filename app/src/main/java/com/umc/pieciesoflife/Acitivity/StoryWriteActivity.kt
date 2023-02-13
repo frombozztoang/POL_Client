@@ -226,7 +226,7 @@ class StoryWriteActivity : AppCompatActivity() {
 
             val tagIdList = tagHash.keys.toList()
             val tagContentList = tagHash.values.toList()
-            val storyTagList = ArrayList<StoryTag>()
+            val storyTagList : ArrayList<StoryTag> = ArrayList<StoryTag>()
             for (i in tagIdList.indices) {
                 if (tagIdList[i] == null || tagContentList[i] == null) {
                     continue
@@ -245,9 +245,8 @@ class StoryWriteActivity : AppCompatActivity() {
             Log.i("storyQnaList","$storyQnaList")
 
             val intent = Intent(applicationContext, SaveTitleActivity::class.java)
-
-            intent.putExtra("storyQnaList","$storyQnaList")
-            intent.putExtra("storyTagList","$storyTagList")
+            intent.putExtra("storyTagList",storyTagList)
+            intent.putExtra("storyQnaList",storyQnaList)
             startActivity(intent)
         }
     }

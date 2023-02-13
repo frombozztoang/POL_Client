@@ -6,6 +6,7 @@ import com.umc.pieciesoflife.R
 import android.widget.ImageButton
 import android.content.Intent
 import android.graphics.Color
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import com.umc.pieciesoflife.Acitivity.SaveFinalActivity
@@ -84,8 +85,9 @@ class SaveColorActivity : AppCompatActivity() {
             intent.putExtra("bookColor", bookColor)
             intent.putExtra("bookIntro", bookIntro)
             intent.putExtra("bookTitle", bookTitle)
-            intent.putExtra("storyQnaList","$storyQnaList")
-            intent.putExtra("storyTagList","$storyTagList")
+            intent.putExtra("storyQnaList",storyQnaList)
+            intent.putExtra("storyTagList",storyTagList)
+            Log.i("storyQnaList","$storyQnaList")
             startActivity(intent) //다음 화면 띄우기
         }
     }

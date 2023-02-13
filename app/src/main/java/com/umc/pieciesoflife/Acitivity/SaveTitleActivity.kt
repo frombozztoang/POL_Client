@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.umc.pieciesoflife.R
 import android.content.Intent
+import android.util.Log
 import com.umc.pieciesoflife.databinding.ActivitySaveTitleBinding
 
 class SaveTitleActivity : AppCompatActivity() {
@@ -29,8 +30,9 @@ class SaveTitleActivity : AppCompatActivity() {
             bookTitle=viewBinding.titleTxt.text.toString()
             val intent = Intent(applicationContext, SaveIntroActivity::class.java)
             intent.putExtra("bookTitle", bookTitle)
-            intent.putExtra("storyQnaList","$storyQnaList")
-            intent.putExtra("storyTagList","$storyTagList")
+            intent.putExtra("storyQnaList",storyQnaList)
+            intent.putExtra("storyTagList",storyTagList)
+            Log.i("storyQnaList","$storyQnaList")
             startActivity(intent) //다음 화면 띄우기
         }
     }
