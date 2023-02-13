@@ -14,8 +14,11 @@ import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
 import com.umc.pieciesoflife.Adapter.StoryRVAdapter
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
 import com.umc.pieciesoflife.DTO.StoryDto.*
+import com.umc.pieciesoflife.DTO.UserDto.User
+import com.umc.pieciesoflife.GlobalApplication
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient.storyService
+import com.umc.pieciesoflife.Retrofit.RetrofitClient.userService
 import com.umc.pieciesoflife.databinding.FragmentMybookBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,8 +27,8 @@ import retrofit2.Response
 
 class MyBookFragment : Fragment() {
     private lateinit var viewBinding: FragmentMybookBinding
-
     private lateinit var bookAdapter: StoryRVAdapter
+    var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value") // 토큰
     var bookList: ArrayList<StoryData> = arrayListOf()
 
 
@@ -63,7 +66,6 @@ class MyBookFragment : Fragment() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK // 새로운 tash로 시작
             startActivity(intent)
         }
-
 
         // 태그 버튼 '날짜' 클릭
         viewBinding.btnDate.setOnClickListener {
@@ -115,10 +117,30 @@ class MyBookFragment : Fragment() {
         }
 
 
+        // 이름, 이야기 개수 설정
+        userService.getUserInfo("Bearer $jwtToken").enqueue(object : Callback<User> {
+            // 성공 처리
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) { // <--> response.code == 200
+                    response.body()?.let {
+                        viewBinding.tvName.text = it.data.nickname // 이름
+                        // 이야기 개수 viewBinding.tvNumstory.text = it.data.
+                        // 조각 개수
+                    }
+                }
+            }
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
+                Log.d("testtt", "onFailure 에러: " + t.message.toString());
+            }
+        })
+
+
         // -> 자서전 상세보기 .. 얘도 !!
         bookAdapter.setMyItemClickListener(object : StoryRVAdapter.MyItemClickListener{
             override fun onItemClick(position: Int) {
                 val intent = Intent(context, MybookDetailedActivity::class.java)
+                intent.putExtra("id", bookList[position].id)
                 startActivity(intent)
             }
         })
@@ -141,14 +163,11 @@ class MyBookFragment : Fragment() {
    lateinit var storyTag: String
 
     private fun initRecycler(tagId: Int) {
-//        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
-        val JWTTOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLsnbTrs7TtmIQiLCJuaWNrbmFtZSI6IuydtOuztO2YhCIsImlkIjoxNywiZXhwIjoxNjc3MDYwNzE5fQ.qVi4R1_Khq8ZW2FibwW1FEVrIm3cfZj_bxRWAMjIltmiEqpqbiAuRtKyB-9GlMOpUgev-vteTBKhlMiYRpdODg"
-        storyService.getStoryFilter("application/json","Bearer $JWTTOKEN",tagId,0, 5,"").enqueue(object : Callback<Story> {
+        storyService.getStoryFilter("application/json","Bearer $jwtToken", tagId,0, 5,"").enqueue(object : Callback<Story> {
             // 성공 처리
             override fun onResponse(call: Call<Story>, response: Response<Story>) {
                 if (response.isSuccessful) { // <--> response.code == 200
                     response.body()?.let {
-
                         bookList = it.dataList as ArrayList<StoryData>
                         bookAdapter.addItems(bookList)
                     }
@@ -159,8 +178,6 @@ class MyBookFragment : Fragment() {
                 Log.d("testtt", "onFailure 에러: " + t.message.toString());
             }
         })
-
-
 
     }}
 

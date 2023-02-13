@@ -56,36 +56,8 @@ class HomeFragment : Fragment() {
             startActivity(intent)
         }
 
-        // SeekBar 경험치(exp)에 따라 움직이게 설정
-        viewBinding.seekBarReal.progress = exp
-        viewBinding.seekBarText.progress = exp
-        viewBinding.seekBarReal.isEnabled = false // 터치 불가
-        viewBinding.seekBarText.isEnabled = false
-
-        if ( exp < 50) {
-            viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
-            viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_gray)
-            viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_gray)
-            viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.seekbar_thumb)
-        } else if ( exp == 50) {
-            viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
-            viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_level2)
-            viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_gray)
-            viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_two_clear)
-        } else if ( exp < 100) {
-            viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
-            viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_level2)
-            viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_gray)
-            viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_two)
-        } else {
-            viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
-            viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_level2)
-            viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_level3)
-            viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_three_clear)
-        }
-
         // 프로그레스 바 API 호출
-        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+        val jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
         RetrofitClient.userService.getUserInfo("Bearer $jwtToken").enqueue(object :
             Callback<User> {
             // 성공 처리
@@ -94,7 +66,8 @@ class HomeFragment : Fragment() {
                     response.body()?.let {
                         val score = it.data.score
                         val level = it.data.level
-
+                        viewBinding.tvName.text = it.data.nickname
+                        viewBinding.tvName2.text = it.data.nickname
                         // SeekBar 경험치(score)에 따라 움직이게 설정
                         viewBinding.seekBarReal.progress = score
                         viewBinding.seekBarText.progress = score
@@ -165,6 +138,7 @@ class HomeFragment : Fragment() {
         bookAdapter.setMyItemClickListener(object : StoryRVAdapter.MyItemClickListener{
             override fun onItemClick(position: Int) {
                 val intent = Intent(context, MybookDetailedActivity::class.java)
+                intent.putExtra("id", bookList[position].id)
                 startActivity(intent)
             }
         })

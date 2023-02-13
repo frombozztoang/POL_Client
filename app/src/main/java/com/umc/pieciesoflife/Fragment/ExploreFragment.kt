@@ -72,6 +72,7 @@ class ExploreFragment : Fragment() {
         bookAdapter.setMyItemClickListener(object : StoryRVAdapter.MyItemClickListener{
             override fun onItemClick(position: Int) {
                 val intent = Intent(context, ExploreDetailedActivity::class.java)
+                intent.putExtra("id", bookList[position].id)
                 startActivity(intent)
             }
         })
