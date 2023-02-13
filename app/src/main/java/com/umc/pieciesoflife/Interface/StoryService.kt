@@ -56,14 +56,13 @@ interface StoryService {
     ) : Call<StoryDetail>
 
 
-//    // 좋아요
-//    @POST("story/{storyId}/like")
-//    fun postStoryLike(
-//        @Header("content-type") contentType : String,
-//        @Header("Authorization") accessToken : String,
-//        @Path("storyId") storyId: Int,
-//        @Body isLiked: Boolean
-//    ) : Call<StoryLike>
+    // 좋아요
+    @POST("story/{storyId}/like")
+    fun postStoryLike(
+        @Header("Authorization") accessToken : String,
+        @Path("storyId") storyId: Int,
+        @Body isLiked: Boolean
+    ) : Call<StoryDetail>
 
 
 //    // 대표이야기로 설정
