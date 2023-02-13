@@ -27,8 +27,8 @@ import retrofit2.Response
 
 class MyBookFragment : Fragment() {
     private lateinit var viewBinding: FragmentMybookBinding
-    var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
     private lateinit var bookAdapter: StoryRVAdapter
+    var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value") // 토큰
     var bookList: ArrayList<StoryData> = arrayListOf()
 
 
@@ -116,6 +116,7 @@ class MyBookFragment : Fragment() {
             initRecycler(8)
         }
 
+
         // 이름, 이야기 개수 설정
         userService.getUserInfo("Bearer $jwtToken").enqueue(object : Callback<User> {
             // 성공 처리
@@ -162,7 +163,7 @@ class MyBookFragment : Fragment() {
    lateinit var storyTag: String
 
     private fun initRecycler(tagId: Int) {
-        storyService.getStoryFilter("Bearer $jwtToken", tagId,0, 5,"").enqueue(object : Callback<Story> {
+        storyService.getStoryFilter("application/json","Bearer $jwtToken", tagId,0, 5,"").enqueue(object : Callback<Story> {
             // 성공 처리
             override fun onResponse(call: Call<Story>, response: Response<Story>) {
                 if (response.isSuccessful) { // <--> response.code == 200
@@ -177,8 +178,6 @@ class MyBookFragment : Fragment() {
                 Log.d("testtt", "onFailure 에러: " + t.message.toString());
             }
         })
-
-
 
     }}
 

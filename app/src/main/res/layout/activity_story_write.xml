@@ -40,7 +40,7 @@
         android:layout_height="40dp"
         android:layout_marginEnd="10dp"
         android:background="#00ff0000"
-        android:text="다음"
+        android:text="저장"
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,14 +62,15 @@
 
     <TextView
         android:id="@+id/tv_question"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginHorizontal="20dp"
         android:letterSpacing="0"
         android:text="에 무슨 일이 있었나요?"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView_tag"/>
 
     <View
@@ -144,7 +145,7 @@
         android:layout_marginBottom="45dp"
         android:background="@drawable/round_button"
         android:backgroundTint="#F9F9F9"
-        android:text="이야기 그만두기"
+        android:text="이야기 완성하기"
         android:textColor="#747474"
         android:textSize="12dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -155,7 +156,7 @@
         android:id="@+id/select_tag_view"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginTop="201dp"
+        android:layout_marginTop="200dp"
         android:background="#59000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

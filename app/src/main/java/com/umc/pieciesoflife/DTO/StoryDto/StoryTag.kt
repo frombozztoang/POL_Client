@@ -1,6 +1,6 @@
 package com.umc.pieciesoflife.DTO.StoryDto
 
 data class StoryTag(
-    val tagId: Int,
-    val tagContent: String
+    val tagContent: String,
+    val tagId: Int
 )

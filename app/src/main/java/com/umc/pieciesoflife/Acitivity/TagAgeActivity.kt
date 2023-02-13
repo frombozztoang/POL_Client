@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import com.umc.pieciesoflife.databinding.ActivityTagAgeBinding
 
 class TagAgeActivity : AppCompatActivity() {
@@ -26,12 +27,17 @@ class TagAgeActivity : AppCompatActivity() {
 
         //다음
         viewBinding.buttonNext.setOnClickListener {
-            TagContent = viewBinding.editTextAge.text.toString()
-            tagHash.put(TagId,TagContent) //태그아이디&태그내용 넣기
-            Log.i("content","$tagHash") //확인
-            val intent = Intent(applicationContext, TagYearActivity::class.java)
-            intent.putExtra("TagHash", tagHash)
-            startActivity(intent)
+            val inputText = viewBinding.editTextAge.text.toString()
+            if (inputText.isEmpty()) {
+                Toast.makeText(this, "태그를 입력하지 않으면 저장할 수 없습니다.", Toast.LENGTH_LONG).show()
+            } else {
+                TagContent = viewBinding.editTextAge.text.toString()
+                tagHash.put(TagId,TagContent) //태그아이디&태그내용 넣기
+                Log.i("content","$tagHash") //확인
+                val intent = Intent(applicationContext, TagYearActivity::class.java)
+                intent.putExtra("TagHash", tagHash)
+                startActivity(intent)
+            }
         }
         //뒤로가기
         viewBinding.buttonBack.setOnClickListener {
