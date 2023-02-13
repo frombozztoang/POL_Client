@@ -49,7 +49,7 @@
             app:layout_constraintTop_toBottomOf="@+id/img_profile" />
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/btn_camera"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginStart="43dp"

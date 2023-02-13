@@ -8,19 +8,16 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.pieciesoflife.Acitivity.ExploreDetailedActivity
-import com.umc.pieciesoflife.Acitivity.MybookDetailedActivity
-import com.umc.pieciesoflife.Adapter.BookRVAdapter
-import com.umc.pieciesoflife.DTO.StoryDto.StoryExploreData
-import com.umc.pieciesoflife.DataClass.Book
-import com.umc.pieciesoflife.R
+import com.umc.pieciesoflife.Adapter.StoryRVAdapter
+import com.umc.pieciesoflife.DTO.StoryDto.StoryData
 import com.umc.pieciesoflife.databinding.FragmentUserBookBinding
 
 
 class UserBookFragment : Fragment() {
     private lateinit var Binding: FragmentUserBookBinding
-    private lateinit var bookAdapter: BookRVAdapter   //RV어댑터 생성
+    private lateinit var bookAdapter: StoryRVAdapter   //RV어댑터 생성
 
-    val bookList: ArrayList<StoryExploreData> = arrayListOf()
+    val bookList: ArrayList<StoryData> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,7 +28,7 @@ class UserBookFragment : Fragment() {
         initRecycler()
 
         // -> 자서전 상세보기 페이지(ExploreDetailedActivity) .. 우선은 걍 intent만 해놓음 서버 연결 후, 클릭된 자서전 내용으로 떠야됌
-        bookAdapter.setMyItemClickListener(object : BookRVAdapter.MyItemClickListener{
+        bookAdapter.setMyItemClickListener(object : StoryRVAdapter.MyItemClickListener{
             override fun onItemClick(position: Int) {
                 val intent = Intent(context, ExploreDetailedActivity::class.java)
                 startActivity(intent)
@@ -42,7 +39,7 @@ class UserBookFragment : Fragment() {
     }
 
     private fun initRecycler() {
-        bookAdapter = BookRVAdapter(bookList)
+        bookAdapter = StoryRVAdapter(bookList)
         Binding.rvBook.adapter = bookAdapter
         Binding.rvBook.layoutManager = LinearLayoutManager(context)
         /*

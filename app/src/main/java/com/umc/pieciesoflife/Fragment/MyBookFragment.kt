@@ -2,6 +2,7 @@ package com.umc.pieciesoflife.Fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,18 +11,23 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.pieciesoflife.Acitivity.MybookDetailedActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
-import com.umc.pieciesoflife.Adapter.BookRVAdapter
+import com.umc.pieciesoflife.Adapter.StoryRVAdapter
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
-import com.umc.pieciesoflife.DTO.StoryDto.StoryExploreData
-import com.umc.pieciesoflife.DataClass.Book
+import com.umc.pieciesoflife.DTO.StoryDto.*
 import com.umc.pieciesoflife.R
+import com.umc.pieciesoflife.Retrofit.RetrofitClient.storyService
 import com.umc.pieciesoflife.databinding.FragmentMybookBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MyBookFragment : Fragment() {
     private lateinit var viewBinding: FragmentMybookBinding
-    private lateinit var bookAdapter: BookRVAdapter
-    var bookList: ArrayList<StoryExploreData> = arrayListOf()
+
+    private lateinit var bookAdapter: StoryRVAdapter
+    var bookList: ArrayList<StoryData> = arrayListOf()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,13 +37,13 @@ class MyBookFragment : Fragment() {
         viewBinding = FragmentMybookBinding.inflate(inflater, container, false)
 
         //리사이클러뷰 어댑터 설정
-        bookAdapter = BookRVAdapter(bookList)
+        bookAdapter = StoryRVAdapter(bookList)
         viewBinding.rvMybooks.adapter = bookAdapter
         viewBinding.rvMybooks.layoutManager = LinearLayoutManager(context)
 
         //태그 버튼 초기 설정은 날짜로
         viewBinding.btnDate.isSelected = true
-        dateRecycler()
+        initRecycler(1)
 
         // 마이페이지
         viewBinding.btnProfile.setOnClickListener {
@@ -58,121 +64,59 @@ class MyBookFragment : Fragment() {
             startActivity(intent)
         }
 
+
         // 태그 버튼 '날짜' 클릭
         viewBinding.btnDate.setOnClickListener {
-            viewBinding.btnDate.isSelected = true
-            viewBinding.btnAge.isSelected = false
-            viewBinding.btnEmo.isSelected = false
-            viewBinding.btnPeople.isSelected = false
-            viewBinding.btnSitu.isSelected = false
-            viewBinding.btnPlace.isSelected = false
-            viewBinding.btnYear.isSelected = false
-            viewBinding.btnObject.isSelected = false
-            bookAdapter.clear()
-            dateRecycler() // 날짜 리사이클러
+            setTagBtn(true,false, false,false,false,false,false,false)
+            initRecycler(1)
         }
 
         // 태그 버튼 '나이' 클릭
         viewBinding.btnAge.setOnClickListener {
-            viewBinding.btnDate.isSelected = false
-            viewBinding.btnAge.isSelected = true
-            viewBinding.btnEmo.isSelected = false
-            viewBinding.btnPeople.isSelected = false
-            viewBinding.btnSitu.isSelected = false
-            viewBinding.btnPlace.isSelected = false
-            viewBinding.btnYear.isSelected = false
-            viewBinding.btnObject.isSelected = false
-            bookAdapter.clear()
-            ageRecycler()
+            setTagBtn(false,true, false,false,false,false,false,false)
+            initRecycler(2)
         }
 
         // 태그 버튼 '감정' 클릭
         viewBinding.btnEmo.setOnClickListener {
-            viewBinding.btnDate.isSelected = false
-            viewBinding.btnAge.isSelected = false
-            viewBinding.btnEmo.isSelected = true
-            viewBinding.btnPeople.isSelected = false
-            viewBinding.btnSitu.isSelected = false
-            viewBinding.btnPlace.isSelected = false
-            viewBinding.btnYear.isSelected = false
-            viewBinding.btnObject.isSelected = false
-            bookAdapter.clear()
-            dateRecycler()
+            setTagBtn(false,false, true,false,false,false,false,false)
+            initRecycler(3)
+            // 변수 버튼 고유번호? 담고 그거 함수 변수 만들어서 기싸이클러 함수
         }
 
         // 태그 버튼 '사람' 클릭
         viewBinding.btnPeople.setOnClickListener {
-            viewBinding.btnDate.isSelected = false
-            viewBinding.btnAge.isSelected = false
-            viewBinding.btnEmo.isSelected = false
-            viewBinding.btnPeople.isSelected = true
-            viewBinding.btnSitu.isSelected = false
-            viewBinding.btnPlace.isSelected = false
-            viewBinding.btnYear.isSelected = false
-            viewBinding.btnObject.isSelected = false
-            bookAdapter.clear()
-            dateRecycler()
+            setTagBtn(false,false, false,true,false,false,false,false)
+            initRecycler(4)
         }
 
         // 태그 버튼 '상황' 클릭
         viewBinding.btnSitu.setOnClickListener {
-            viewBinding.btnDate.isSelected = false
-            viewBinding.btnAge.isSelected = false
-            viewBinding.btnEmo.isSelected = false
-            viewBinding.btnPeople.isSelected = false
-            viewBinding.btnSitu.isSelected = true
-            viewBinding.btnPlace.isSelected = false
-            viewBinding.btnYear.isSelected = false
-            viewBinding.btnObject.isSelected = false
-            bookAdapter.clear()
-            dateRecycler()
+            setTagBtn(false,false, false,false,true,false,false,false)
+            initRecycler(5)
         }
 
         // 태그 버튼 '장소' 클릭
         viewBinding.btnPlace.setOnClickListener {
-            viewBinding.btnDate.isSelected = false
-            viewBinding.btnAge.isSelected = false
-            viewBinding.btnEmo.isSelected = false
-            viewBinding.btnPeople.isSelected = false
-            viewBinding.btnSitu.isSelected = false
-            viewBinding.btnPlace.isSelected = true
-            viewBinding.btnYear.isSelected = false
-            viewBinding.btnObject.isSelected = false
-            bookAdapter.clear()
-            dateRecycler()
+            setTagBtn(false,false, false,false,false,true,false,false)
+            initRecycler(6)
         }
 
         // 태그 버튼 '연도' 클릭
         viewBinding.btnYear.setOnClickListener {
-            viewBinding.btnDate.isSelected = false
-            viewBinding.btnAge.isSelected = false
-            viewBinding.btnEmo.isSelected = false
-            viewBinding.btnPeople.isSelected = false
-            viewBinding.btnSitu.isSelected = false
-            viewBinding.btnPlace.isSelected = false
-            viewBinding.btnYear.isSelected = true
-            viewBinding.btnObject.isSelected = false
-            bookAdapter.clear()
-            dateRecycler()
+            setTagBtn(false,false, false,false,false,false,true,false)
+            initRecycler(7)
         }
 
         // 태그 버튼 '물건' 클릭
         viewBinding.btnObject.setOnClickListener {
-            viewBinding.btnDate.isSelected = false
-            viewBinding.btnAge.isSelected = false
-            viewBinding.btnEmo.isSelected = false
-            viewBinding.btnPeople.isSelected = false
-            viewBinding.btnSitu.isSelected = false
-            viewBinding.btnPlace.isSelected = false
-            viewBinding.btnYear.isSelected = false
-            viewBinding.btnObject.isSelected = true
-            bookAdapter.clear()
-            dateRecycler()
+            setTagBtn(false,false, false,false,false,false,false,true)
+            initRecycler(8)
         }
 
 
         // -> 자서전 상세보기 .. 얘도 !!
-        bookAdapter.setMyItemClickListener(object : BookRVAdapter.MyItemClickListener{
+        bookAdapter.setMyItemClickListener(object : StoryRVAdapter.MyItemClickListener{
             override fun onItemClick(position: Int) {
                 val intent = Intent(context, MybookDetailedActivity::class.java)
                 startActivity(intent)
@@ -182,92 +126,44 @@ class MyBookFragment : Fragment() {
         return viewBinding.root
     }
 
-    private fun dateRecycler() {
-    /*
-        //서버연결 후에는 bookList 통한 "bookAdapter.addItems(Book( ... ))" 이용하면 편함!!!!! - 지금껀 임시얀
-        bookList.apply{
-            add(
-                Book(
-                    profileImg = R.drawable.ic_flag_level2,
-                    userName = "mary",
-                    date = "2023.11.12",
-                    title = "날짜 태그1",
-                    content = "어쩔티비 ",
-                    postTitle = "첫번째 하아",
-                    postImg = R.drawable.ic_book
-                )
-            )
-            add(
-                Book(
-                    profileImg = R.drawable.ic_flag_level2,
-                    userName = "mary",
-                    date = "2023.11.12",
-                    title = "날짜 태그2",
-                    content = "어쩔티비 ",
-                    postTitle = "첫번째 하아",
-                    postImg = R.drawable.ic_book
-                )
-            )
-            add(
-                Book(
-                    profileImg = R.drawable.ic_flag_level2,
-                    userName = "mary",
-                    date = "2023.11.12",
-                    title = "날짜 태그3",
-                    content = "어쩔티비 ",
-                    postTitle = "첫번째 하아",
-                    postImg = R.drawable.ic_book
-                )
-            )
-            bookAdapter.notifyDataSetChanged()
-        }
-        */
+    fun setTagBtn( btnDate: Boolean,btnAge:Boolean, btnEmo: Boolean, btnPeople: Boolean,btnSitu : Boolean, btnPlace:Boolean, btnYear: Boolean, btnObject:Boolean ) {
+        viewBinding.btnDate.isSelected = btnDate
+        viewBinding.btnAge.isSelected = btnAge
+        viewBinding.btnEmo.isSelected = btnEmo
+        viewBinding.btnPeople.isSelected = btnPeople
+        viewBinding.btnSitu.isSelected = btnSitu
+        viewBinding.btnPlace.isSelected = btnPlace
+        viewBinding.btnYear.isSelected = btnYear
+        viewBinding.btnObject.isSelected = btnObject
+        bookAdapter.clear()
     }
 
-    private fun ageRecycler() {
-    /*
-        //서버연결 후에는 bookList 통한 "bookAdapter.addItems(Book( ... ))" 이용하면 편함!!!!! - 지금껀 임시얀
-        bookList.apply{
-            add(
-                Book(
-                    profileImg = R.drawable.ic_flag_level2,
-                    userName = "mary",
-                    date = "2023.11.12",
-                    title = "나이 태그1",
-                    content = "어쩔티비 ",
-                    postTitle = "첫번째 하아",
-                    postImg = R.drawable.ic_book
-                )
-            )
-            add(
-                Book(
-                    profileImg = R.drawable.ic_flag_level2,
-                    userName = "mary",
-                    date = "2023.11.12",
-                    title = "나이 태그2",
-                    content = "어쩔티비 ",
-                    postTitle = "첫번째 하아",
-                    postImg = R.drawable.ic_book
-                )
-            )
-            add(
-                Book(
-                    profileImg = R.drawable.ic_flag_level2,
-                    userName = "mary",
-                    date = "2023.11.12",
-                    title = "나이 태그3",
-                    content = "어쩔티비 ",
-                    postTitle = "첫번째 하아",
-                    postImg = R.drawable.ic_book
-                )
-            )
-            bookAdapter.notifyDataSetChanged()
-        }
+   lateinit var storyTag: String
 
-     */
+    private fun initRecycler(tagId: Int) {
+//        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+        val JWTTOKEN = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLsnbTrs7TtmIQiLCJuaWNrbmFtZSI6IuydtOuztO2YhCIsImlkIjoxNywiZXhwIjoxNjc3MDYwNzE5fQ.qVi4R1_Khq8ZW2FibwW1FEVrIm3cfZj_bxRWAMjIltmiEqpqbiAuRtKyB-9GlMOpUgev-vteTBKhlMiYRpdODg"
+        storyService.getStoryFilter("Bearer $JWTTOKEN",tagId,0, 5,"").enqueue(object : Callback<Story> {
+            // 성공 처리
+            override fun onResponse(call: Call<Story>, response: Response<Story>) {
+                if (response.isSuccessful) { // <--> response.code == 200
+                    response.body()?.let {
 
-    }
+                        bookList = it.dataList as ArrayList<StoryData>
+                        bookAdapter.addItems(bookList)
+                    }
+                }
+            }
+            override fun onFailure(call: Call<Story>, t: Throwable) {
+                // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
+                Log.d("testtt", "onFailure 에러: " + t.message.toString());
+            }
+        })
 
-}
+
+
+    }}
+
+
 
 

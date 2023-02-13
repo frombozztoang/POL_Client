@@ -3,16 +3,31 @@ package com.umc.pieciesoflife.Adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.umc.pieciesoflife.DTO.StoryDto.StoryDetailData
+import com.umc.pieciesoflife.DTO.StoryDto.StoryDetailQna
 import com.umc.pieciesoflife.DataClass.BookDetail
 import com.umc.pieciesoflife.databinding.ItemBookDetailBinding
 
-class BookDetailRVAdapter(private val bookDetailList: ArrayList<BookDetail>): RecyclerView.Adapter<BookDetailRVAdapter.DataViewHolder>() {
+class BookDetailRVAdapter(private var bookDetailList: ArrayList<StoryDetailQna>): RecyclerView.Adapter<BookDetailRVAdapter.DataViewHolder>() {
 
     inner class DataViewHolder(private val viewBinding: ItemBookDetailBinding): RecyclerView.ViewHolder(viewBinding.root) {
-        fun bind(bookDetail: BookDetail){
+        fun bind(bookDetail: StoryDetailQna){
             viewBinding.contentQuestion.text = bookDetail.question
             viewBinding.contentAnswer.text = bookDetail.answer
+            // 태그도 매핑해야 함 bookDetail.tagId
         }
+    }
+
+    //데이터 개별 추가
+    fun addItem(bookDetail: StoryDetailQna){
+        bookDetailList.add(bookDetail)
+        notifyDataSetChanged()
+    }
+
+    //데이터 일괄 추가
+    fun addItems(bookDetailList: ArrayList<StoryDetailQna>){
+        this.bookDetailList = bookDetailList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
