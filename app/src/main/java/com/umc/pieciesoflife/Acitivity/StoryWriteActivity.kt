@@ -14,6 +14,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.umc.pieciesoflife.DTO.QuestionDto.Question
@@ -32,6 +33,8 @@ class StoryWriteActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityStoryWriteBinding
     var mspanable: Spannable? = null
     var hashTagIsComing = 0
+    var previousQuestion: ArrayList<String> = ArrayList()
+    var questionTag: ArrayList<Int> = ArrayList()
     lateinit var question: String
     var tagIds = mutableListOf<Int>()
     var num : Int = 0
@@ -47,7 +50,6 @@ class StoryWriteActivity : AppCompatActivity() {
         tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
         Log.d("TagHash", "$tagHash")
 
-
         // tagContent에 값이 있을 시에, tagIds에 add
         for (i: Int in 1..7) {
             val tagContent_tmp = tagHash[i]
@@ -60,7 +62,7 @@ class StoryWriteActivity : AppCompatActivity() {
         // 랜덤 태그 생성
         num = tagIds.random()
         randomTag(num)
-        tagContent= tagHash[num].toString() //태그 컨텐츠도 질문태그에 맞게 업데이트
+        tagContent = tagHash[num].toString() //태그 컨텐츠도 질문태그에 맞게 업데이트
         Log.d("TagContent", "$tagContent")
 
         var qnaHash = HashMap<String, String>() //QnA
@@ -174,23 +176,27 @@ class StoryWriteActivity : AppCompatActivity() {
 
         // 새로운 질문 생성 (저장)
         viewBinding.buttonNext.setOnClickListener {
-            // QnaHash에 값 넣기
-            answer = viewBinding.editTextTextMultiLineWriteStory.text.toString()
-            val question_new="["+tagContent+"]"+question
-            qnaHash.put(answer, question_new) //QnA 저장 해시맵
-            Log.i("tagHash", "$tagHash")
-            Log.i("qnaHash", "$qnaHash")
-            // 랜덤 태그 생성
-            num = tagIds.random()
-            randomTag(num)
-            tagContent= tagHash[num].toString() //태그 컨텐츠도 질문태그에 맞게 업데이트
-            Log.d("TagContent", "$tagContent")
-            // 랜덤 선택된 태그에 관한 질문 생성
-            initQuestion(viewBinding.editTextTextMultiLineWriteStory)
-            //edit Text 초기화
-            viewBinding.editTextTextMultiLineWriteStory.setText("")
-            viewBinding.editTextTextMultiLineWriteStory.setSelection(viewBinding.editTextTextMultiLineWriteStory.text.length)
-
+            val inputText = viewBinding.editTextTextMultiLineWriteStory.text.toString()
+            if (inputText.isEmpty()) {
+                Toast.makeText(this, "답변을 입력하지 않으면 넘어갈 수 없습니다. \n어려운 질문은 건너뛰어도 돼요.", Toast.LENGTH_LONG).show()
+            } else {
+                answer = viewBinding.editTextTextMultiLineWriteStory.text.toString()
+                questionTag.add(num)
+                val question_new = tagContent + " " + question
+                qnaHash.put(answer, question_new) //QnA 저장 해시맵
+                Log.i("tagHash", "$tagHash")
+                Log.i("qnaHash", "$qnaHash")
+                //랜덤 질문
+                num = tagIds.random()
+                randomTag(num)
+                tagContent = tagHash[num].toString() //태그 컨텐츠도 질문태그에 맞게 업데이트
+                Log.d("TagContent", "$tagContent")
+                // 랜덤 선택된 태그에 관한 질문 생성
+                initQuestion(viewBinding.editTextTextMultiLineWriteStory)
+                //edit Text 초기화
+                viewBinding.editTextTextMultiLineWriteStory.setText("")
+                viewBinding.editTextTextMultiLineWriteStory.setSelection(viewBinding.editTextTextMultiLineWriteStory.text.length)
+            }
         }
         // 질문 건너뛰기 - 새로운 질문 생성
         viewBinding.buttonSkipQuestion.setOnClickListener {
@@ -223,9 +229,9 @@ class StoryWriteActivity : AppCompatActivity() {
             val questionList = qnaHash.values.toList()
             val storyQnaList = mutableListOf<StoryQna>()
             for (i in answerList.indices) {
-                if (answerList[i] == null || questionList[i] == null || tagIdList[i] == null) {
+                if (answerList[i] == null || questionList[i] == null || questionTag[i] == null) {
                 }
-                storyQnaList.add(StoryQna(tagIdList[i], questionList[i], answerList[i])) //얘도 마찬가지!!
+                storyQnaList.add(StoryQna(questionTag[i], questionList[i], answerList[i])) //얘도 마찬가지!!
             }
             Log.i("storyTagList","$storyTagList")
             Log.i("storyqnaList","$storyQnaList")
@@ -259,7 +265,12 @@ class StoryWriteActivity : AppCompatActivity() {
                 if(response.isSuccessful()) { // <--> response.code == 200
                     response.body()?.let {
                         question = it.data.questionTemplate
-                        viewBinding.tvQuestion.setText(question)
+                        if (!previousQuestion.contains(question)) {
+                            viewBinding.tvQuestion.setText(question)
+                            previousQuestion.add(question)
+                        }
+                        else
+                            initQuestion(viewBinding.editTextTextMultiLineWriteStory)
                     }
                 }
             }
