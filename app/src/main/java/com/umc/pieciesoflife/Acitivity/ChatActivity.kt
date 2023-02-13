@@ -23,5 +23,7 @@ class ChatActivity: AppCompatActivity() {
         viewBinding.buttonChat.setOnClickListener {
             startActivity(Intent(this@ChatActivity, ChatSendActivity::class.java))
         }
+
+        //채팅방 이야기 표지 - GET(/story/{storyId}) 사용
     }
 }

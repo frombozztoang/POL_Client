@@ -10,8 +10,6 @@ interface StoryService {
 
     // 자서전 둘러보기
     @GET("/story")
-    // @Headers("content-type: application/json",
-    //    "Authorization: Token")
     fun getStoryExplore(
         @Query("cursorId") cursorId : Int,
         @Query("page") page : Int,
@@ -32,21 +30,23 @@ interface StoryService {
     ): Call<Story>
 
     // 이야기 생성
-    @POST("/Story")
+    @POST("/story")
     fun postStory(
+        @Header("content-type") contentType : String,
+        @Header("Authorization") accessToken : String,
         @Body story: StoryPost
-    ): Call<StoryPost>
+    ): Call<StoryPostResult>
 
     // 태그 필터링 조회 (나의 자서전1)
     @GET("story/filter/{tagId}")
     fun getStoryFilter(
+        @Header("content-type") contentType : String,
         @Header("Authorization") accessToken : String,
         @Path("tagId") tagId: Int,
         @Query("page") page : Int,
         @Query("size") size : Int,
         @Query("sort") sort : String
     ) : Call<Story>
-
 
     // 둘러보기 - 상세보기
     @GET("story/{storyId}")

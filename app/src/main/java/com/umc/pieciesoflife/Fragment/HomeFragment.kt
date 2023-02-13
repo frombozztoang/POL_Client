@@ -141,9 +141,6 @@ class HomeFragment : Fragment() {
 
 
         // 사용자 대표 이야기 리사이클러뷰
-
-        // "application/json","Bearer $jwtToken",1,0,3,"recent"
-
         storyService.getStoryHome("application/json","Bearer $jwtToken",1,0,3,"recent").enqueue(object :
             retrofit2.Callback<Story> {
             // 성공 처리

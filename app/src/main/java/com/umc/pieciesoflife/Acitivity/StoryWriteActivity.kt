@@ -238,7 +238,7 @@ class StoryWriteActivity : AppCompatActivity() {
             for (i in answerList.indices) {
                 if (answerList[i] == null || questionList[i] == null || questionTag[i] == null) {
                 }
-                storyQnaList.add(StoryQna(questionList[i], answerList[i], questionTag[i])) //얘도 마찬가지!!
+                storyQnaList.add(StoryQna(questionTag[i], answerList[i], questionList[i]))
             }
             Log.i("storyTagList","$storyTagList")
             Log.i("storyQnaList","$storyQnaList")

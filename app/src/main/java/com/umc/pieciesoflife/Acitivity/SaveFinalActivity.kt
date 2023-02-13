@@ -9,6 +9,8 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.umc.pieciesoflife.DTO.StoryDto.StoryPost
+import com.umc.pieciesoflife.DTO.StoryDto.StoryPostResult
+import com.umc.pieciesoflife.GlobalApplication
 import com.umc.pieciesoflife.Interface.StoryService
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
@@ -21,6 +23,8 @@ import java.time.format.DateTimeFormatter
 
 class SaveFinalActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivitySaveFinalBinding
+    var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +37,7 @@ class SaveFinalActivity : AppCompatActivity() {
         var bookIntro = intent.getSerializableExtra("bookIntro") as String
         var bookColor = intent.getSerializableExtra("bookColor") as String
         val manager: FragmentManager = supportFragmentManager
-        val transaction: FragmentTransaction = manager.beginTransaction()
+      //  val transaction: FragmentTransaction = manager.beginTransaction()
         val date: LocalDate = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         val formatted_date = date.format(formatter)
@@ -51,9 +55,8 @@ class SaveFinalActivity : AppCompatActivity() {
         //한줄요약
         viewBinding.textViewIntro.setText(bookIntro)
 
-
         //서버 이야기 생성 포스트
-        val storyData = StoryPost(bookColor, bookTitle, bookIntro, storyQnaList, storyTagList)
+        val storyData = StoryPost(bookTitle, bookIntro, bookColor, storyTagList, storyQnaList)
         Log.i("storydata","$storyData") //dto 확인
 
 
@@ -61,17 +64,16 @@ class SaveFinalActivity : AppCompatActivity() {
         viewBinding.buttonFinish.setOnClickListener {
             // StoryService 객체 생성
             val call: StoryService = RetrofitClient.storyService
-            // 포스트 요청
-            call.postStory(storyData).enqueue(object: Callback<StoryPost> {
-                override fun onResponse(call: Call<StoryPost>, response: Response<StoryPost>) {
+            call.postStory("application/json","Bearer $jwtToken", storyData).enqueue(object: Callback<StoryPostResult> {
+                override fun onResponse(call: Call<StoryPostResult>, response: Response<StoryPostResult>) {
                     if (response.isSuccessful) {
                         // 포스트 성공
-                        Log.d("성공","${response.body()}")
+                        Log.d("storyPost","${response.body()}")
                     }
                 }
-                override fun onFailure(call: Call<StoryPost>, t: Throwable) {
+                override fun onFailure(call: Call<StoryPostResult>, t: Throwable) {
                     // 포스트 실패
-                    Log.d("testt", "에러입니다. ${t.message}")
+                    Log.d("storyPost", "에러입니다. ${t.message}")
                     t.printStackTrace()
                 }
             })
@@ -79,24 +81,5 @@ class SaveFinalActivity : AppCompatActivity() {
             this@SaveFinalActivity.finishAffinity()
 //            transaction.replace(R.id.mainFrameLayout, MyBookFragment()).commit()
         }
-    }
-    fun postStory(storyData: StoryPost) {
-        // StoryService 객체 생성
-        val call: StoryService = RetrofitClient.storyService
-
-        // 포스트 요청
-        call.postStory(storyData).enqueue(object: Callback<StoryPost> {
-            override fun onResponse(call: Call<StoryPost>, response: Response<StoryPost>) {
-                if (response.isSuccessful) {
-                    // 포스트 성공
-                    Log.d("성공","${response.body()}")
-                }
-            }
-            override fun onFailure(call: Call<StoryPost>, t: Throwable) {
-                // 포스트 실패
-                Log.d("testt", "에러입니다. ${t.message}")
-                t.printStackTrace()
-            }
-        })
     }
 }

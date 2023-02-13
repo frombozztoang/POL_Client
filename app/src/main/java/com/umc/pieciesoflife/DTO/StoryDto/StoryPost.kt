@@ -1,11 +1,12 @@
 package com.umc.pieciesoflife.DTO.StoryDto
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class StoryPost(
-    val color: String,
-    val title: String,
-    val description: String,
-    val qnaList: Serializable?,
-    val storyTagList: Serializable?
+    @SerializedName("title") val title: String,
+    @SerializedName("description") val description: String,
+    @SerializedName("color") val color: String,
+    @SerializedName("storyTagList") val storyTagList: Serializable?,
+    @SerializedName("qnaList") val qnaList: Serializable?
 )
