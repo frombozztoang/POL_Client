@@ -14,6 +14,7 @@ import com.umc.pieciesoflife.DTO.StoryDto.*
 import com.umc.pieciesoflife.Fragment.ExploreFragment
 import com.umc.pieciesoflife.GlobalApplication
 import com.umc.pieciesoflife.Interface.StoryService
+import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.Retrofit.RetrofitClient.storyService
 import com.umc.pieciesoflife.databinding.ActivityExploreDetailedBinding
@@ -23,7 +24,8 @@ import retrofit2.Response
 
 class ExploreDetailedActivity : AppCompatActivity() {
     private lateinit var viewBinding : ActivityExploreDetailedBinding
-    lateinit var storyDetailStory : StoryDetailStory
+    private var itemId = 0 // 호출한 특정 스토리 아이디
+
     //RV_Deatiled 리사이클러뷰
     private var bookDetailList: ArrayList<StoryDetailQna> = arrayListOf()
 
@@ -36,8 +38,10 @@ class ExploreDetailedActivity : AppCompatActivity() {
         viewBinding.RVDetailed.adapter = bookDetailAdapter
         viewBinding.RVDetailed.layoutManager = LinearLayoutManager(this)
 
+        itemId = intent.getIntExtra("id", 86) // 호출한 특정 스토리 아이디
+
         var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
-        storyService.getStoryDetail("Bearer $jwtToken",1).enqueue(object : Callback<StoryDetail> {
+        storyService.getStoryDetail("Bearer $jwtToken", itemId).enqueue(object : Callback<StoryDetail> {
             // 성공 처리
             override fun onResponse(call: Call<StoryDetail>, response: Response<StoryDetail>) {
                 if(response.isSuccessful) { // <--> response.code == 200
@@ -50,9 +54,28 @@ class ExploreDetailedActivity : AppCompatActivity() {
                         viewBinding.tvContent.text = it.data.story.description
                         viewBinding.tvDate.text = it.data.story.date
 
+                        // 색상 설정
+                        var color = it.data.story.color
+                        if (color == "#cdb5fa")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_purple)
+                        else if (color == "#9dc4f0")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_blue)
+                        else if (color == "peach")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_peach)
+                        else if (color == "b9df98")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_green)
+                        else if (color == "#f7d698")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_yellow)
+                        else if (color == "pink")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_pink)
+                        else if (color == "mint")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_mint)
+                        else if (color == "#dfe07e")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_lime)
+
                         // 좋아요 버튼 클릭 이벤트
                         viewBinding.btnLikeDetailed.text = it.data.story.likeCnt.toString()
-                        viewBinding.btnLikeDetailed.isSelected = it.data.story.liked != true
+                        viewBinding.btnLikeDetailed.isSelected = it.data.story.liked
                         viewBinding.btnLikeDetailed.setOnClickListener {
                             if (viewBinding.btnLikeDetailed.isSelected) {
                                 count -= 1

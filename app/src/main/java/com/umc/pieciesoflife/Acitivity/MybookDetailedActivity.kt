@@ -18,6 +18,7 @@ import com.umc.pieciesoflife.DTO.StoryDto.StoryDetailQna
 import com.umc.pieciesoflife.DTO.StoryDto.StoryDetailStory
 import com.umc.pieciesoflife.DataClass.BookDetail
 import com.umc.pieciesoflife.Fragment.HomeFragment
+import com.umc.pieciesoflife.GlobalApplication
 import com.umc.pieciesoflife.Interface.StoryService
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
@@ -31,7 +32,7 @@ import retrofit2.Response
 
 class MybookDetailedActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMybookDetailedBinding
-
+    private var itemId = 0 // 호출한 특정 스토리 아이디
     private var count : Int = 46 // 좋아요 수
     private var newColor : String? = "" // 자서전 배경색
 
@@ -48,8 +49,11 @@ class MybookDetailedActivity : AppCompatActivity() {
         viewBinding.rvDetailed.adapter = myBookDetailAdapter
         viewBinding.rvDetailed.layoutManager = LinearLayoutManager(this)
 
+        itemId = intent.getIntExtra("id", 86) // 호출한 특정 스토리 아이디
+
         // DTO 연결시도
-        storyService.getStoryDetail("Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiLqs6DsirntnawiLCJuaWNrbmFtZSI6IuqzoOyKue2drCIsImlkIjo4LCJleHAiOjE2NzcwMTIwNTN9.bDZCi4jvhHNSoXonQupwuAb2GJPO-RPin5oqj59d3PDmmloiS7XcZTH4qDAcNhUXDNzqQ-P-GQISDVKbPsyMdQ",1).enqueue(object : Callback<StoryDetail> {
+        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+        storyService.getStoryDetail("Bearer $jwtToken",itemId).enqueue(object : Callback<StoryDetail> {
             // 성공 처리
             override fun onResponse(call: Call<StoryDetail>, response: Response<StoryDetail>) {
                 if(response.isSuccessful) { // <--> response.code == 200
