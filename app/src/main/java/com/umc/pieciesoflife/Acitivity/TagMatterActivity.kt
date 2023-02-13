@@ -8,6 +8,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
 import com.umc.pieciesoflife.Acitivity.TagObjectActivity
 import com.umc.pieciesoflife.Acitivity.TagPlaceActivity
 import com.umc.pieciesoflife.databinding.ActivityTagMatterBinding
@@ -27,12 +28,17 @@ class TagMatterActivity : AppCompatActivity() {
 
 
         viewBinding.buttonNext.setOnClickListener {
-            TagContent = viewBinding.editTextMatter.text.toString()
-            tagHash.put(TagId, TagContent)
-            Log.i("content","$tagHash") //확인
-            val intent = Intent(applicationContext, TagObjectActivity::class.java)
-            intent.putExtra("TagHash", tagHash)
-            startActivity(intent) //다음 화면 띄우기
+            val inputText = viewBinding.editTextMatter.text.toString()
+            if (inputText.isEmpty()) {
+                Toast.makeText(this, "태그를 입력하지 않으면 저장할 수 없습니다.", Toast.LENGTH_LONG).show()
+            } else {
+                TagContent = viewBinding.editTextMatter.text.toString()
+                tagHash.put(TagId, TagContent)
+                Log.i("content","$tagHash") //확인
+                val intent = Intent(applicationContext, TagObjectActivity::class.java)
+                intent.putExtra("TagHash", tagHash)
+                startActivity(intent) //다음 화면 띄우기
+            }
         }
         viewBinding.buttonBack.setOnClickListener {
             val intent = Intent(applicationContext, TagPlaceActivity::class.java)

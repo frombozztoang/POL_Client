@@ -84,7 +84,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="0dp"
         android:background="#00ff0000"
-        android:text="다음"
+        android:text="저장"
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
