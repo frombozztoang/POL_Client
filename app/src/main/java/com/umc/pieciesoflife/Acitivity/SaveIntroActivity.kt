@@ -24,6 +24,8 @@ class SaveIntroActivity : AppCompatActivity() {
         viewBinding = ActivitySaveIntroBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        var storyQnaList = intent.getSerializableExtra("storyQnaList")
+        var storyTagList = intent.getSerializableExtra("storyTagList")
         var bookTitle = intent.getSerializableExtra("bookTitle") as String
         var bookIntro = ""
 
@@ -38,6 +40,8 @@ class SaveIntroActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, SaveColorActivity::class.java)
             intent.putExtra("bookTitle", bookTitle)
             intent.putExtra("bookIntro", bookIntro)
+            intent.putExtra("storyQnaList","$storyQnaList")
+            intent.putExtra("storyTagList","$storyTagList")
             startActivity(intent) //다음 화면 띄우기
         }
     }

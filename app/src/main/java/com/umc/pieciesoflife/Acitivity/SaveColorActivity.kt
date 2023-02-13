@@ -21,6 +21,8 @@ class SaveColorActivity : AppCompatActivity() {
         setContentView(R.layout.activity_save_color)
         viewBinding = ActivitySaveColorBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
+        var storyQnaList = intent.getSerializableExtra("storyQnaList")
+        var storyTagList = intent.getSerializableExtra("storyTagList")
         var bookColor = "#CDB5FA"
         var bookTitle = intent.getSerializableExtra("bookTitle") as String
         var bookIntro = intent.getSerializableExtra("bookIntro") as String
@@ -82,6 +84,8 @@ class SaveColorActivity : AppCompatActivity() {
             intent.putExtra("bookColor", bookColor)
             intent.putExtra("bookIntro", bookIntro)
             intent.putExtra("bookTitle", bookTitle)
+            intent.putExtra("storyQnaList","$storyQnaList")
+            intent.putExtra("storyTagList","$storyTagList")
             startActivity(intent) //다음 화면 띄우기
         }
     }

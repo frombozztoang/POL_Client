@@ -34,12 +34,8 @@ interface StoryService {
     // 이야기 생성
     @POST("/Story")
     fun postStory(
-        @Body title: String,
-        @Body description: String,
-        @Body color: String,
-        @Body storyTag: StoryTag,
-        @Body storyQna: StoryQna
-    ) : Call<StoryPost>
+        @Body story: StoryPost
+    ): Call<StoryPost>
 
     // 태그 필터링 조회 (나의 자서전1)
     @GET("story/filter/{tagId}")

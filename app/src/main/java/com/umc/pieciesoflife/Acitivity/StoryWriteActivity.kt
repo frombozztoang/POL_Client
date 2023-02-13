@@ -17,6 +17,8 @@ import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.umc.pieciesoflife.DTO.QuestionDto.Question
+import com.umc.pieciesoflife.DTO.StoryDto.StoryQna
+import com.umc.pieciesoflife.DTO.StoryDto.StoryTag
 import com.umc.pieciesoflife.Interface.QuestionService
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
@@ -34,6 +36,7 @@ class StoryWriteActivity : AppCompatActivity() {
     var tagIds = mutableListOf<Int>()
     var num : Int = 0
     lateinit var tagHash : HashMap<Int, String>
+    lateinit var tagContent : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,17 +47,21 @@ class StoryWriteActivity : AppCompatActivity() {
         tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
         Log.d("TagHash", "$tagHash")
 
+
         // tagContent에 값이 있을 시에, tagIds에 add
         for (i: Int in 1..7) {
-            var tagContent = tagHash.get(i).toString()
-            if (tagContent != null) tagIds.add(i)
+            val tagContent_tmp = tagHash[i]
+            if (tagContent_tmp != null) {
+                tagIds.add(i)
+            }
         }
-
         Log.d("TagIds", "$tagIds")
 
         // 랜덤 태그 생성
         num = tagIds.random()
         randomTag(num)
+        tagContent= tagHash[num].toString() //태그 컨텐츠도 질문태그에 맞게 업데이트
+        Log.d("TagContent", "$tagContent")
 
         var qnaHash = HashMap<String, String>() //QnA
         var answer: String = ""
@@ -161,25 +168,28 @@ class StoryWriteActivity : AppCompatActivity() {
             override fun beforeTextChanged(
                 s: CharSequence, start: Int, count: Int,
                 after: Int
-            ) {
-                // TODO Auto-generated method stub
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                // TODO Auto-generated method stub
-            }
+            ) {}
+            override fun afterTextChanged(s: Editable) {}
         })
 
-        // 새로운 질문 생성
+        // 새로운 질문 생성 (다음)
         viewBinding.buttonNext.setOnClickListener {
             answer = viewBinding.editTextTextMultiLineWriteStory.text.toString()
-            qnaHash.put(answer, question) //QnA 저장 해시맵
+            val question_new=tagContent+" "+question
+            qnaHash.put(answer, question_new) //QnA 저장 해시맵
+            Log.i("tagHash", "$tagHash")
             Log.i("qnaHash", "$qnaHash")
             //랜덤 질문
             num = tagIds.random()
             randomTag(num)
+            tagContent= tagHash[num].toString() //태그 컨텐츠도 질문태그에 맞게 업데이트
+            Log.d("TagContent", "$tagContent")
             // 랜덤 선택된 태그에 관한 질문 생성
             initQuestion(viewBinding.editTextTextMultiLineWriteStory)
+            //edit Text 초기화
+            viewBinding.editTextTextMultiLineWriteStory.setText("")
+            viewBinding.editTextTextMultiLineWriteStory.setSelection(viewBinding.editTextTextMultiLineWriteStory.text.length)
+
         }
         // 질문 건너뛰기 - 새로운 질문 생성
         viewBinding.buttonSkipQuestion.setOnClickListener {
@@ -196,9 +206,33 @@ class StoryWriteActivity : AppCompatActivity() {
         }
         // 자서전 완성
         viewBinding.buttonFinish.setOnClickListener {
+            //StoryTag
+            val tagIdList = tagHash.keys.toList()
+            val tagContentList = tagHash.values.toList()
+            val storyTagList = ArrayList<StoryTag>()
+            for (i in tagIdList.indices) {
+                if (tagIdList[i] == null || tagContentList[i] == null) {
+                    continue
+                }
+                storyTagList.add(StoryTag(tagIdList[i]!!, tagContentList[i]!!)) //나는 이렇게 넣어야한다고 생각햇는데 그냥 이중배열로 넣는거면 수정만 하면 될듯
+            }
+
+            //QnaTag
+            val answerList = qnaHash.keys.toList()
+            val questionList = qnaHash.values.toList()
+            val storyQnaList = mutableListOf<StoryQna>()
+            for (i in answerList.indices) {
+                if (answerList[i] == null || questionList[i] == null || tagIdList[i] == null) {
+                }
+                storyQnaList.add(StoryQna(questionList[i], answerList[i], tagIdList[i])) //얘도 마찬가지!!
+            }
+            Log.i("storyTagList","$storyTagList")
+            Log.i("storyqnaList","$storyQnaList")
+
             val intent = Intent(applicationContext, SaveTitleActivity::class.java)
-            intent.putExtra("QnaHash", qnaHash)
-            intent.putExtra("TagHash", tagHash)
+            //이건 내가 바로 final로 넘겨봤는데 자꾸 오류떠서 걍 페이지마다 인텐트로 넘겼어요 ㅎㅎ...
+            intent.putExtra("storyQnaList검토","$storyQnaList")
+            intent.putExtra("storyTagList검토","$storyTagList")
             startActivity(intent)
         }
     }
