@@ -25,16 +25,16 @@ import java.time.format.DateTimeFormatter
 class SaveFinalActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivitySaveFinalBinding
     var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
-    lateinit var storyQnaList: List<StoryQna>
-    lateinit var storyTagList: List<StoryTag>
+    private var storyQnaList: ArrayList<StoryQna> = arrayListOf()
+    private var storyTagList: ArrayList<StoryTag> = arrayListOf()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivitySaveFinalBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-        storyQnaList = intent.getSerializableExtra("storyQnaList") as List<StoryQna>
-        storyTagList = intent.getSerializableExtra("storyTagList") as List<StoryTag>
+        storyQnaList = intent.getSerializableExtra("storyQnaList") as ArrayList<StoryQna>
+        storyTagList = intent.getSerializableExtra("storyTagList") as ArrayList<StoryTag>
         var bookTitle = intent.getSerializableExtra("bookTitle") as String
         var bookIntro = intent.getSerializableExtra("bookIntro") as String
         var bookColor = intent.getSerializableExtra("bookColor") as String

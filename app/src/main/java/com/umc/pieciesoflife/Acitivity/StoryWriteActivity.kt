@@ -15,7 +15,9 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.umc.pieciesoflife.DTO.QuestionDto.Question
+import com.umc.pieciesoflife.DTO.StoryDto.StoryDetailQna
 import com.umc.pieciesoflife.DTO.StoryDto.StoryQna
+import com.umc.pieciesoflife.DTO.StoryDto.StoryTag
 import com.umc.pieciesoflife.Interface.QuestionService
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
@@ -219,18 +221,21 @@ class StoryWriteActivity : AppCompatActivity() {
         // 이야기 완성하기 - 이야기 저장
         viewBinding.buttonFinish.setOnClickListener {
             //StoryTag
+   //         private var bookDetailList: ArrayList<StoryDetailQna> = arrayListOf()
+   //         bookDetailList = it.data.qnaList as ArrayList<StoryDetailQna>
+
             val tagIdList = tagHash.keys.toList()
             val tagContentList = tagHash.values.toList()
-            val storyTagList = ArrayList<String>()
+            val storyTagList = ArrayList<StoryTag>()
             for (i in tagIdList.indices) {
                 if (tagIdList[i] == null || tagContentList[i] == null) {
                     continue
                 }
-                storyTagList.add(tagIdList[i]!!, tagContentList[i]!!) //나는 이렇게 넣어야한다고 생각햇는데 그냥 이중배열로 넣는거면 수정만 하면 될듯
+                storyTagList.add(StoryTag(tagContentList[i]!!, tagIdList[i]!!)) //나는 이렇게 넣어야한다고 생각햇는데 그냥 이중배열로 넣는거면 수정만 하면 될듯
             }
 
             //QnaTag
-            val storyQnaList = mutableListOf<StoryQna>()
+            val storyQnaList = ArrayList<StoryQna>()
             for (i in answerList.indices) {
                 if (answerList[i] == null || questionList[i] == null || questionTag[i] == null) {
                 }
