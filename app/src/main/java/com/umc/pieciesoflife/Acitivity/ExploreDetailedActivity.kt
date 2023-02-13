@@ -37,7 +37,7 @@ class ExploreDetailedActivity : AppCompatActivity() {
         viewBinding.RVDetailed.layoutManager = LinearLayoutManager(this)
 
         var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
-        storyService.getStoryDetail("Bearer $jwtToken",1).enqueue(object : Callback<StoryDetail> {
+        storyService.getStoryDetail("Bearer $jwtToken",66).enqueue(object : Callback<StoryDetail> {
             // 성공 처리
             override fun onResponse(call: Call<StoryDetail>, response: Response<StoryDetail>) {
                 if(response.isSuccessful) { // <--> response.code == 200

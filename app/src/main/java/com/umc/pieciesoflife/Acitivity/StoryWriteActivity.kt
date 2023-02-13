@@ -11,15 +11,10 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.MutableLiveData
 import com.umc.pieciesoflife.DTO.QuestionDto.Question
-import com.umc.pieciesoflife.DTO.StoryDto.StoryQna
-import com.umc.pieciesoflife.DTO.StoryDto.StoryTag
 import com.umc.pieciesoflife.Interface.QuestionService
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
@@ -216,22 +211,22 @@ class StoryWriteActivity : AppCompatActivity() {
             //StoryTag
             val tagIdList = tagHash.keys.toList()
             val tagContentList = tagHash.values.toList()
-            val storyTagList = ArrayList<StoryTag>()
+            val storyTagList = ArrayList<String>()
             for (i in tagIdList.indices) {
                 if (tagIdList[i] == null || tagContentList[i] == null) {
                     continue
                 }
-                storyTagList.add(StoryTag(tagIdList[i]!!, tagContentList[i]!!)) //나는 이렇게 넣어야한다고 생각햇는데 그냥 이중배열로 넣는거면 수정만 하면 될듯
+                storyTagList.add(tagIdList[i]!!, tagContentList[i]!!) //나는 이렇게 넣어야한다고 생각햇는데 그냥 이중배열로 넣는거면 수정만 하면 될듯
             }
 
             //QnaTag
             val answerList = qnaHash.keys.toList()
             val questionList = qnaHash.values.toList()
-            val storyQnaList = mutableListOf<StoryQna>()
+            val storyQnaList = mutableListOf<String>()
             for (i in answerList.indices) {
                 if (answerList[i] == null || questionList[i] == null || questionTag[i] == null) {
                 }
-                storyQnaList.add(StoryQna(questionTag[i], questionList[i], answerList[i])) //얘도 마찬가지!!
+                storyQnaList.add(questionTag[i], questionList[i], answerList[i]) //얘도 마찬가지!!
             }
             Log.i("storyTagList","$storyTagList")
             Log.i("storyqnaList","$storyQnaList")

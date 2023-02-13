@@ -7,9 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import com.umc.pieciesoflife.DTO.StoryDto.StoryPost
 import com.umc.pieciesoflife.DTO.StoryDto.StoryPostResult
+import com.umc.pieciesoflife.DTO.StoryDto.StoryQna
+import com.umc.pieciesoflife.DTO.StoryDto.StoryTag
 import com.umc.pieciesoflife.GlobalApplication
 import com.umc.pieciesoflife.Interface.StoryService
 import com.umc.pieciesoflife.R
@@ -24,15 +25,16 @@ import java.time.format.DateTimeFormatter
 class SaveFinalActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivitySaveFinalBinding
     var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
-
+    lateinit var storyQnaList: List<StoryQna>
+    lateinit var storyTagList: List<StoryTag>
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewBinding = ActivitySaveFinalBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
-        var storyQnaList = intent.getSerializableExtra("storyQnaList")
-        var storyTagList = intent.getSerializableExtra("storyTagList")
+        storyQnaList = intent.getSerializableExtra("storyQnaList") as List<StoryQna>
+        storyTagList = intent.getSerializableExtra("storyTagList") as List<StoryTag>
         var bookTitle = intent.getSerializableExtra("bookTitle") as String
         var bookIntro = intent.getSerializableExtra("bookIntro") as String
         var bookColor = intent.getSerializableExtra("bookColor") as String
@@ -56,7 +58,7 @@ class SaveFinalActivity : AppCompatActivity() {
         viewBinding.textViewIntro.setText(bookIntro)
 
         //서버 이야기 생성 포스트
-        val storyData = StoryPost(bookTitle, bookIntro, bookColor, storyTagList, storyQnaList)
+        val storyData = StoryPost(bookTitle, bookIntro, bookColor, storyQnaList, storyTagList)
         Log.i("storydata","$storyData") //dto 확인
 
 
