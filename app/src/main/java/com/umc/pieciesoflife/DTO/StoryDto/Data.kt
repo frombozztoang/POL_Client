@@ -1,5 +1,5 @@
 package com.umc.pieciesoflife.DTO.StoryDto
 
-data class StoryLikeData(
+data class Data(
     val isLiked: Boolean
 )
