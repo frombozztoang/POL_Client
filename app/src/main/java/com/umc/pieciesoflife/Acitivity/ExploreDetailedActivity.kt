@@ -125,6 +125,11 @@ class ExploreDetailedActivity : AppCompatActivity() {
                         }
                     }
                 }
+
+
+                        }
+                    }
+                }
                 override fun onFailure(call: Call<StoryDetail>, t: Throwable) {
                     // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                     Log.d(
