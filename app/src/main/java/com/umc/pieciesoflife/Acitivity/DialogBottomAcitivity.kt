@@ -40,6 +40,7 @@ class DialogBottomAcitivity : AppCompatActivity() {
             val newIntent = Intent(this, DialogStoryActivity::class.java)
             newIntent.putExtra("id", itemId)
             newIntent.putExtra("isMain", isMain)
+            Log.d("StoryMain", "DialogBottomAc에서 publicAc으로 보내기 $itemId $isMain")
             startActivity(newIntent)
         }
 
@@ -47,13 +48,14 @@ class DialogBottomAcitivity : AppCompatActivity() {
             val newIntent = Intent(this, DialogPublicActivity::class.java)
             newIntent.putExtra("id", itemId)
             newIntent.putExtra("isOpen", isOpen)
-            Log.d("StoryOpen", "DialogBottomAc에서 publicAc으로 보내기")
+            Log.d("StoryOpen", "DialogBottomAc에서 publicAc으로 보내기 $itemId $isOpen")
             startActivity(newIntent)
         }
 
         viewBinding.btnColor.setOnClickListener {
             val newIntent = Intent(this, DialogColorActivity::class.java)
             newIntent.putExtra("id", itemId)
+            Log.d("StoryColor", "DialogBottomAc에서 publicAc으로 보내기 $itemId")
             startActivity(newIntent)
         }
 

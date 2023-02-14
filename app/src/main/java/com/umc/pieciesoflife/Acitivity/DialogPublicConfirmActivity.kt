@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
+import androidx.core.app.ActivityCompat
 import com.umc.pieciesoflife.DTO.StoryDto.StoryOpen
 import com.umc.pieciesoflife.DTO.StoryDto.StoryOpenResult
 import com.umc.pieciesoflife.DTO.StoryDto.StoryOpenResultData
@@ -30,7 +31,7 @@ class DialogPublicConfirmActivity : AppCompatActivity() {
         isOpen = intent.getBooleanExtra("isOpen",true ) // 공개 여부
 
 
-        val storyOpenData = StoryOpen(isOpened = isOpen) // 요청할 isOpened
+        val storyOpenData = StoryOpen(isOpen) // 요청할 isOpened
 
         viewBinding.btnOk.setOnClickListener {
             storyService.patchStoryOpen("Bearer $jwtToken", itemId, storyOpenData).enqueue(

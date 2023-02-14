@@ -54,21 +54,21 @@
         <activity android:name=".Acitivity.TagPlaceActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.TagYearActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogBottomAcitivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogColorActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogDeleteActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogDeleteConfirmActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogPublicActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogPublicConfirmActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogStoryActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogStoryConfirmActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogUserEditActivity" android:exported="true" android:theme="@style/Theme.AppCompat.DayNight.Dialog"    android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.UserEditActivity" android:exported="true"    android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".BottomNavBar.BottomNavBarActivity" android:exported="true"/>

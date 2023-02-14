@@ -10,7 +10,7 @@ import com.umc.pieciesoflife.databinding.ActivityDialogPublicBinding
 class DialogPublicActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityDialogPublicBinding
     private var itemId = 0 // 호출한 특정 스토리 아이디
-    private var isOpen : Boolean = false // 메인 여부
+    private var isOpen : Boolean = false // 공개 여부
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

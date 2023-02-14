@@ -51,9 +51,9 @@ class MybookDetailedActivity : AppCompatActivity() {
         viewBinding.rvDetailed.layoutManager = LinearLayoutManager(this)
 
         itemId = intent.getIntExtra("id", 86) // 호출한 특정 스토리 아이디
-
+        Log.d("Detail", "${itemId}")
         // DTO 연결시도
-        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+        val jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
         storyService.getStoryDetail("Bearer $jwtToken",itemId).enqueue(object : Callback<StoryDetail> {
             // 성공 처리
             override fun onResponse(call: Call<StoryDetail>, response: Response<StoryDetail>) {
@@ -102,7 +102,7 @@ class MybookDetailedActivity : AppCompatActivity() {
             intent.putExtra("isMain", isMain) // 현재 main 여부 intent로 전달
             intent.putExtra("isOpen", isOpen) // 현재 open 여부 intent로 전달
             intent.putExtra("id", itemId) // 현재 스토리 id intent로 전달
-            Log.d("StoryOpen", "myBookDetailedActivity에서 DialogBottomAc으로 보내기")
+            Log.d("StoryOpen", "myBookDetailedActivity에서 DialogBottomAc으로 보내기 $itemId")
             startActivity(intent)
         }
 
