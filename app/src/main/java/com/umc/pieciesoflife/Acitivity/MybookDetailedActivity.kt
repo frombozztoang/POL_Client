@@ -64,7 +64,7 @@ class MybookDetailedActivity : AppCompatActivity() {
                         viewBinding.tvNameDetailed.text = it.data.story.nickname
                         Picasso.get().load(it.data.story.profileImgUrl).into(viewBinding.imgProfile)
                         viewBinding.tvContent.text = it.data.story.description
-                        viewBinding.tvDate.text = it.data.story.date
+                        viewBinding.tvDate.text = it.data.story.date.substring(0,10)
 
                         isMain = it.data.story.main
                         isOpen = it.data.story.open

@@ -3,10 +3,12 @@ package com.umc.pieciesoflife.Fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.QueryDocumentSnapshot
@@ -20,11 +22,12 @@ import com.umc.pieciesoflife.databinding.FragmentUserMessageBinding
 class UserChatFragment : Fragment() {
     private lateinit var Binding: FragmentUserMessageBinding
 //    private lateinit var messageAdapter: MessageRVAdapter
-//
-//    val database = Firebase.firestore
-//    var path = "HJ_chatRoom"
-//    val messageList: ArrayList<ChatRoom> = arrayListOf() // 리사이클러뷰용 리스트
-//    val mylist : ArrayList<String> = arrayListOf() // '내가' 있는 모든 채팅방 이름
+
+    val database = Firebase.firestore
+    var path = "HJ_chatRoom"
+    val messageList: ArrayList<ChatRoom> = arrayListOf() // 리사이클러뷰용 리스트
+    val mylist : ArrayList<String> = arrayListOf() // '내가' 있는 모든 채팅방 이름
+
 
 
 
@@ -34,16 +37,20 @@ class UserChatFragment : Fragment() {
     ): View? {
         Binding = FragmentUserMessageBinding.inflate(inflater, container, false)
 
-//        var userId = 0 //intent.getExtra어쩌구
-//        //firebase에서 내가 포함된 채팅방 조회
-//        var collectionReference = database.collection(path)
-//
-//        var query = collectionReference.whereEqualTo("myId",userId)
-//        //var doc1 : Collection<QueryDocumentSnapshot> = query.get().
-//
-//
-//
-//
+        var userId = 0 //intent.getExtra어쩌구
+        //firebase에서 내가 포함된 채팅방 조회
+        var collectionReference = database.collection(path)
+
+        var query = collectionReference.whereEqualTo("myId",userId)
+        //var doc1 : Collection<QueryDocumentSnapshot> = query.get().
+
+        // userFragment에서 userId 받아오기
+        setFragmentResultListener("requestKey") { requestKey, bundle ->
+            val result = bundle.getString("bundleKey")
+            // Do something with the result
+            Log.d("유저아이딩가딩가링", "$result")
+        }
+
 //
 //        //리사이클러뷰 어댑터
 //        messageAdapter = MessageRVAdapter(Activity())
