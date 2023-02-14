@@ -8,24 +8,42 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.QueryDocumentSnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import com.umc.pieciesoflife.Acitivity.ChatActivity
 import com.umc.pieciesoflife.Adapter.MessageRVAdapter
-import com.umc.pieciesoflife.DataClass.Message
-import com.umc.pieciesoflife.R
+import com.umc.pieciesoflife.DataClass.ChatRoom
 import com.umc.pieciesoflife.databinding.FragmentUserMessageBinding
 
-class UserMessageFragment : Fragment() {
+class UserChatFragment : Fragment() {
     private lateinit var Binding: FragmentUserMessageBinding
     private lateinit var messageAdapter: MessageRVAdapter
 
+    val database = Firebase.firestore
+    var path = "HJ_chatRoom"
+    val messageList: ArrayList<ChatRoom> = arrayListOf() // 리사이클러뷰용 리스트
+    val mylist : ArrayList<String> = arrayListOf() // '내가' 있는 모든 채팅방 이름
 
-    val messageList: ArrayList<Message> = arrayListOf()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         Binding = FragmentUserMessageBinding.inflate(inflater, container, false)
+
+        var userId = 0 //intent.getExtra어쩌구
+        //firebase에서 내가 포함된 채팅방 조회
+        var collectionReference = database.collection(path)
+
+        var query = collectionReference.whereEqualTo("myId",userId)
+        //var doc1 : Collection<QueryDocumentSnapshot> = query.get().
+
+
+
+
 
         //리사이클러뷰 어댑터
         messageAdapter = MessageRVAdapter(Activity())
@@ -48,6 +66,7 @@ class UserMessageFragment : Fragment() {
 
 
     private fun initRecycler() {
+        /*
         messageList.apply {
             add(
                 Message(
@@ -96,5 +115,7 @@ class UserMessageFragment : Fragment() {
             messageAdapter.notifyDataSetChanged()
 
         }
+
+         */
     }
 }

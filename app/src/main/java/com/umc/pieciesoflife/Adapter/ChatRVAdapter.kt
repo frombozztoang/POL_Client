@@ -1,29 +1,62 @@
 package com.umc.pieciesoflife.Adapter
 
 import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.umc.pieciesoflife.DataClass.ChatRoom
-/*
-class ChatRVAdapter(private val context: Context) : RecyclerView.Adapter<*ChatRVAdapter.ViewHolder>() {
+import com.squareup.picasso.Picasso
+import com.umc.pieciesoflife.R
+import com.umc.pieciesoflife.DTO.MyPageDto.ChatRooms
 
-    var chatRooms: ArrayList<ChatRoom> = arrayListOf()
-    var chatRoomKeys: ArrayList<String> = arrayListOf()
+class ChatRVAdapter(private val context: Context) : RecyclerView.Adapter<ChatRVAdapter.ViewHolder>() {
 
-    inner class ViewHolder {
+    //클릭 interface 정의
+    interface MyItemClickListener{
+        fun onItemClick(position: Int)
+    }
+    //클릭 리스너 선언
+    private lateinit var mItemClickListner: MyItemClickListener
+    //클릭 리스너 등록
+    fun setMyItemClickListener(itemClickListener: MyItemClickListener){
+        mItemClickListner = itemClickListener
+    }
 
+    var chatRooms: ArrayList<ChatRooms> = arrayListOf()
+
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
+        init {
+            //itemView의 OnItemClick 상속 및 초기화
+            itemView.setOnClickListener {
+                mItemClickListner.onItemClick(adapterPosition)
+            }
+        }
+
+        private val imgUserProfile: ImageView = itemView.findViewById(R.id.msg_userImg)
+        private val txtUserName: TextView = itemView.findViewById(R.id.msg_userName)
+        private val txtDate: TextView = itemView.findViewById(R.id.msg_date)
+        private val txtContent: TextView = itemView.findViewById(R.id.msg_content)
+
+        fun bind(item: ChatRooms) {
+            Picasso.get().load(item.userImg).into(imgUserProfile)
+            txtUserName.text=item.userName
+            txtDate.text=item.date
+            txtContent.text =item.content
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_message,parent,false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(chatRooms[position])
     }
 
-    override fun getItemCount(): Int {
-    }
-
+    override fun getItemCount(): Int = chatRooms.size
 }
 
- */
+

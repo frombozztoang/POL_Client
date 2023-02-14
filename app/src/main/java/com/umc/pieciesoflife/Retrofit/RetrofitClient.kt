@@ -54,6 +54,6 @@ object RetrofitClient {
     val kakaoService: KakaoService by lazy {retrofit.create(KakaoService::class.java)}
     val userService: UserService by lazy {retrofit.create(UserService::class.java)}
     val myPageService: MyPageService by lazy {retrofit.create(MyPageService::class.java)}
-    val chatService: ChatService by lazy { retrofit.create(ChatService::class.java) }
+    //val chatService: ChatService by lazy { retrofit.create(ChatService::class.java) }
 
 }

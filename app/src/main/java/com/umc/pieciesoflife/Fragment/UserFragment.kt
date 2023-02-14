@@ -125,7 +125,7 @@ class UserFragment : Fragment() {
         //ViewPager
         // 2개의 fragment add
         pagerAdapter.addFragment(UserBookFragment())
-        pagerAdapter.addFragment(UserMessageFragment())
+        pagerAdapter.addFragment(UserChatFragment())
         // adapter 연결
         // userMessageFragment로 userId넘겨주기
         viewPager.adapter = pagerAdapter
