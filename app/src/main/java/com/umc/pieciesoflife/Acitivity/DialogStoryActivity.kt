@@ -17,8 +17,10 @@ class DialogStoryActivity : AppCompatActivity() {
 
 
         viewBinding.btnOk.setOnClickListener {
-            val intent = Intent(this, DialogStoryConfirmActivity::class.java)
-            startActivity(intent)
+            val newIntent = Intent(this, DialogStoryConfirmActivity::class.java)
+//            newIntent.putExtra("id", itemId)
+//            newIntent.putExtra("isMain", isMain)
+            startActivity(newIntent)
         }
         viewBinding.btnCancel.setOnClickListener {
             val intent = Intent(this, MybookDetailedActivity::class.java)

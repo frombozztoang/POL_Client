@@ -35,7 +35,8 @@ class MybookDetailedActivity : AppCompatActivity() {
     private var itemId = 0 // 호출한 특정 스토리 아이디
     private var count : Int = 46 // 좋아요 수
     private var newColor : String? = "" // 자서전 배경색
-
+    private var isMain : Boolean = false // 메인 여부
+    private var isOpen : Boolean = true // 공개 여부
     lateinit var storyDetailData : StoryDetailData
     private var bookDetailList: ArrayList<StoryDetailQna> = arrayListOf()
 
@@ -65,6 +66,8 @@ class MybookDetailedActivity : AppCompatActivity() {
                         viewBinding.tvContent.text = it.data.story.description
                         viewBinding.tvDate.text = it.data.story.date
 
+                        isMain = it.data.story.main
+                        isOpen = it.data.story.open
                         // 좋아요 버튼 클릭 이벤트
                         viewBinding.btnLikeDetailed.text = it.data.story.likeCnt.toString()
                         viewBinding.btnLikeDetailed.isSelected = it.data.story.liked != true
@@ -95,7 +98,11 @@ class MybookDetailedActivity : AppCompatActivity() {
         viewBinding.btnMenu.setOnClickListener {
             val intent = Intent(this, DialogBottomAcitivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-            intent.putExtra("color", newColor)
+            // intent.putExtra("color", newColor)
+            intent.putExtra("isMain", isMain) // 현재 main 여부 intent로 전달
+            intent.putExtra("isOpen", isOpen) // 현재 open 여부 intent로 전달
+            intent.putExtra("id", itemId) // 현재 스토리 id intent로 전달
+            Log.d("StoryOpen", "myBookDetailedActivity에서 DialogBottomAc으로 보내기")
             startActivity(intent)
         }
 
