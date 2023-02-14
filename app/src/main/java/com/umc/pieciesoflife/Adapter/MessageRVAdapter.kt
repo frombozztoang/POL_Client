@@ -1,4 +1,5 @@
-package com.umc.pieciesoflife.Adapter
+
+//package com.umc.pieciesoflife.Adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.pieciesoflife.R
+
 //
 //class MessageRVAdapter(private val context: Context) : RecyclerView.Adapter<MessageRVAdapter.ViewHolder>() {
 //

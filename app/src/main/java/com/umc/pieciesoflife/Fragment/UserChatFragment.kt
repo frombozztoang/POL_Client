@@ -30,6 +30,7 @@ class UserChatFragment : Fragment() {
 
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,7 +51,6 @@ class UserChatFragment : Fragment() {
             Log.d("유저아이딩가딩가링", "$result")
         }
 
-
 //
 //        //리사이클러뷰 어댑터
 //        messageAdapter = MessageRVAdapter(Activity())
@@ -66,7 +66,7 @@ class UserChatFragment : Fragment() {
 //                startActivity(intent)
 //            }
 //        })
-//
+
 
         return Binding.root
     }

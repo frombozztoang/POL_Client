@@ -1,15 +1,16 @@
 package com.umc.pieciesoflife.Adapter
 
-
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.umc.pieciesoflife.DTO.StoryDto.StoryData
+import com.umc.pieciesoflife.DTO.StoryDto.StoryFilterData
+import com.umc.pieciesoflife.DTO.StoryDto.StoryFilterStory
 import com.umc.pieciesoflife.databinding.ItemBookBinding
 
-class StoryRVAdapter(private var bookList: ArrayList<StoryData>): RecyclerView.Adapter<StoryRVAdapter.DataViewHolder>() {
+class FilterRVAdatper (private var bookList: ArrayList<StoryFilterStory>): RecyclerView.Adapter<FilterRVAdatper.DataViewHolder>() {
 
     //클릭 interface 정의
     interface MyItemClickListener{
@@ -32,9 +33,9 @@ class StoryRVAdapter(private var bookList: ArrayList<StoryData>): RecyclerView.A
             }
         }
 
-        fun bind(book: StoryData){
+        fun bind(book: StoryFilterStory){
             viewBining.bookTitle.text = book.title
-            viewBining.bookDate.text = book.createdDate.substring(0,10)
+            viewBining.bookDate.text = book.date.substring(0,10)
             viewBining.bookContent.text = book.description
             viewBining.bookPost.setImageResource(com.umc.pieciesoflife.R.drawable.ic_book)
             viewBining.bookPost.setColorFilter(Color.parseColor("#000000")) // ("book.color")
@@ -49,13 +50,13 @@ class StoryRVAdapter(private var bookList: ArrayList<StoryData>): RecyclerView.A
     }
 
     //데이터 개별 추가
-    fun addItem(book: StoryData){
+    fun addItem(book: StoryFilterStory){
         bookList.add(book)
         notifyDataSetChanged()
     }
 
     //데이터 일괄 추가
-    fun addItems(bookList: ArrayList<StoryData>){
+    fun addItems(bookList: ArrayList<StoryFilterStory>){
         this.bookList = bookList
         notifyDataSetChanged()
     }
