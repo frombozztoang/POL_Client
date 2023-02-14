@@ -28,6 +28,7 @@ class DialogBottomAcitivity : AppCompatActivity() {
         val width = (dm.widthPixels) // Display 사이즈의 90%
         window.attributes.width = width
 
+
         viewBinding.btnStory.setOnClickListener {
             val intent = Intent(this, DialogStoryActivity::class.java)
             startActivity(intent)

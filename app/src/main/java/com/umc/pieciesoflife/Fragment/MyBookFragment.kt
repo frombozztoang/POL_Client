@@ -124,8 +124,8 @@ class MyBookFragment : Fragment() {
                 if (response.isSuccessful) { // <--> response.code == 200
                     response.body()?.let {
                         viewBinding.tvName.text = it.data.nickname // 이름
-                        // 이야기 개수 viewBinding.tvNumstory.text = it.data.
-                        // 조각 개수
+                         // 이야기 개수
+                        viewBinding.tvNumpiece.text = (it.data.score / 10).toString() // 조각 개수
                     }
                 }
             }
