@@ -45,7 +45,7 @@ class UserChatFragment : Fragment() {
         // userFragment에서 userId 받아오기
         setFragmentResultListener("requestKey") { requestKey, bundle ->
             val result = bundle.getString("bundleKey")
-            userId = result as Int
+            userId = result.toString().toInt()
             Log.d("유저아이딩가딩가링", "$result")
         }
 
