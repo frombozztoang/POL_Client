@@ -23,10 +23,13 @@ class DialogBottomAcitivity : AppCompatActivity() {
         viewBinding = ActivityDialogBottomBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+        val itemId = intent.getIntExtra("id", 86) // 호출한 특정 스토리 아이디
+
         // setContentView 이후에 화면 사이즈 구하기
         val dm = applicationContext.resources.displayMetrics
         val width = (dm.widthPixels) // Display 사이즈의 90%
         window.attributes.width = width
+
 
         viewBinding.btnStory.setOnClickListener {
             val intent = Intent(this, DialogStoryActivity::class.java)
@@ -45,6 +48,7 @@ class DialogBottomAcitivity : AppCompatActivity() {
 
         viewBinding.btnDelete.setOnClickListener {
             val intent = Intent(this, DialogDeleteActivity::class.java)
+            intent.putExtra("id", itemId)
             startActivity(intent)
         }
     }

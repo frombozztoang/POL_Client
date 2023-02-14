@@ -1,5 +1,6 @@
 package com.umc.pieciesoflife.Adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,9 +13,30 @@ class BookDetailRVAdapter(private var bookDetailList: ArrayList<StoryDetailQna>)
 
     inner class DataViewHolder(private val viewBinding: ItemBookDetailBinding): RecyclerView.ViewHolder(viewBinding.root) {
         fun bind(bookDetail: StoryDetailQna){
-            viewBinding.contentTag.text = bookDetail.question
-            viewBinding.contentQuestion.text = bookDetail.question
+            if (bookDetail.question.contains('[')) { // 태그의 시작을 포함하고 있다면
+                val strData = bookDetail.question
+                val strArr = strData.split("[","]")
+                viewBinding.contentTag.text = strArr[1]
+                viewBinding.contentQuestion.text = strArr[2]
+
+                if (bookDetail.tagId == 1) viewBinding.contentTag.setTextColor(Color.parseColor("#6B9A85"))
+                else if (bookDetail.tagId == 2) viewBinding.contentTag.setTextColor(Color.parseColor("#A56E4E"))
+                else if (bookDetail.tagId == 3) viewBinding.contentTag.setTextColor(Color.parseColor("#567DA7"))
+                else if (bookDetail.tagId == 4) viewBinding.contentTag.setTextColor(Color.parseColor("#5F8D8D"))
+                else if (bookDetail.tagId == 5) viewBinding.contentTag.setTextColor(Color.parseColor("#93666F"))
+                else if (bookDetail.tagId == 6) viewBinding.contentTag.setTextColor(Color.parseColor("#8D8565"))
+                else if (bookDetail.tagId == 7) viewBinding.contentTag.setTextColor(Color.parseColor("#9467A3"))
+                else viewBinding.contentTag.setTextColor(Color.parseColor("#000000"))
+                // viewBinding.contentQuestion.setTextColor() <- Activity에서 진행
+            }
+           else {
+               viewBinding.contentTag.text = ""
+               viewBinding.contentQuestion.text = bookDetail.question
+            }
             viewBinding.contentAnswer.text = bookDetail.answer
+
+//            viewBinding.contentTag.text = bookDetail.question
+//            viewBinding.contentQuestion.text = bookDetail.question
             // 태그도 매핑해야 함 bookDetail.tagId
         }
     }

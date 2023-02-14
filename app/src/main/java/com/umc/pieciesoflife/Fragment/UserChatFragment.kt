@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
@@ -33,7 +34,6 @@ class UserChatFragment : Fragment() {
     // 모든 채팅방의 chats
     val recentmessagelist : ArrayList<String> = arrayListOf() // 가장 최근 메세지 담는 리스트
     val othersId : ArrayList<Int> = arrayListOf()
-
     val mylist = mutableListOf<String>() // '내가' 있는 모든 채팅방 이름
 
     override fun onCreateView(
@@ -41,6 +41,13 @@ class UserChatFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Binding = FragmentUserMessageBinding.inflate(inflater, container, false)
+
+        // userFragment에서 userId 받아오기
+        setFragmentResultListener("requestKey") { requestKey, bundle ->
+            val result = bundle.getString("bundleKey")
+            userId = result as Int
+            Log.d("유저아이딩가딩가링", "$result")
+        }
 
         // firebase에서 내가 포함된 채팅방 조회
         var collectionReference = database.collection(path)
@@ -121,6 +128,7 @@ class UserChatFragment : Fragment() {
                 startActivity(intent)
             }
         })
+
 
         return Binding.root
     }

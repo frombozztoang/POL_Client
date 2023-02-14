@@ -3,6 +3,7 @@ package com.umc.pieciesoflife.Interface
 
 import com.umc.pieciesoflife.DTO.StoryDto.Story
 import com.umc.pieciesoflife.DTO.StoryDto.*
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -46,7 +47,7 @@ interface StoryService {
         @Query("page") page : Int,
         @Query("size") size : Int,
         @Query("sort") sort : String
-    ) : Call<Story>
+    ) : Call<StoryFilter>
 
     // 둘러보기 - 상세보기
     @GET("story/{storyId}")
@@ -75,14 +76,13 @@ interface StoryService {
 //    ) : Call<StoryMain>
 
 
-//    // 공개로 설정
-//    @PATCH("story/{storyId}/open")
-//    fun patchStoryOpen(
-//        @Header("content-type") contentType : String,
-//        @Header("Authorization") accessToken : String,
-//        @Path("storyId") storyId: Int,
-//        @Body isOpened: Boolean
-//    ) : Call<StoryOpen>
+    // 공개로 설정
+    @PATCH("story/{storyId}/open")
+    fun patchStoryOpen(
+        @Header("Authorization") accessToken : String,
+        @Path("storyId") storyId: Int,
+        @Body isOpened: Boolean
+    ) : Call<StoryOpen>
 
 
 //    // 표지색 설정
@@ -98,8 +98,9 @@ interface StoryService {
     // 이야기 삭제
     @DELETE("story/{storyId}")
     fun deleteStory(
-        // @Header("content-type") contentType : String,
-        // @Header("Authorization") accessToken : String,
+        @Header("content-type") contentType : String,
+        @Header("Authorization") accessToken : String,
         @Path("storyId") storyId: Int
-    ) : Call<StoryDelete> // StoryPost를 해야될수도, ResponseBody 일수도?
+    ) : Call<Void>
+// StoryPost를 해야될수도, StoryDelete 일수도? (이전주석)
 }

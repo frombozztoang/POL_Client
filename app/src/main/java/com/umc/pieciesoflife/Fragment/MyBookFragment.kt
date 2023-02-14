@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.umc.pieciesoflife.Acitivity.MybookDetailedActivity
 import com.umc.pieciesoflife.Acitivity.NotiActivity
 import com.umc.pieciesoflife.Acitivity.StartNewstoryAcitivity
+import com.umc.pieciesoflife.Adapter.FilterRVAdatper
 import com.umc.pieciesoflife.Adapter.StoryRVAdapter
 import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
 import com.umc.pieciesoflife.DTO.StoryDto.*
@@ -25,11 +26,12 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
+
 class MyBookFragment : Fragment() {
     private lateinit var viewBinding: FragmentMybookBinding
-    private lateinit var bookAdapter: StoryRVAdapter
+    private lateinit var bookAdapter: FilterRVAdatper
     var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value") // 토큰
-    var bookList: ArrayList<StoryData> = arrayListOf()
+    var bookList: ArrayList<StoryFilterStory> = arrayListOf()
 
 
     override fun onCreateView(
@@ -40,7 +42,7 @@ class MyBookFragment : Fragment() {
         viewBinding = FragmentMybookBinding.inflate(inflater, container, false)
 
         //리사이클러뷰 어댑터 설정
-        bookAdapter = StoryRVAdapter(bookList)
+        bookAdapter = FilterRVAdatper(bookList)
         viewBinding.rvMybooks.adapter = bookAdapter
         viewBinding.rvMybooks.layoutManager = LinearLayoutManager(context)
 
@@ -69,50 +71,51 @@ class MyBookFragment : Fragment() {
 
         // 태그 버튼 '날짜' 클릭
         viewBinding.btnDate.setOnClickListener {
-            setTagBtn(true,false, false,false,false,false,false,false)
+            setTagBtn(true,false, false,false,false,false,false,false, "#날짜")
             initRecycler(1)
         }
 
         // 태그 버튼 '나이' 클릭
         viewBinding.btnAge.setOnClickListener {
-            setTagBtn(false,true, false,false,false,false,false,false)
+            setTagBtn(false,true, false,false,false,false,false,false, "#나이")
             initRecycler(2)
-        }
-
-        // 태그 버튼 '감정' 클릭
-        viewBinding.btnEmo.setOnClickListener {
-            setTagBtn(false,false, true,false,false,false,false,false)
-            initRecycler(3)
-            // 변수 버튼 고유번호? 담고 그거 함수 변수 만들어서 기싸이클러 함수
-        }
-
-        // 태그 버튼 '사람' 클릭
-        viewBinding.btnPeople.setOnClickListener {
-            setTagBtn(false,false, false,true,false,false,false,false)
-            initRecycler(4)
-        }
-
-        // 태그 버튼 '상황' 클릭
-        viewBinding.btnSitu.setOnClickListener {
-            setTagBtn(false,false, false,false,true,false,false,false)
-            initRecycler(5)
-        }
-
-        // 태그 버튼 '장소' 클릭
-        viewBinding.btnPlace.setOnClickListener {
-            setTagBtn(false,false, false,false,false,true,false,false)
-            initRecycler(6)
         }
 
         // 태그 버튼 '연도' 클릭
         viewBinding.btnYear.setOnClickListener {
-            setTagBtn(false,false, false,false,false,false,true,false)
-            initRecycler(7)
+            setTagBtn(false,false, true,false,false,false,false,false, "#연도")
+            initRecycler(3)
+        }
+
+        // 태그 버튼 '감정' 클릭
+        viewBinding.btnEmo.setOnClickListener {
+            setTagBtn(false,false, false,true,false,false,false,false, "#감정")
+            initRecycler(4)
+            // 변수 버튼 고유번호? 담고 그거 함수 변수 만들어서 기싸이클러 함수
+        }
+
+
+        // 태그 버튼 '장소' 클릭
+        viewBinding.btnPlace.setOnClickListener {
+            setTagBtn(false,false, false,false,true,false,false,false, "#장소")
+            initRecycler(5)
+        }
+
+        // 태그 버튼 '상황' 클릭
+        viewBinding.btnSitu.setOnClickListener {
+            setTagBtn(false,false, false,false,false,true,false,false,"#상황")
+            initRecycler(6)
         }
 
         // 태그 버튼 '물건' 클릭
         viewBinding.btnObject.setOnClickListener {
-            setTagBtn(false,false, false,false,false,false,false,true)
+            setTagBtn(false,false, false,false,false,false,true,false, "#물건")
+            initRecycler(7)
+        }
+
+        // 태그 버튼 '사람' 클릭
+        viewBinding.btnPeople.setOnClickListener {
+            setTagBtn(false,false, false,false,false,false,false,true, "#사람")
             initRecycler(8)
         }
 
@@ -124,8 +127,8 @@ class MyBookFragment : Fragment() {
                 if (response.isSuccessful) { // <--> response.code == 200
                     response.body()?.let {
                         viewBinding.tvName.text = it.data.nickname // 이름
-                        // 이야기 개수 viewBinding.tvNumstory.text = it.data.
-                        // 조각 개수
+                         // 이야기 개수
+                        viewBinding.tvNumpiece.text = (it.data.score / 10).toString() // 조각 개수
                     }
                 }
             }
@@ -137,7 +140,7 @@ class MyBookFragment : Fragment() {
 
 
         // -> 자서전 상세보기 .. 얘도 !!
-        bookAdapter.setMyItemClickListener(object : StoryRVAdapter.MyItemClickListener{
+        bookAdapter.setMyItemClickListener(object : FilterRVAdatper.MyItemClickListener{
             override fun onItemClick(position: Int) {
                 val intent = Intent(context, MybookDetailedActivity::class.java)
                 intent.putExtra("id", bookList[position].id)
@@ -148,7 +151,7 @@ class MyBookFragment : Fragment() {
         return viewBinding.root
     }
 
-    fun setTagBtn( btnDate: Boolean,btnAge:Boolean, btnEmo: Boolean, btnPeople: Boolean,btnSitu : Boolean, btnPlace:Boolean, btnYear: Boolean, btnObject:Boolean ) {
+    fun setTagBtn( btnDate: Boolean,btnAge:Boolean, btnYear: Boolean, btnEmo: Boolean,btnPlace : Boolean, btnSitu:Boolean, btnObject: Boolean, btnPeople:Boolean,tagName: String ) {
         viewBinding.btnDate.isSelected = btnDate
         viewBinding.btnAge.isSelected = btnAge
         viewBinding.btnEmo.isSelected = btnEmo
@@ -157,23 +160,27 @@ class MyBookFragment : Fragment() {
         viewBinding.btnPlace.isSelected = btnPlace
         viewBinding.btnYear.isSelected = btnYear
         viewBinding.btnObject.isSelected = btnObject
+        viewBinding.tvTag.text = tagName
         bookAdapter.clear()
     }
 
-   lateinit var storyTag: String
 
     private fun initRecycler(tagId: Int) {
-        storyService.getStoryFilter("application/json","Bearer $jwtToken", tagId,0, 5,"").enqueue(object : Callback<Story> {
+        storyService.getStoryFilter("application/json","Bearer $jwtToken", tagId,0, 5,"").enqueue(object : Callback<StoryFilter> {
             // 성공 처리
-            override fun onResponse(call: Call<Story>, response: Response<Story>) {
+            override fun onResponse(call: Call<StoryFilter>, response: Response<StoryFilter>) {
                 if (response.isSuccessful) { // <--> response.code == 200
                     response.body()?.let {
-                        bookList = it.dataList as ArrayList<StoryData>
-                        bookAdapter.addItems(bookList)
+                        it.dataList.size
+                        for(i in 0 until it.dataList.size){
+                            bookList = it.dataList[i].stories as ArrayList<StoryFilterStory>
+                            bookAdapter.addItems(bookList)
+                            Log.d("필터링가링가링", "$bookList")
+                        }
                     }
                 }
             }
-            override fun onFailure(call: Call<Story>, t: Throwable) {
+            override fun onFailure(call: Call<StoryFilter>, t: Throwable) {
                 // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                 Log.d("testtt", "onFailure 에러: " + t.message.toString());
             }

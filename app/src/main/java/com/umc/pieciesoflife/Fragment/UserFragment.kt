@@ -12,6 +12,8 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.umc.pieciesoflife.R
@@ -40,10 +42,10 @@ class UserFragment : Fragment() {
     private lateinit var tabLayout: TabLayout
 
     var profileImgUrl = ""
-    var nickname =""
-    var userId = 0
+    var nickname = ""
     var score by Delegates.notNull<Int>()
     var level by Delegates.notNull<Int>()
+    var userId by Delegates.notNull<Int>()
 
 
     override fun onCreateView(
@@ -51,16 +53,16 @@ class UserFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view:View = inflater.inflate(R.layout.fragment_user, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_user, container, false)
         viewPager = view.findViewById(R.id.viewPager)
-        tabLayout =  view.findViewById(R.id.tabLayout)
+        tabLayout = view.findViewById(R.id.tabLayout)
 
         val userName = view.findViewById<TextView>(R.id.username)
         val imgProfile = view.findViewById<ImageView>(R.id.img_profile)
         val pagerAdapter = UserVPAdapter(requireActivity())
 
         // accessToken 조회
-        var accessToken =  GlobalApplication.prefs.getString("accessToken", "default-value")
+        var accessToken = GlobalApplication.prefs.getString("accessToken", "default-value")
         var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
 
         Log.d("힝", accessToken)
@@ -76,9 +78,9 @@ class UserFragment : Fragment() {
 
             // 전송 성공
             @SuppressLint("UseCompatLoadingForDrawables")
-            override fun onResponse(call: Call<User>, response: Response<User>){
+            override fun onResponse(call: Call<User>, response: Response<User>) {
                 response.body()?.let {
-                    if(it.data.profileImgUrl != null) {
+                    if (it.data.profileImgUrl != null) {
                         profileImgUrl = it.data.profileImgUrl
                         Picasso.get().load(profileImgUrl).into(imgProfile)
                     } else { // 기본 이미지 지정 -> intent로 값 넘겨야 해서 지정
@@ -91,7 +93,10 @@ class UserFragment : Fragment() {
 
                     userName.setText(nickname)
 
-                    Log.d("성공" , "profile : $profileImgUrl \nnickname : $nickname \nscore : $score \nlevel : $level")
+                    Log.d(
+                        "성공",
+                        "userId : $userId \nprofile : $profileImgUrl \nnickname : $nickname \nscore : $score \nlevel : $level"
+                    )
                 } ?: Log.d("Body is null", "몸통은 비었다.")
             }
         })
@@ -107,21 +112,23 @@ class UserFragment : Fragment() {
         val btnEdit = view.findViewById<ImageButton>(R.id.btn_edit)
         btnEdit.setOnClickListener {
             val intent = Intent(context, DialogUserEditActivity::class.java)
-            intent.putExtra("nickname",nickname)
-            if(profileImgUrl != null) {
+            intent.putExtra("nickname", nickname)
+            if (profileImgUrl != null) {
                 intent.putExtra("imgProfile", profileImgUrl)
             } else {
                 intent.putExtra("defaultFile", R.drawable.ic_default_profileimg)
             }
 
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK   //  ← NEW_TASK 추가하지 않으면 기존 task와 같이 관리됩니다.
+            intent.flags =
+                Intent.FLAG_ACTIVITY_NEW_TASK   //  ← NEW_TASK 추가하지 않으면 기존 task와 같이 관리됩니다.
             startActivity(intent)
         }
 
         // ->새로운 이야기 작성
         val btnNewStory = view.findViewById<Button>(R.id.btn_new_story)
         btnNewStory.setOnClickListener {
-            startActivity(Intent(context, StartNewstoryAcitivity::class.java))
+            val intent = Intent(context, StartNewstoryAcitivity::class.java)
+            startActivity(intent)
         }
 
         //ViewPager
@@ -132,33 +139,43 @@ class UserFragment : Fragment() {
         // userMessageFragment로 userId넘겨주기
         viewPager.adapter = pagerAdapter
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int){
+            override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                Log.e("ViewPagerFragment", "Page 이거 뜨면 되는거다? ${position+1}")
+                // UserChatFragment에 userId 값 넘기기
+                when(position) {
+                    1->
+                    {
+                        val result = userId.toString()
+                        setFragmentResult("requestKey", bundleOf("bundleKey" to result))
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_user, UserChatFragment())
+                            .commit()
+                    }
+                }
+                Log.e("ViewPagerFragment", "Page 이거 뜨면 되는거다? ${position + 1}")
             }
         })
 
         //Tablayout
-        TabLayoutMediator(tabLayout, viewPager){ tab, position ->
-            when(position) {
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            when (position) {
                 0 -> tab.text = "내가 좋아요 누른 자서전"
                 1 -> tab.text = "쪽지함"
             }
         }.attach()
 
 
-
-        val myPageCall : MyPageService = RetrofitClient.myPageService
+        val myPageCall: MyPageService = RetrofitClient.myPageService
         myPageCall.getMyPage("Bearer $jwtToken").enqueue(object : Callback<MyPage> {
             // 전송 실패
             override fun onFailure(call: Call<MyPage>, t: Throwable) {
-                Log.d("getUserInfo", t.message!!)
+                Log.d("마이페이지 조회 실패", t.message!!)
             }
 
             override fun onResponse(call: Call<MyPage>, response: Response<MyPage>) {
                 response.body()?.let {
-                    Log.d("MyPage call" , "${response.body()}")
-                } ?: Log.d("Body is null", "몸통은 비었다.")
+                    Log.d("마이페이지 조회 성공", "${it.data.story}")
+                } ?: Log.d("마이페이지 body null!!!", "몸통은 비었다.")
             }
         })
 
@@ -166,9 +183,7 @@ class UserFragment : Fragment() {
         return view
     }
 
-
-
-    }
+}
 
 
 
