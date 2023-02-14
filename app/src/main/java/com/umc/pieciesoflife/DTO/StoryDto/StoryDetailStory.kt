@@ -9,5 +9,7 @@ data class StoryDetailStory(
     val liked: Boolean,
     val nickname: String,
     val profileImgUrl: String,
-    val title: String
+    val title: String,
+    val writerId: Int,
+    val myId: Int
 )
