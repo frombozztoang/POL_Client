@@ -3,19 +3,13 @@ package com.umc.pieciesoflife.Acitivity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
 import com.squareup.picasso.Picasso
 import com.umc.pieciesoflife.Adapter.BookDetailRVAdapter
 import com.umc.pieciesoflife.DTO.StoryDto.*
-import com.umc.pieciesoflife.Fragment.ExploreFragment
 import com.umc.pieciesoflife.GlobalApplication
-import com.umc.pieciesoflife.Interface.StoryService
 import com.umc.pieciesoflife.R
-import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.Retrofit.RetrofitClient.storyService
 import com.umc.pieciesoflife.databinding.ActivityExploreDetailedBinding
 import retrofit2.Call
@@ -27,8 +21,9 @@ class ExploreDetailedActivity : AppCompatActivity() {
     private var itemId = 0 // 호출한 특정 스토리 아이디
     private var myId = 0 // 내 id
     private var writerId = 0 // 작성자 id
-    lateinit var likeData: Data
-    var likeNum : Int = 1
+    lateinit var likeData: StoryLikeData // 현재 isLiked 정보
+    lateinit var requestData: StoryLikeData // 요청할 isLiked
+    var likeNum : Int = 1 // 좋아요 개수
     //RV_Deatiled 리사이클러뷰
     private var bookDetailList: ArrayList<StoryDetailQna> = arrayListOf()
 
@@ -42,9 +37,9 @@ class ExploreDetailedActivity : AppCompatActivity() {
         viewBinding.RVDetailed.layoutManager = LinearLayoutManager(this)
 
         itemId = intent.getIntExtra("id", 66) // 호출한 특정 스토리 아이디
-
         // val likeD = Data(isLike)         //서버 좋아요
-        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+        val jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+
         storyService.getStoryDetail("Bearer $jwtToken", itemId)
             .enqueue(object : Callback<StoryDetail> {
                 // 성공 처리
@@ -60,14 +55,20 @@ class ExploreDetailedActivity : AppCompatActivity() {
                             viewBinding.tvContent.text = it.data.story.description
                             viewBinding.tvDate.text = it.data.story.date
 
+
                             // 좋아요
                             likeNum = it.data.story.likeCnt
                             viewBinding.btnLikeDetailed.text = likeNum.toString()
-                            viewBinding.btnLikeDetailed.isSelected = it.data.story.liked
-                            likeData = Data(it.data.story.liked)         //서버 좋아요를 객체에 담음
+                            likeData = StoryLikeData(it.data.story.liked) //서버 좋아요를 객체에 담음
+                            viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
+                            requestData = StoryLikeData(!likeData.isLiked) // like API에 현재 상태의 반대를 보내야
+                            // val likeD = it.data.story.liked
                             itemId = it.data.story.id
                             myId = it.data.story.myId
                             writerId = it.data.story.writerId
+
+                            bookDetailList = it.data.qnaList as ArrayList<StoryDetailQna>
+                            bookDetailAdapter.addItems(bookDetailList)
 
                             // 색상 설정
                             var color = it.data.story.color
@@ -96,41 +97,15 @@ class ExploreDetailedActivity : AppCompatActivity() {
                                 R.drawable.color_gradient_lime
                             )
 
-
-                            bookDetailList = it.data.qnaList as ArrayList<StoryDetailQna>
-                            bookDetailAdapter.addItems(bookDetailList)
                             Log.d("testttt", "ExploreDetailACtivity:$bookDetailList")
 
 //                            viewBinding.btnLikeDetailed.setOnClickListener {
 //                                viewBinding.btnLikeDetailed.text = likeNum
 //                            }
-                            viewBinding.btnLikeDetailed.setOnClickListener {
-                                storyService.postStoryLike("Bearer $jwtToken", itemId, likeData).enqueue(
-                                    object : Callback<StoryLike> {
-                                        // 성공 처리
-                                        override fun onResponse(call: Call<StoryLike>, response: Response<StoryLike>) {
-                                            if (response.isSuccessful) { // <--> response.code == 200
-                                                response.body()?.let { it ->
-                                                    Log.d("storyLike", "${response.body()}")
-                                                    // viewBinding.btnLikeDetailed.text = it.data.
-                                                    viewBinding.btnLikeDetailed.isSelected = it.data.isLiked
-                                                    if (it.data.isLiked == true) {
-                                                        viewBinding.btnLikeDetailed.text = likeNum--.toString()
-                                                    }
-                                                    else  {
-                                                        viewBinding.btnLikeDetailed.text = likeNum++.toString()
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        override fun onFailure(call: Call<StoryLike>, t: Throwable) {
-                                            // 포스트 실패
-                                            Log.d("storyLike", "에러입니다. ${t.message}")
-                                            t.printStackTrace()
-                                        }
-                                    }
-                                )
-                            }
+
+
+//                                    viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
+//                                    viewBinding.btnLikeDetailed.text = likeNum.toString()
                         }
                     }
                 }
@@ -142,10 +117,66 @@ class ExploreDetailedActivity : AppCompatActivity() {
                     )
                 }
             })
+        viewBinding.btnLikeDetailed.setOnClickListener {
+            storyService.postStoryLike("Bearer $jwtToken", itemId, requestData).enqueue(
+                object : Callback<StoryLike> {
+                    // 성공 처리
+                    override fun onResponse(call: Call<StoryLike>, response: Response<StoryLike>) {
+                        if (response.isSuccessful) { // <--> response.code == 200
+                            response.body()?.let { it ->
+                                Log.d("storyLike", "${response.body()}")
+                                // viewBinding.btnLikeDetailed.text = it.data.
+
+                                if (likeData.isLiked == false && requestData.isLiked == true) {
+                                    likeNum++
+                                    likeData.isLiked = true
+                                    requestData.isLiked = !likeData.isLiked // 앞으로 요청할 상태
+                                    viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
+                                    viewBinding.btnLikeDetailed.text = likeNum.toString()
+//                                                        requestData = StoryLikeData(true)
+//                                                        likeData.isLiked = !requestData.isLiked
+                                }
+                                else if (likeData.isLiked == true && requestData.isLiked == false){
+                                    likeNum--
+                                    likeData.isLiked = false
+                                    requestData.isLiked = !likeData.isLiked // 앞으로 요청할 상태
+                                    viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
+                                    viewBinding.btnLikeDetailed.text = likeNum.toString()
+//                                                        requestData = StoryLikeData(false)
+//                                                        likeData.isLiked = !requestData.isLiked
+                                }
+                                // likeData = StoryLikeData(it.data.isLiked) // 현재 상태
+                                // requestData.isLiked = !likeData.isLiked // 앞으로 요청할 상태
+                                // viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
+                                // viewBinding.btnLikeDetailed.text = likeNum.toString()
+//                                                    if (it.data.isLiked == true) {
+//                                                        viewBinding.btnLikeDetailed.text = likeNum--.toString()
+//                                                    }
+//                                                    else  {
+//                                                        viewBinding.btnLikeDetailed.text = likeNum++.toString()
+//                                                    }
+                            }
+                        }
+                    }
+                    override fun onFailure(call: Call<StoryLike>, t: Throwable) {
+                        // 포스트 실패
+                        Log.d("storyLike", "에러입니다. ${t.message}")
+                        t.printStackTrace()
+                    }
+                }
+            )
+        }
+
+//        viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
+//        viewBinding.btnLikeDetailed.text = likeNum.toString()
 
         viewBinding.btnBack.setOnClickListener {
             // 뒤로가기 버튼
+            val intent = Intent()
+//            intent.putExtra("likeCnt",likeNum)
+//            intent.putExtra("isLiked",likeData.isLiked)
             finish()
+//            startActivity(intent) // 단순 데이터 전달 시
         }
 
         viewBinding.btnSend.setOnClickListener {
