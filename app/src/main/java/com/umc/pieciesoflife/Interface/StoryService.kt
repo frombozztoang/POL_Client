@@ -47,7 +47,7 @@ interface StoryService {
         @Query("page") page : Int,
         @Query("size") size : Int,
         @Query("sort") sort : String
-    ) : Call<Story>
+    ) : Call<StoryFilter>
 
     // 둘러보기 - 상세보기
     @GET("story/{storyId}")
