@@ -1,6 +1,6 @@
 package com.umc.pieciesoflife.DTO.MyPageDto
 
-data class Story(
+data class MyPageStory(
     val color: String,
     val date: String,
     val description: String,
