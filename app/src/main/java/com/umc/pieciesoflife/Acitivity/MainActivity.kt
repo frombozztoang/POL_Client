@@ -21,6 +21,8 @@ class MainActivity:AppCompatActivity() {
         viewBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
+
+
         // 로그인 정보 확인
         // 로그인 기록 없으면 로그인 화면으로 넘어감
         // 로그인 기록 있으면 메인 화면으로 넘어감

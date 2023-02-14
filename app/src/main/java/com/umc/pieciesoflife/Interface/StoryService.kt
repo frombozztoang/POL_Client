@@ -101,6 +101,6 @@ interface StoryService {
         @Header("content-type") contentType : String,
         @Header("Authorization") accessToken : String,
         @Path("storyId") storyId: Int
-    ) : Call<ResponseBody> //delete는 dto만들필요x일듯. Void사용도 가능
+    ) : Call<Void>
 // StoryPost를 해야될수도, StoryDelete 일수도? (이전주석)
 }

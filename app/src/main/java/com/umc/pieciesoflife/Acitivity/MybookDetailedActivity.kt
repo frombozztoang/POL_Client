@@ -96,6 +96,7 @@ class MybookDetailedActivity : AppCompatActivity() {
             val intent = Intent(this, DialogBottomAcitivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.putExtra("color", newColor)
+            intent.putExtra("id", itemId)
             startActivity(intent)
         }
 
