@@ -143,11 +143,6 @@ class ExploreDetailedActivity : AppCompatActivity() {
                 }
             })
 
-
-
-
-
-
         viewBinding.btnBack.setOnClickListener {
             // 뒤로가기 버튼
             finish()
@@ -164,6 +159,5 @@ class ExploreDetailedActivity : AppCompatActivity() {
             // 이 떄, Spring Server에서 Story ID GET해서 ->ChatSendAcitivity로 값 전달
         }
 
-        bookDetailAdapter.notifyDataSetChanged()
     }
 }

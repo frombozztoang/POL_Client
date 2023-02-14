@@ -89,7 +89,7 @@ class UserFragment : Fragment() {
         //ViewPager
         // 2개의 fragment add
         pagerAdapter.addFragment(UserBookFragment())
-        pagerAdapter.addFragment(UserMessageFragment())
+        pagerAdapter.addFragment(UserChatFragment())
         // adapter 연결
         viewPager.adapter = pagerAdapter
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

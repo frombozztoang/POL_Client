@@ -1,6 +1,6 @@
 package com.umc.pieciesoflife.DTO.MyPageDto
 
-data class Data(
+data class MyPageData(
     val chat: List<Chat>,
-    val story: List<Story>
+    val story: List<MyPageStory>
 )

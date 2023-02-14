@@ -1,9 +1,8 @@
 package com.umc.pieciesoflife.Interface
 
-import com.umc.pieciesoflife.DTO.ChatDTO.Chat
 import retrofit2.Call
 import retrofit2.http.*
-
+/*
 interface ChatService {
     @GET("/chat/{chatroomId}/chats")
     fun getChat(
@@ -24,3 +23,5 @@ interface ChatService {
         @Body message: String
     )
 }
+
+ */
