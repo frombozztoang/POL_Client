@@ -180,7 +180,7 @@ class StoryWriteActivity : AppCompatActivity() {
                 Toast.makeText(this, "답변을 입력하지 않으면 넘어갈 수 없습니다. \n어려운 질문은 건너뛰어도 돼요.", Toast.LENGTH_LONG).show()
             } else {
                 answer = viewBinding.editTextTextMultiLineWriteStory.text.toString()
-                val question_new = tagContent + " " + question
+                val question_new = "[" + tagContent + "]" + question
                 answerList.add(answer)
                 questionList.add(question_new)
                 questionTag.add(num)
