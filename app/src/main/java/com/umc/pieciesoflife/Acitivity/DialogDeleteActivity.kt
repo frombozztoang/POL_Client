@@ -41,16 +41,19 @@ class DialogDeleteActivity : AppCompatActivity() {
                     if(response.isSuccessful) { // <--> response.code == 200
                         response.body()?.let {
                             //storyDelete = it.data //받아오는 값이 없어서 xx
-                            Log.d("testttt", "StoryDeleteSuccessfully")
+                            Log.d("제발제발", "StoryDeleteSuccessfully")
                         }
                     }
+                    else
+                        Log.d("제발제발", "StoryDeleteSuccessfully")
                 }
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
-                    Log.d("testttt", "DialogDeleteActivity: onFailure 에러: " + t.message.toString());
+                    Log.d("제발제발", "DialogDeleteActivity: onFailure 에러: " + t.message.toString());
                 }
             }
             )
+            Log.i("된거지?","제발좀!!!!!!")
 
 
             val intent = Intent(this, DialogDeleteConfirmActivity::class.java)

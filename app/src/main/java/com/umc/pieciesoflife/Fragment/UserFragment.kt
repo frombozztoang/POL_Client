@@ -128,7 +128,8 @@ class UserFragment : Fragment() {
         // ->새로운 이야기 작성
         val btnNewStory = view.findViewById<Button>(R.id.btn_new_story)
         btnNewStory.setOnClickListener {
-            startActivity(Intent(context, StartNewstoryAcitivity::class.java))
+            val intent = Intent(context, StartNewstoryAcitivity::class.java)
+            startActivity(intent)
         }
 
         //ViewPager
