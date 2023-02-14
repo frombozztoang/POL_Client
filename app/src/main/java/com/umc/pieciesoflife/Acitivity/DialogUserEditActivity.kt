@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
+import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.ActivityDialogUserEditBinding
 
 
@@ -46,7 +47,7 @@ class DialogUserEditActivity: AppCompatActivity(){
             if(profileImgUrl != "") {
                 intent.putExtra("imgProfile", profileImgUrl)
             } else {
-                intent.putExtra("defaultFile", "R.drawable.ic_pol")
+                intent.putExtra("defaultFile", R.drawable.ic_default_profileimg)
             }
 
             startActivity(intent)

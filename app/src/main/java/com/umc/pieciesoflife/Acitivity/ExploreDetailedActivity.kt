@@ -176,9 +176,6 @@ class ExploreDetailedActivity : AppCompatActivity() {
             )
         }
 
-
-
-
 //        viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
 //        viewBinding.btnLikeDetailed.text = likeNum.toString()
 
@@ -202,6 +199,5 @@ class ExploreDetailedActivity : AppCompatActivity() {
             // 이 떄, Spring Server에서 Story ID GET해서 ->ChatSendAcitivity로 값 전달
         }
 
-        bookDetailAdapter.notifyDataSetChanged()
     }
 }
