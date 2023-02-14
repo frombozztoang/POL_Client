@@ -1,31 +1,33 @@
 package com.umc.pieciesoflife.Acitivity
 
 import android.Manifest
-import android.R
-import android.app.Activity
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.provider.MediaStore.Audio.Media
-import android.util.AttributeSet
-import android.view.View
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.umc.pieciesoflife.BottomNavBar.BottomNavBarActivity
-import com.umc.pieciesoflife.Fragment.MyBookFragment
-import com.umc.pieciesoflife.Fragment.UserFragment
-import com.umc.pieciesoflife.databinding.ActivityBottomNavBarBinding
+import com.squareup.picasso.Picasso
+import com.umc.pieciesoflife.DTO.UserDto.User
+import com.umc.pieciesoflife.DTO.UserDto.UserEdit
+import com.umc.pieciesoflife.GlobalApplication
+import com.umc.pieciesoflife.Interface.UserService
+import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.databinding.ActivityUserEditBinding
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 
 
@@ -41,31 +43,70 @@ class UserEditActivity:AppCompatActivity() {
 
         val userIntent = intent
 
-        val nickname = userIntent.getStringExtra("nickname")
+        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+
+        var nickname = userIntent.getStringExtra("nickname")
         viewBinding.editNickName.setText(nickname)
 
         if(userIntent.getStringExtra("imgProfile")!=null) {
             profileImgUrl = userIntent.getStringExtra("imgProfile")!!
-            Glide.with(this).load(profileImgUrl).into(viewBinding.imgProfile)
+            Picasso.get().load(profileImgUrl).into(viewBinding.imgProfile)
         } else {
-            viewBinding.imgProfile.setImageResource(com.umc.pieciesoflife.R.drawable.ic_pol)
+            viewBinding.imgProfile.setImageResource(com.umc.pieciesoflife.R.drawable.ic_default_profileimg)
         }
 
         viewBinding.btnCamera.setOnClickListener{
             selectGallery()
-            Glide.with(this)
-                .load(imageResult)
-                .into(viewBinding.imgProfile)
+            val imgFile = File("profileImg")
+            val imgRequestFile = RequestBody.create(MediaType.parse("image/png"), imgFile)
+            val imgBody = MultipartBody.Part.createFormData("file", imgFile.name, imgRequestFile)
+            Picasso.get().load(imgFile).into(viewBinding.imgProfile)
+//            Picasso.get().load(profileImgUrl).into(viewBinding.imgProfile)
+//            Glide.with(this)
+//                .load(imageResult)
+//                .into(viewBinding.imgProfile)
         }
 
 
         // 뒤로가기
         viewBinding.btnUserEditCancel.setOnClickListener {
             this@UserEditActivity.finishAffinity()
-    }
+      }
 
         // 확인하기 일단 피니시
         viewBinding.btnUserEditOk.setOnClickListener{
+            val ninkname = viewBinding.editNickName.text // 입력되어 있는 닉네임
+            val profileImg = imageResult // 변경된 img Url 주소
+            val call: UserService = RetrofitClient.userService
+
+            if(imageResult.equals("") || imageResult.equals(null)) {
+                profileImgUrl = userIntent.getStringExtra("imgProfile")!!
+                Picasso.get().load(profileImgUrl).into(viewBinding.imgProfile)
+            } else {
+                val imgFile = File("profileImg")
+                val imgRequestFile = RequestBody.create(MediaType.parse("image/png"), imgFile)
+                val imgBody = MultipartBody.Part.createFormData("file", imgFile.name, imgRequestFile)
+
+
+                call.patchUserProfile("multipart/form-data","Bearer $jwtToken","$ninkname", imgBody).enqueue(object : Callback<UserEdit> {
+                    // 전송 실패
+                    override fun onFailure(call: Call<UserEdit>, t: Throwable) {
+                        Log.d("패치치치치치프렛즐", t.message!!)
+                    }
+
+                    // 전송 성공
+                    override fun onResponse(call: Call<UserEdit>, response: Response<UserEdit>){
+                        response.body()?.let {
+                            var aa = it.data.nickname
+                            var bb = it.data.profileImgUrl
+
+                            Log.d("성공" , "profile : $bb \nnickname : $aa ")
+                        } ?: Log.d("Body is null", "몸통은 비었다.")
+                    }
+                })
+            }
+
+
             this@UserEditActivity.finishAffinity()
             Toast.makeText(this, "프로필이 변경됐다능", Toast.LENGTH_SHORT ).show()
         }
