@@ -34,14 +34,16 @@
 
     <TextView
         android:id="@+id/book_content"
-        android:layout_width="190dp"
+        android:layout_width="match_parent"
         android:layout_height="53dp"
         android:layout_marginTop="39dp"
+        android:layout_marginEnd="120dp"
         android:text="이게 맞을까요? 잘 하고 있눈걸까요? 우히히 우끼리끼리리위루이ㅜ리우리위ㅜ리리리리리리리리리리 왼쪽 외국인이 자꾸 쳐다바요 부담스러워요"
         android:textAlignment="viewStart"
         android:textColor="#B7B7B7"
         android:textSize="12dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/book_date" />
 
     <ImageView
@@ -52,7 +54,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/book_content"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/divider_horizontal_dim_dark"
         tools:srcCompat="@drawable/ic_book" />

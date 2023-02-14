@@ -41,7 +41,6 @@ class UserFragment : Fragment() {
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
 
-
     var profileImgUrl = ""
     var nickname = ""
     var score by Delegates.notNull<Int>()
@@ -90,7 +89,7 @@ class UserFragment : Fragment() {
                     nickname = it.data.nickname
                     score = it.data.score
                     level = it.data.level
-                    userId = it.data.id
+                    userId = it.data.userId
 
                     userName.setText(nickname)
 
@@ -128,7 +127,8 @@ class UserFragment : Fragment() {
         // ->새로운 이야기 작성
         val btnNewStory = view.findViewById<Button>(R.id.btn_new_story)
         btnNewStory.setOnClickListener {
-            startActivity(Intent(context, StartNewstoryAcitivity::class.java))
+            val intent = Intent(context, StartNewstoryAcitivity::class.java)
+            startActivity(intent)
         }
 
         //ViewPager

@@ -98,10 +98,13 @@ class MybookDetailedActivity : AppCompatActivity() {
         viewBinding.btnMenu.setOnClickListener {
             val intent = Intent(this, DialogBottomAcitivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
             // intent.putExtra("color", newColor)
             intent.putExtra("isMain", isMain) // 현재 main 여부 intent로 전달
             intent.putExtra("isOpen", isOpen) // 현재 open 여부 intent로 전달
             intent.putExtra("id", itemId) // 현재 스토리 id intent로 전달
+            intent.putExtra("color", newColor)
+            intent.putExtra("id", itemId)
             Log.d("StoryOpen", "myBookDetailedActivity에서 DialogBottomAc으로 보내기 $itemId")
             startActivity(intent)
         }
