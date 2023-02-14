@@ -23,9 +23,14 @@ class ExploreDetailedActivity : AppCompatActivity() {
     private var writerId = 0 // 작성자 id
     lateinit var likeData: StoryLikeData // 현재 isLiked 정보
     lateinit var requestData: StoryLikeData // 요청할 isLiked
+    private var isMain : Boolean = false
+    private var isOpen : Boolean = false
+
     var likeNum : Int = 1 // 좋아요 개수
     //RV_Deatiled 리사이클러뷰
     private var bookDetailList: ArrayList<StoryDetailQna> = arrayListOf()
+    private lateinit var bookDetailQna: StoryDetailQna
+    lateinit var question : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,6 +51,11 @@ class ExploreDetailedActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<StoryDetail>, response: Response<StoryDetail>) {
                     if (response.isSuccessful) { // <--> response.code == 200
                         response.body()?.let {
+
+                            bookDetailList = it.data.qnaList as ArrayList<StoryDetailQna>
+
+                            bookDetailAdapter.addItems(bookDetailList)
+
                             // likeNum = it.data.story.likeCnt
                             // isLike = it.data.story.liked
                             viewBinding.tvTitleDetailed.text = it.data.story.title
@@ -54,6 +64,8 @@ class ExploreDetailedActivity : AppCompatActivity() {
                                 .into(viewBinding.imgProfile)
                             viewBinding.tvContent.text = it.data.story.description
                             viewBinding.tvDate.text = it.data.story.date
+
+//                            isMain = it.data.story.
 
 
                             // 좋아요
@@ -66,9 +78,6 @@ class ExploreDetailedActivity : AppCompatActivity() {
                             itemId = it.data.story.id
                             myId = it.data.story.myId
                             writerId = it.data.story.writerId
-
-                            bookDetailList = it.data.qnaList as ArrayList<StoryDetailQna>
-                            bookDetailAdapter.addItems(bookDetailList)
 
                             // 색상 설정
                             var color = it.data.story.color

@@ -75,14 +75,13 @@ interface StoryService {
 //    ) : Call<StoryMain>
 
 
-//    // 공개로 설정
-//    @PATCH("story/{storyId}/open")
-//    fun patchStoryOpen(
-//        @Header("content-type") contentType : String,
-//        @Header("Authorization") accessToken : String,
-//        @Path("storyId") storyId: Int,
-//        @Body isOpened: Boolean
-//    ) : Call<StoryOpen>
+    // 공개로 설정
+    @PATCH("story/{storyId}/open")
+    fun patchStoryOpen(
+        @Header("Authorization") accessToken : String,
+        @Path("storyId") storyId: Int,
+        @Body isOpened: Boolean
+    ) : Call<StoryOpen>
 
 
 //    // 표지색 설정
