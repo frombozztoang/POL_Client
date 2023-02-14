@@ -3,23 +3,25 @@ package com.umc.pieciesoflife.Fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.umc.pieciesoflife.Acitivity.ChatActivity
-import com.umc.pieciesoflife.Adapter.MessageRVAdapter
+//import com.umc.pieciesoflife.Adapter.MessageRVAdapter
 import com.umc.pieciesoflife.DataClass.ChatRoom
 import com.umc.pieciesoflife.databinding.FragmentUserMessageBinding
 
 class UserChatFragment : Fragment() {
     private lateinit var Binding: FragmentUserMessageBinding
-    private lateinit var messageAdapter: MessageRVAdapter
+//    private lateinit var messageAdapter: MessageRVAdapter
 
     val database = Firebase.firestore
     var path = "HJ_chatRoom"
@@ -41,25 +43,30 @@ class UserChatFragment : Fragment() {
         var query = collectionReference.whereEqualTo("myId",userId)
         //var doc1 : Collection<QueryDocumentSnapshot> = query.get().
 
+        // userFragment에서 userId 받아오기
+        setFragmentResultListener("requestKey") { requestKey, bundle ->
+            val result = bundle.getString("bundleKey")
+            // Do something with the result
+            Log.d("유저아이딩가딩가링", "$result")
+        }
 
 
-
-
-        //리사이클러뷰 어댑터
-        messageAdapter = MessageRVAdapter(Activity())
-        Binding.rvMessage.adapter = messageAdapter
-        Binding.rvMessage.layoutManager = LinearLayoutManager(context)
-
-        initRecycler()
-
-        //->ChatActivity
-        messageAdapter.setMyItemClickListener(object : MessageRVAdapter.MyItemClickListener{
-            override fun onItemClick(position: Int) {
-                val intent = Intent(context, ChatActivity::class.java)
-                startActivity(intent)
-            }
-        })
-
+//
+//        //리사이클러뷰 어댑터
+//        messageAdapter = MessageRVAdapter(Activity())
+//        Binding.rvMessage.adapter = messageAdapter
+//        Binding.rvMessage.layoutManager = LinearLayoutManager(context)
+//
+//        initRecycler()
+//
+//        //->ChatActivity
+//        messageAdapter.setMyItemClickListener(object : MessageRVAdapter.MyItemClickListener{
+//            override fun onItemClick(position: Int) {
+//                val intent = Intent(context, ChatActivity::class.java)
+//                startActivity(intent)
+//            }
+//        })
+//
 
         return Binding.root
     }
