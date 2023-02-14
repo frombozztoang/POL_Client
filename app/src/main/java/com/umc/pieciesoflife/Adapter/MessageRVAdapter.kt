@@ -8,7 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.umc.pieciesoflife.R
-
+/*
 class MessageRVAdapter(private val context: Context) : RecyclerView.Adapter<MessageRVAdapter.ViewHolder>() {
 
     //클릭 interface 정의
@@ -63,3 +63,5 @@ class MessageRVAdapter(private val context: Context) : RecyclerView.Adapter<Mess
         }
     }
 }
+
+ */

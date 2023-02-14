@@ -41,6 +41,7 @@ class UserFragment : Fragment() {
 
     var profileImgUrl = ""
     var nickname =""
+    var userId = 0
     var score by Delegates.notNull<Int>()
     var level by Delegates.notNull<Int>()
 
@@ -86,6 +87,7 @@ class UserFragment : Fragment() {
                     nickname = it.data.nickname
                     score = it.data.score
                     level = it.data.level
+                    userId = it.data.userId
 
                     userName.setText(nickname)
 
