@@ -12,6 +12,7 @@ class BookDetailRVAdapter(private var bookDetailList: ArrayList<StoryDetailQna>)
 
     inner class DataViewHolder(private val viewBinding: ItemBookDetailBinding): RecyclerView.ViewHolder(viewBinding.root) {
         fun bind(bookDetail: StoryDetailQna){
+            viewBinding.contentTag.text = bookDetail.question
             viewBinding.contentQuestion.text = bookDetail.question
             viewBinding.contentAnswer.text = bookDetail.answer
             // 태그도 매핑해야 함 bookDetail.tagId

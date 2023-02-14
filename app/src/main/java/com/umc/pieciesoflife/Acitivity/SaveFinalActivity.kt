@@ -57,7 +57,7 @@ class SaveFinalActivity : AppCompatActivity() {
         viewBinding.textViewIntro.setText(bookIntro)
 
         //서버 이야기 생성 포스트
-        val storyData = StoryPost(bookTitle, bookIntro, bookColor, storyQnaList, storyTagList)
+        val storyData = StoryPost(bookTitle, bookColor, bookIntro, storyQnaList, storyTagList)
         Log.i("storydata","$storyData") //dto 확인
 
 
