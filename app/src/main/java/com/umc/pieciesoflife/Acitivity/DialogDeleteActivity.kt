@@ -7,17 +7,19 @@ import android.util.Log
 import android.view.Window
 import com.umc.pieciesoflife.DTO.StoryDto.StoryDelete
 import com.umc.pieciesoflife.DTO.StoryDto.StoryDetail
+import com.umc.pieciesoflife.GlobalApplication
 import com.umc.pieciesoflife.Interface.StoryService
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.Retrofit.RetrofitClient.storyService
 import com.umc.pieciesoflife.databinding.ActivityDialogDeleteBinding
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class DialogDeleteActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityDialogDeleteBinding
-
+    var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
     lateinit var storyDelete : String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,17 +29,20 @@ class DialogDeleteActivity : AppCompatActivity() {
 
         // 삭제 버튼 눌렀을 때
         viewBinding.btnOk.setOnClickListener {
-            storyService.deleteStory(1).enqueue(object : Callback<StoryDelete> {
+            storyService.deleteStory(storyId = 1, //이부분 스토리 아이디 수정해야해요 how.... ?? 뭘로 지정해야하지
+                contentType = "application/json",
+                accessToken = "Bearer $jwtToken"
+            ).enqueue(object : Callback<ResponseBody> {
                 // 성공 처리
-                override fun onResponse(call: Call<StoryDelete>, response: Response<StoryDelete>) {
+                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                     if(response.isSuccessful) { // <--> response.code == 200
                         response.body()?.let {
-                            storyDelete = it.data
-                            Log.d("testttt", "DialogDeleteActivity:$storyDelete")
+                            //storyDelete = it.data //받아오는 값이 없어서 xx
+                            Log.d("testttt", "StoryDeleteSuccessfully")
                         }
                     }
                 }
-                override fun onFailure(call: Call<StoryDelete>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                     // 통신 실패 (인터넷 끊킴, 예외 발생 등 시스템적인 이유)
                     Log.d("testttt", "DialogDeleteActivity: onFailure 에러: " + t.message.toString());
                 }
