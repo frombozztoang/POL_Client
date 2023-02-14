@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
@@ -58,6 +59,7 @@ class UserEditActivity:AppCompatActivity() {
         viewBinding.btnCamera.setOnClickListener{
             selectGallery()
             val imgFile = File("profileImg")
+            Log.d("이미지파일주소", "$imgFile")
             val imgRequestFile = RequestBody.create(MediaType.parse("image/png"), imgFile)
             val imgBody = MultipartBody.Part.createFormData("file", imgFile.name, imgRequestFile)
             Picasso.get().load(imgFile).into(viewBinding.imgProfile)
@@ -86,8 +88,6 @@ class UserEditActivity:AppCompatActivity() {
                 val imgFile = File("profileImg")
                 val imgRequestFile = RequestBody.create(MediaType.parse("image/png"), imgFile)
                 val imgBody = MultipartBody.Part.createFormData("file", imgFile.name, imgRequestFile)
-
-
                 call.patchUserProfile("multipart/form-data","Bearer $jwtToken","$ninkname", imgBody).enqueue(object : Callback<UserEdit> {
                     // 전송 실패
                     override fun onFailure(call: Call<UserEdit>, t: Throwable) {
@@ -106,7 +106,6 @@ class UserEditActivity:AppCompatActivity() {
                 })
             }
 
-
             this@UserEditActivity.finishAffinity()
             Toast.makeText(this, "프로필이 변경됐다능", Toast.LENGTH_SHORT ).show()
         }
@@ -124,6 +123,7 @@ class UserEditActivity:AppCompatActivity() {
         const val PARAM_KEY_REVIEW = "review_content"
         const val PARAM_KEY_RATING = "rating"
     }
+
 
     // 이미지 결과값으로 받는 변수
     private val imageResult = registerForActivityResult(
