@@ -6,7 +6,10 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.Gravity
 import android.view.Window
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import com.kakao.sdk.user.UserApiClient
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.ActivityDialogUserEditBinding
 
@@ -51,6 +54,22 @@ class DialogUserEditActivity: AppCompatActivity(){
             }
 
             startActivity(intent)
+        }
+
+        viewBinding.btnLogout.setOnClickListener{
+            // 로그아웃
+            UserApiClient.instance.logout { error ->
+                if (error != null) {
+                    Toast.makeText(this, "로그아웃에 실패하였습니다.", Toast.LENGTH_SHORT ).show()
+                    finish()
+                }
+                else {
+                    val intent = Intent(this, MainActivity::class.java)
+                    Toast.makeText(this, "로그아웃 성공.", Toast.LENGTH_SHORT ).show()
+                    ActivityCompat.finishAffinity(this)
+                    startActivity(intent)
+                }
+            }
         }
 
 

@@ -13,9 +13,24 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:background="@drawable/button_line"
-        android:backgroundTint="@color/white"
+
         android:gravity="center"
         android:text="프로필 편집"
+        android:textSize="16dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/btn_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_logout"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/button_line"
+
+        android:gravity="center"
+        android:text="로그아웃"
         android:textSize="16dp"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
