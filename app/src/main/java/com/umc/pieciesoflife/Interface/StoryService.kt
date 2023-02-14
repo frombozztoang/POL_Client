@@ -61,8 +61,8 @@ interface StoryService {
     fun postStoryLike(
         @Header("Authorization") accessToken : String,
         @Path("storyId") storyId: Int,
-        @Body isLiked: Boolean
-    ) : Call<StoryDetail>
+        @Body isLiked: Data
+    ) : Call<StoryLike>
 
 
 //    // 대표이야기로 설정
