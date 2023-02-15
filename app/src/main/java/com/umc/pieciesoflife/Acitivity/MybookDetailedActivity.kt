@@ -35,10 +35,9 @@ class MybookDetailedActivity : AppCompatActivity() {
     lateinit var likeData: StoryLikeData // 현재 isLiked 정보
     lateinit var requestData: StoryLikeData // 요청할 isLiked
     var likeNum : Int = 1 // 좋아요 개수
-    private var newColor : String? = "" // 자서전 배경색
+    private var color : String? = "" // 자서전 배경색
     private var isMain : Boolean = false // 메인 여부
     private var isOpen : Boolean = true // 공개 여부
-    lateinit var storyDetailData : StoryDetailData
     private var bookDetailList: ArrayList<StoryDetailQna> = arrayListOf()
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -55,21 +54,48 @@ class MybookDetailedActivity : AppCompatActivity() {
         Log.d("Detail", "${itemId}")
         // DTO 연결시도
         val jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
-        storyService.getStoryDetail("Bearer $jwtToken",itemId).enqueue(object : Callback<StoryDetail> {
+        storyService.getStoryDetail("Bearer $jwtToken", itemId).enqueue(object : Callback<StoryDetail> {
             // 성공 처리
             override fun onResponse(call: Call<StoryDetail>, response: Response<StoryDetail>) {
                 if(response.isSuccessful) { // <--> response.code == 200
                     response.body()?.let {
-                        var count = it.data.story.likeCnt
                         viewBinding.tvTitleDetailed.text = it.data.story.title
                         viewBinding.tvNameDetailed.text = it.data.story.nickname
                         Picasso.get().load(it.data.story.profileImgUrl).into(viewBinding.imgProfile)
                         viewBinding.tvContent.text = it.data.story.description
                         viewBinding.tvDate.text = it.data.story.date.substring(0,10)
 
+                        bookDetailList = it.data.qnaList as ArrayList<StoryDetailQna>
+                        myBookDetailAdapter.addItems(bookDetailList)
+                        Log.d("testtttt", "MyBookDetailACtivity:$bookDetailList")
+
                         Log.d("MAIN", "${it.data.story} ")
                         isMain = it.data.story.main
                         isOpen = it.data.story.open
+
+
+                        // 색깔
+                        color = it.data.story.color
+                        Log.d("StoryColor", "$color")
+                        // 배경색 설정
+                        if (it.data.story.color == "#cdb5fa" ||it.data.story.color =="#CDB5FA")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_purple)
+                        else if (it.data.story.color == "#9dc4f0" ||it.data.story.color =="#9DC4F0")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_blue)
+                        else if (it.data.story.color == "#f2acac"||it.data.story.color =="#F2ACAC")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_peach)
+                        else if (it.data.story.color == "#b9df98"||it.data.story.color =="#B6DF98")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_green)
+                        else if (it.data.story.color == "#f7d698"||it.data.story.color =="#F7D698")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_yellow)
+                        else if ( it.data.story.color == "#f8b2e8"||it.data.story.color =="#F8B2E8")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_pink)
+                        else if (it.data.story.color == "#90ded3"||it.data.story.color =="#90DED3")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_mint)
+                        else if (it.data.story.color == "#dfe07e" ||it.data.story.color =="#DFE07E")
+                            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_lime)
+                        else viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_purple)
+
 
                         // 좋아요
                         likeNum = it.data.story.likeCnt
@@ -77,14 +103,9 @@ class MybookDetailedActivity : AppCompatActivity() {
                         likeData = StoryLikeData(it.data.story.liked) //서버 좋아요를 객체에 담음
                         viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
                         requestData = StoryLikeData(!likeData.isLiked) // like API에 현재 상태의 반대를 보내야
-                        // val likeD = it.data.story.liked
                         itemId = it.data.story.id
                         myId = it.data.story.myId
                         writerId = it.data.story.writerId
-
-                        bookDetailList = it.data.qnaList as ArrayList<StoryDetailQna>
-                        myBookDetailAdapter.addItems(bookDetailList)
-                        Log.d("testtttt", "MyBookDetailACtivity:$bookDetailList")
                     }
                 }
             }
@@ -142,30 +163,10 @@ class MybookDetailedActivity : AppCompatActivity() {
             intent.putExtra("isMain", isMain) // 현재 main 여부 intent로 전달
             intent.putExtra("isOpen", isOpen) // 현재 open 여부 intent로 전달
             intent.putExtra("id", itemId) // 현재 스토리 id intent로 전달
-            intent.putExtra("color", newColor)
             Log.d("StoryDetail", "myBookDetailedActivity에서 DialogBottomAc으로 보내기 $itemId")
             startActivity(intent)
         }
 
-        // DialogColorActivity로부터 배경색 intent 받아와서 적용하기
-        newColor = intent.getStringExtra("color")
-
-        if (newColor == "purple")
-            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_purple)
-        else if (newColor == "blue")
-            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_blue)
-        else if (newColor == "peach")
-            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_peach)
-        else if (newColor == "green")
-            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_green)
-        else if (newColor == "yellow")
-            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_yellow)
-        else if (newColor == "pink")
-            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_pink)
-        else if (newColor == "mint")
-            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_mint)
-        else if (newColor == "lime")
-            viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_lime)
 
 //
 //        bookDetailList.apply{
@@ -178,3 +179,4 @@ class MybookDetailedActivity : AppCompatActivity() {
     }
 
 }
+
