@@ -34,6 +34,15 @@ class DialogBottomAcitivity : AppCompatActivity() {
         val width = (dm.widthPixels) // Display 사이즈의 90%
         window.attributes.width = width
 
+        // 상태에 따라 메뉴 이름 바꾸기
+        if (isMain == true) {
+            viewBinding.btnStory.setText("대표 이야기 취소")
+        } else viewBinding.btnStory.setText("대표 이야기로 변경")
+
+        if (isOpen == true) {
+            viewBinding.btnPublic.setText("비공개로 변경")
+        } else viewBinding.btnPublic.setText("공개로 변경")
+
 
         viewBinding.btnStory.setOnClickListener {
             val newIntent = Intent(this, DialogStoryActivity::class.java)

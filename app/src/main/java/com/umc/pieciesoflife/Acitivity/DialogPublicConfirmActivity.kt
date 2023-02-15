@@ -30,6 +30,11 @@ class DialogPublicConfirmActivity : AppCompatActivity() {
         itemId = intent.getIntExtra("id", 66) // 호출한 특정 스토리 아이디
         isOpen = intent.getBooleanExtra("isOpen",true ) // 공개 여부
 
+        // 문구 수정
+        if (isOpen == true) {
+            viewBinding.tvMenuDelete.setText("비공개로 설정되었습니다.")
+        } else viewBinding.tvMenuDelete.setText("공개로 설정되었습니다.")
+
 
         val storyOpenData = StoryOpen(isOpen) // 요청할 isOpened
 

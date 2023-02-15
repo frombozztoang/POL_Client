@@ -23,10 +23,8 @@ class ExploreDetailedActivity : AppCompatActivity() {
     private var writerId = 0 // 작성자 id
     lateinit var likeData: StoryLikeData // 현재 isLiked 정보
     lateinit var requestData: StoryLikeData // 요청할 isLiked
-    private var isMain : Boolean = false
-    private var isOpen : Boolean = false
-
     var likeNum : Int = 1 // 좋아요 개수
+
     //RV_Deatiled 리사이클러뷰
     private var bookDetailList: ArrayList<StoryDetailQna> = arrayListOf()
     private lateinit var bookDetailQna: StoryDetailQna
@@ -53,11 +51,8 @@ class ExploreDetailedActivity : AppCompatActivity() {
                         response.body()?.let {
 
                             bookDetailList = it.data.qnaList as ArrayList<StoryDetailQna>
-
                             bookDetailAdapter.addItems(bookDetailList)
 
-                            // likeNum = it.data.story.likeCnt
-                            // isLike = it.data.story.liked
                             viewBinding.tvTitleDetailed.text = it.data.story.title
                             viewBinding.tvNameDetailed.text = it.data.story.nickname
                             Picasso.get().load(it.data.story.profileImgUrl)
@@ -65,7 +60,6 @@ class ExploreDetailedActivity : AppCompatActivity() {
                             viewBinding.tvContent.text = it.data.story.description
                             viewBinding.tvDate.text = it.data.story.date.substring(0,10)
 
-//                            isMain = it.data.story.
 
 
                             // 좋아요
@@ -134,7 +128,6 @@ class ExploreDetailedActivity : AppCompatActivity() {
                         if (response.isSuccessful) { // <--> response.code == 200
                             response.body()?.let { it ->
                                 Log.d("storyLike", "${response.body()}")
-                                // viewBinding.btnLikeDetailed.text = it.data.
 
                                 if (likeData.isLiked == false && requestData.isLiked == true) {
                                     likeNum++
@@ -142,8 +135,6 @@ class ExploreDetailedActivity : AppCompatActivity() {
                                     requestData.isLiked = !likeData.isLiked // 앞으로 요청할 상태
                                     viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
                                     viewBinding.btnLikeDetailed.text = likeNum.toString()
-//                                                        requestData = StoryLikeData(true)
-//                                                        likeData.isLiked = !requestData.isLiked
                                 }
                                 else if (likeData.isLiked == true && requestData.isLiked == false){
                                     likeNum--
@@ -151,19 +142,7 @@ class ExploreDetailedActivity : AppCompatActivity() {
                                     requestData.isLiked = !likeData.isLiked // 앞으로 요청할 상태
                                     viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
                                     viewBinding.btnLikeDetailed.text = likeNum.toString()
-//                                                        requestData = StoryLikeData(false)
-//                                                        likeData.isLiked = !requestData.isLiked
                                 }
-                                // likeData = StoryLikeData(it.data.isLiked) // 현재 상태
-                                // requestData.isLiked = !likeData.isLiked // 앞으로 요청할 상태
-                                // viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
-                                // viewBinding.btnLikeDetailed.text = likeNum.toString()
-//                                                    if (it.data.isLiked == true) {
-//                                                        viewBinding.btnLikeDetailed.text = likeNum--.toString()
-//                                                    }
-//                                                    else  {
-//                                                        viewBinding.btnLikeDetailed.text = likeNum++.toString()
-//                                                    }
                             }
                         }
                     }

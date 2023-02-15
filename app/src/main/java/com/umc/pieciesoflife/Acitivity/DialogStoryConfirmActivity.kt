@@ -17,8 +17,6 @@ import retrofit2.Response
 
 class DialogStoryConfirmActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityDialogStoryConfirmBinding
-    private var itemId = 0 // 호출한 특정 스토리 아이디
-    private var isMain : Boolean = false // 공개 여부
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +24,13 @@ class DialogStoryConfirmActivity : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(viewBinding.root)
 
-        itemId = intent.getIntExtra("id", 86) // 호출한 특정 스토리 아이디
-        isMain = intent.getBooleanExtra("isMain",true ) // 공개 여부
+        val itemId = intent.getIntExtra("id", 86) // 호출한 특정 스토리 아이디
+        val isMain = intent.getBooleanExtra("isMain",true ) // 공개 여부
+
+        // 문구 수정
+        if (isMain == true) {
+            viewBinding.tvMenuDelete.setText("대표 이야기에서 취소하였습니다.")
+        } else viewBinding.tvMenuDelete.setText("대표 이야기로 지정되었습니다.")
 
         val storyMainData = StoryMain(isMain) // 요청할 isOpened
 
@@ -39,13 +42,13 @@ class DialogStoryConfirmActivity : AppCompatActivity() {
                         if (response.isSuccessful) { // <--> response.code == 200
                             response.body()?.let { it ->
                                 Log.d("storyMain", "${response.body()}")
-                                Log.d("StoryMain", " publiConfirmAc에서 detaild로 보내기")
+                                Log.d("StoryMain", " publiConfirmAc에서 detailed로 보내기")
                             }
                         }
                     }
                     override fun onFailure(call: Call<StoryMainResult>, t: Throwable) {
                         // 포스트 실패
-                        Log.d("storyOpen", "에러입니다. ${t.message}")
+                        Log.d("storyMain", "에러입니다. ${t.message}")
                         t.printStackTrace()
                     }
                 }

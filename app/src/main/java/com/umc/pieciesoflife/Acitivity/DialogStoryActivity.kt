@@ -9,8 +9,6 @@ import com.umc.pieciesoflife.databinding.ActivityDialogStoryBinding
 
 class DialogStoryActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityDialogStoryBinding
-    private var itemId = 0 // 호출한 특정 스토리 아이디
-    private var isMain : Boolean = false // 공개 여부
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,15 +16,19 @@ class DialogStoryActivity : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(viewBinding.root)
 
+        val itemId = intent.getIntExtra("id", 86) // 호출한 특정 스토리 아이디
+        val isMain = intent.getBooleanExtra("isMain",true ) // 공개 여부
 
-        itemId = intent.getIntExtra("id", 86) // 호출한 특정 스토리 아이디
-        isMain = intent.getBooleanExtra("isMain",true ) // 공개 여부
+        // 문구 수정
+        if (isMain == true) {
+            viewBinding.tvMenuStory.setText("대표 이야기를 취소하시겠습니까?")
+        } else viewBinding.tvMenuStory.setText("대표 이야기로 지정하시겠습니까?")
 
         viewBinding.btnOk.setOnClickListener {
             val newIntent = Intent(this, DialogStoryConfirmActivity::class.java)
             newIntent.putExtra("id", itemId)
             newIntent.putExtra("isMain", isMain)
-            Log.d("StoryMain", "DialogBottomAc에서 DialogonfirmAc으로 보내기 $isMain")
+            Log.d("StoryMain", "DialogStoryAc에서 DialogonfirmAc으로 보내기 $isMain")
             startActivity(newIntent)
         }
         viewBinding.btnCancel.setOnClickListener {
