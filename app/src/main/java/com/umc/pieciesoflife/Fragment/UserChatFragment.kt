@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,14 +15,14 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.umc.pieciesoflife.Acitivity.ChatActivity
-import com.umc.pieciesoflife.Adapter.ChatRVAdapter
+import com.umc.pieciesoflife.Adapter.ChatRoomRVAdapter
 import com.umc.pieciesoflife.DTO.MyPageDto.ChatRooms
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.FragmentUserMessageBinding
 
 class UserChatFragment : Fragment() {
     private lateinit var Binding: FragmentUserMessageBinding
-    private lateinit var chatRVAdapter: ChatRVAdapter
+    private lateinit var chatRVAdapter: ChatRoomRVAdapter
 
     val database = Firebase.firestore
     var path = "HJ_chatRoom"
@@ -46,7 +45,7 @@ class UserChatFragment : Fragment() {
             Log.d("유저아이딩가딩가링", "$userId")
 
             //리사이클러뷰 어댑터
-            chatRVAdapter = ChatRVAdapter(Activity())
+            chatRVAdapter = ChatRoomRVAdapter(Activity())
             Binding.rvMessage.adapter = chatRVAdapter
             Binding.rvMessage.layoutManager = LinearLayoutManager(context)
 
@@ -127,7 +126,7 @@ class UserChatFragment : Fragment() {
 
 
             //->ChatActivity
-            chatRVAdapter.setMyItemClickListener(object : ChatRVAdapter.MyItemClickListener {
+            chatRVAdapter.setMyItemClickListener(object : ChatRoomRVAdapter.MyItemClickListener {
                 override fun onItemClick(position: Int) {
                     val intent = Intent(context, ChatActivity::class.java)
                     startActivity(intent)
