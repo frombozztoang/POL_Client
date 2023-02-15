@@ -27,8 +27,6 @@ class ExploreDetailedActivity : AppCompatActivity() {
 
     //RV_Deatiled 리사이클러뷰
     private var bookDetailList: ArrayList<StoryDetailQna> = arrayListOf()
-    private lateinit var bookDetailQna: StoryDetailQna
-    lateinit var question : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +38,8 @@ class ExploreDetailedActivity : AppCompatActivity() {
         viewBinding.RVDetailed.layoutManager = LinearLayoutManager(this)
 
         itemId = intent.getIntExtra("id", 66) // 호출한 특정 스토리 아이디
-        // val likeD = Data(isLike)         //서버 좋아요
-        val jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
 
+        val jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
         storyService.getStoryDetail("Bearer $jwtToken", itemId)
             .enqueue(object : Callback<StoryDetail> {
                 // 성공 처리
@@ -60,55 +57,34 @@ class ExploreDetailedActivity : AppCompatActivity() {
                             viewBinding.tvContent.text = it.data.story.description
                             viewBinding.tvDate.text = it.data.story.date.substring(0,10)
 
-
-
                             // 좋아요
                             likeNum = it.data.story.likeCnt
                             viewBinding.btnLikeDetailed.text = likeNum.toString()
                             likeData = StoryLikeData(it.data.story.liked) //서버 좋아요를 객체에 담음
                             viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
                             requestData = StoryLikeData(!likeData.isLiked) // like API에 현재 상태의 반대를 보내야
-                            // val likeD = it.data.story.liked
                             itemId = it.data.story.id
                             myId = it.data.story.myId
                             writerId = it.data.story.writerId
 
-                            // 색상 설정
-                            var color = it.data.story.color
-                            if (color == "#cdb5fa") viewBinding.constraintLayout2.setBackgroundResource(
-                                R.drawable.color_gradient_purple
-                            )
-                            else if (color == "#9dc4f0") viewBinding.constraintLayout2.setBackgroundResource(
-                                R.drawable.color_gradient_blue
-                            )
-                            else if (color == "peach") viewBinding.constraintLayout2.setBackgroundResource(
-                                R.drawable.color_gradient_peach
-                            )
-                            else if (color == "b9df98") viewBinding.constraintLayout2.setBackgroundResource(
-                                R.drawable.color_gradient_green
-                            )
-                            else if (color == "#f7d698") viewBinding.constraintLayout2.setBackgroundResource(
-                                R.drawable.color_gradient_yellow
-                            )
-                            else if (color == "pink") viewBinding.constraintLayout2.setBackgroundResource(
-                                R.drawable.color_gradient_pink
-                            )
-                            else if (color == "mint") viewBinding.constraintLayout2.setBackgroundResource(
-                                R.drawable.color_gradient_mint
-                            )
-                            else if (color == "#dfe07e") viewBinding.constraintLayout2.setBackgroundResource(
-                                R.drawable.color_gradient_lime
-                            )
-
-                            Log.d("testttt", "ExploreDetailACtivity:$bookDetailList")
-
-//                            viewBinding.btnLikeDetailed.setOnClickListener {
-//                                viewBinding.btnLikeDetailed.text = likeNum
-//                            }
-
-
-//                                    viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
-//                                    viewBinding.btnLikeDetailed.text = likeNum.toString()
+                            // 배경색 설정
+                            if (it.data.story.color == "#cdb5fa" || it.data.story.color =="#CDB5FA")
+                                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_purple)
+                            else if (it.data.story.color == "9dc4f0" || it.data.story.color =="#9DC4F0")
+                                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_blue)
+                            else if (it.data.story.color == "#f2acac"|| it.data.story.color =="#F2ACAC")
+                                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_peach)
+                            else if (it.data.story.color == "#b9df98"|| it.data.story.color =="#B6DF98")
+                                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_green)
+                            else if (it.data.story.color == "#f7d698"|| it.data.story.color =="#F7D698")
+                                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_yellow)
+                            else if ( it.data.story.color == "#f8b2e8"|| it.data.story.color =="#F8B2E8")
+                                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_pink)
+                            else if (it.data.story.color == "#90ded3"|| it.data.story.color =="#90DED3")
+                                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_mint)
+                            else if (it.data.story.color == "#dfe07e" || it.data.story.color =="#DFE07E")
+                                viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_lime)
+                            else viewBinding.constraintLayout2.setBackgroundResource(R.drawable.color_gradient_peach)
                         }
                     }
                 }
@@ -129,14 +105,14 @@ class ExploreDetailedActivity : AppCompatActivity() {
                             response.body()?.let { it ->
                                 Log.d("storyLike", "${response.body()}")
 
-                                if (likeData.isLiked == false && requestData.isLiked == true) {
+                                if (!likeData.isLiked && requestData.isLiked) {
                                     likeNum++
                                     likeData.isLiked = true
                                     requestData.isLiked = !likeData.isLiked // 앞으로 요청할 상태
                                     viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
                                     viewBinding.btnLikeDetailed.text = likeNum.toString()
                                 }
-                                else if (likeData.isLiked == true && requestData.isLiked == false){
+                                else if (likeData.isLiked && !requestData.isLiked){
                                     likeNum--
                                     likeData.isLiked = false
                                     requestData.isLiked = !likeData.isLiked // 앞으로 요청할 상태
@@ -155,16 +131,9 @@ class ExploreDetailedActivity : AppCompatActivity() {
             )
         }
 
-//        viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
-//        viewBinding.btnLikeDetailed.text = likeNum.toString()
-
         viewBinding.btnBack.setOnClickListener {
             // 뒤로가기 버튼
-            val intent = Intent()
-//            intent.putExtra("likeCnt",likeNum)
-//            intent.putExtra("isLiked",likeData.isLiked)
             finish()
-//            startActivity(intent) // 단순 데이터 전달 시
         }
 
         viewBinding.btnSend.setOnClickListener {
@@ -175,8 +144,6 @@ class ExploreDetailedActivity : AppCompatActivity() {
             intent.putExtra("writerId", writerId)
             Log.d("TEST", "쪽지 보내기 $itemId, $myId, $writerId")
             startActivity(intent)
-            // 이 떄, Spring Server에서 Story ID GET해서 ->ChatSendAcitivity로 값 전달
         }
-
     }
 }

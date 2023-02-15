@@ -87,7 +87,6 @@ interface StoryService {
     // 표지색 설정
     @PATCH("story/{storyId}/color")
     fun patchStoryColor(
-        @Header("content-type") contentType : String,
         @Header("Authorization") accessToken : String,
         @Path("storyId") storyId: Int,
         @Body color: StoryColor
