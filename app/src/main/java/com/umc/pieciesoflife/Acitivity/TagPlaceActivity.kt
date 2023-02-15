@@ -29,7 +29,7 @@ class TagPlaceActivity : AppCompatActivity() {
         viewBinding.buttonNext.setOnClickListener {
             val inputText = viewBinding.editTextPlace.text.toString()
             if (inputText.isEmpty()) {
-                Toast.makeText(this, "태그를 입력하지 않으면 저장할 수 없습니다.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "태그를 입력하지 않으면 저장할 수 없습니다.", Toast.LENGTH_SHORT).show()
             } else {
                 TagContent = viewBinding.editTextPlace.text.toString()
                 tagHash.put(TagId, TagContent)
