@@ -4,6 +4,8 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
+import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -11,6 +13,7 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -77,18 +80,19 @@ class UserEditActivity:AppCompatActivity() {
 
         // 확인하기 일단 피니시
         viewBinding.btnUserEditOk.setOnClickListener{
-            val ninkname = viewBinding.editNickName.text // 입력되어 있는 닉네임
-            val profileImg = imageResult // 변경된 img Url 주소
+            val editImg = viewBinding.imgProfile
+            val editName = viewBinding.editNickName
+
             val call: UserService = RetrofitClient.userService
 
-            if(imageResult.equals("") || imageResult.equals(null)) {
+            if(editImg.equals("") || editImg.equals(null)) {
                 profileImgUrl = userIntent.getStringExtra("imgProfile")!!
                 Picasso.get().load(profileImgUrl).into(viewBinding.imgProfile)
             } else {
-                val imgFile = File("profileImg")
+                val imgFile = File("editImg")
                 val imgRequestFile = RequestBody.create(MediaType.parse("image/png"), imgFile)
                 val imgBody = MultipartBody.Part.createFormData("file", imgFile.name, imgRequestFile)
-                call.patchUserProfile("multipart/form-data","Bearer $jwtToken","$ninkname", imgBody).enqueue(object : Callback<UserEdit> {
+                call.patchUserProfile("multipart/form-data","Bearer $jwtToken","$editName", imgBody).enqueue(object : Callback<UserEdit> {
                     // 전송 실패
                     override fun onFailure(call: Call<UserEdit>, t: Throwable) {
                         Log.d("패치치치치치프렛즐", t.message!!)
@@ -123,6 +127,7 @@ class UserEditActivity:AppCompatActivity() {
         const val PARAM_KEY_REVIEW = "review_content"
         const val PARAM_KEY_RATING = "rating"
     }
+
 
 
     // 이미지 결과값으로 받는 변수

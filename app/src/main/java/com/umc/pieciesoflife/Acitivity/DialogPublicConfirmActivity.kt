@@ -26,7 +26,8 @@ class DialogPublicConfirmActivity : AppCompatActivity() {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(viewBinding.root)
 
-        itemId = intent.getIntExtra("id", 66) // 호출한 특정 스토리 아이디
+       var storyId = intent.getIntExtra("id", 0)
+        storyOpenData
 //        storyOpenData.isOpened = intent.getBooleanExtra("isOpened", isOpened)
 //        RetrofitClient.storyService.patchStoryOpen("Bearer $jwtToken", itemId, storyOpenData.isOpened).enqueue(
 //            object : Callback<StoryOpen> {
