@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.DTO.MyPageDto.ChatRooms
+import com.umc.pieciesoflife.DTO.StoryDto.StoryData
 
 class ChatRVAdapter(private val context: Context) : RecyclerView.Adapter<ChatRVAdapter.ViewHolder>() {
 
@@ -24,7 +25,8 @@ class ChatRVAdapter(private val context: Context) : RecyclerView.Adapter<ChatRVA
         mItemClickListner = itemClickListener
     }
 
-    var chatRooms: ArrayList<ChatRooms> = arrayListOf()
+    // 데이터 저장하는 변수
+    var datas = mutableListOf<ChatRooms>()
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view){
         init {
@@ -40,12 +42,13 @@ class ChatRVAdapter(private val context: Context) : RecyclerView.Adapter<ChatRVA
         private val txtContent: TextView = itemView.findViewById(R.id.msg_content)
 
         fun bind(item: ChatRooms) {
-            Picasso.get().load(item.userImg).into(imgUserProfile)
-            txtUserName.text=item.userName
+            imgUserProfile.setImageResource(item.userImg)
+            txtUserName.text= item.userName
             txtDate.text=item.date
             txtContent.text =item.content
         }
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_message,parent,false)
@@ -53,10 +56,10 @@ class ChatRVAdapter(private val context: Context) : RecyclerView.Adapter<ChatRVA
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(chatRooms[position])
+        holder.bind(datas[position])
     }
 
-    override fun getItemCount(): Int = chatRooms.size
+    override fun getItemCount(): Int = datas.size
 }
 
 

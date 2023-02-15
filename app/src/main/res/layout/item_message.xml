@@ -10,7 +10,7 @@
         android:layout_width="36dp"
         android:layout_height="36dp"
         app:civ_border_overlay="true"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:src="@drawable/ic_book" />
@@ -19,11 +19,11 @@
         android:id="@+id/msg_userName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="31dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="22dp"
         android:text="팽팽이"
         android:textColor="@color/black"
-        android:textSize="14dp"
+        android:textSize="15dp"
         app:layout_constraintStart_toEndOf="@+id/msg_userImg"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,7 +42,8 @@
         android:id="@+id/msg_content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="6dp"
         android:text="진짜 머리 수준에 가슴이 웅장해짐"
         android:textColor="@color/black"
         android:textSize="14dp"
