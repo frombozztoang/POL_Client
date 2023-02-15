@@ -1,5 +1,5 @@
 package com.umc.pieciesoflife.DTO.StoryDto
 
-data class StoryOpenData(
+data class StoryOpenResultData(
     var isOpened: Boolean
 )

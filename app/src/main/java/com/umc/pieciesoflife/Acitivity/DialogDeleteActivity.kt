@@ -31,7 +31,6 @@ class DialogDeleteActivity : AppCompatActivity() {
 
         // 삭제 버튼 눌렀을 때
         viewBinding.btnOk.setOnClickListener {
-            Log.i("됐냐?","왜안돼 왜!!!")
             storyService.deleteStory(storyId = itemId,
                 contentType = "application/json",
                 accessToken = "Bearer $jwtToken"
@@ -53,8 +52,7 @@ class DialogDeleteActivity : AppCompatActivity() {
                 }
             }
             )
-            Log.i("된거지?","제발좀!!!!!!")
-
+            Log.i("된거지?","이야기 삭제했삼")
 
             val intent = Intent(this, DialogDeleteConfirmActivity::class.java)
             startActivity(intent)

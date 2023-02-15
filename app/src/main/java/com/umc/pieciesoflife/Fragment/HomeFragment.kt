@@ -74,19 +74,19 @@ class HomeFragment : Fragment() {
                         viewBinding.seekBarReal.isEnabled = false // 터치 불가
                         viewBinding.seekBarText.isEnabled = false
 
-                        if ( score < 50) {
+                        if ( score < 100) {
                             viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
                             viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_gray)
                             viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_gray)
                             viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.seekbar_thumb)
                             viewBinding.lv1.setTypeface(null, Typeface.BOLD)
-                        } else if ( score == 50) {
+                        } else if ( score == 100) {
                             viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
                             viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_level2)
                             viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_gray)
                             viewBinding.seekBarText.thumb = resources.getDrawable(R.drawable.ic_level_two_clear)
                             viewBinding.lv2.setTypeface(null, Typeface.BOLD)
-                        } else if ( score < 100) {
+                        } else if ( score < 200) {
                             viewBinding.imgLv1.setImageResource(R.drawable.ic_flag)
                             viewBinding.imgLv2.setImageResource(R.drawable.ic_flag_level2)
                             viewBinding.imgLv3.setImageResource(R.drawable.ic_flag_gray)
