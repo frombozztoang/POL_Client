@@ -1,5 +1,6 @@
 package com.umc.pieciesoflife.Acitivity
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -13,8 +14,10 @@ import com.umc.pieciesoflife.DTO.StoryDto.StoryPost
 import com.umc.pieciesoflife.DTO.StoryDto.StoryPostResult
 import com.umc.pieciesoflife.DTO.StoryDto.StoryQna
 import com.umc.pieciesoflife.DTO.StoryDto.StoryTag
+import com.umc.pieciesoflife.DTO.UserDto.User
 import com.umc.pieciesoflife.GlobalApplication
 import com.umc.pieciesoflife.Interface.StoryService
+import com.umc.pieciesoflife.Interface.UserService
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
 import com.umc.pieciesoflife.databinding.ActivitySaveFinalBinding
@@ -58,11 +61,30 @@ class SaveFinalActivity : AppCompatActivity() {
         viewBinding.bookPostUserName.setText(nickname)
         viewBinding.finishText.setText("${nickname}님의\n자서전을 완성했어요!")
         //프로필
-        if (profileImgUrl != null) {
-            Picasso.get().load(profileImgUrl).into(imgProfile)
-        } else { // 기본 이미지 지정 -> intent로 값 넘겨야 해서 지정
-            imgProfile.setImageResource(R.drawable.ic_default_profileimg)
-        }
+        // user 정보 조회
+        val call: UserService = RetrofitClient.userService
+        call.getUserInfo("Bearer ${RetrofitClient.jwtToken}").enqueue(object : Callback<User> {
+            // 전송 실패
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                Log.d("getUserInfo", t.message!!)
+            }
+
+            // 전송 성공
+            @SuppressLint("UseCompatLoadingForDrawables")
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                response.body()?.let {
+                    if (it.data.profileImgUrl != null) {
+                        profileImgUrl = it.data.profileImgUrl
+                        Picasso.get().load(profileImgUrl).into(imgProfile)
+                    } else { // 기본 이미지 지정 -> intent로 값 넘겨야 해서 지정
+                        imgProfile.setImageResource(R.drawable.ic_default_profileimg)
+                    }
+                    nickname = it.data.nickname
+                    viewBinding.bookPostUserName.setText(nickname)
+                    Log.d("성공", "nickname : $nickname")
+                } ?: Log.d("Body is null", "몸통은 비었다.")
+            }
+        })
         //날짜
         viewBinding.textViewDate.setText(formatted_date)
         //한줄요약
