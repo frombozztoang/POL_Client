@@ -38,7 +38,7 @@ class FilterRVAdapter (private var bookList: ArrayList<StoryFilterDataTagStory>)
             viewBinding.bookDate.text = book.date.substring(0,10)
             viewBinding.bookContent.text = book.description
             viewBinding.bookPost.setImageResource(com.umc.pieciesoflife.R.drawable.ic_book)
-            viewBinding.bookPost.setColorFilter(Color.parseColor("#000000")) // ("book.color")
+            viewBinding.bookPost.setColorFilter(Color.parseColor(book.backgroundColor)) // ("book.color")
             viewBinding.bookPostTitle.text = book.title
             if(book.profileImgUrl != null) {
                 Picasso.get().load(book.profileImgUrl).into(viewBinding.bookPostProfile)

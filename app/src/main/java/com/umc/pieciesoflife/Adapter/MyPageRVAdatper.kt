@@ -38,7 +38,7 @@ class MyPageRVAdatper(private var bookList: ArrayList<MyPageStory>): RecyclerVie
             viewBining.bookDate.text = book.date.substring(0,10)
             viewBining.bookContent.text = book.description
             viewBining.bookPost.setImageResource(com.umc.pieciesoflife.R.drawable.ic_book)
-            viewBining.bookPost.setColorFilter(Color.parseColor("#000000")) // ("book.color")
+            viewBining.bookPost.setColorFilter(Color.parseColor(book.color)) // ("book.color")
             viewBining.bookPostTitle.text = book.title
             if(book.profileImgUrl != null) {
                 Picasso.get().load(book.profileImgUrl).into(viewBining.bookPostProfile)

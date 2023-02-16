@@ -37,7 +37,7 @@ class MyStoryAdapter(private var bookList: ArrayList<Story>): RecyclerView.Adapt
             viewBining.bookDate.text = book.date.substring(0,10)
             viewBining.bookContent.text = book.description
             viewBining.bookPost.setImageResource(com.umc.pieciesoflife.R.drawable.ic_book)
-            viewBining.bookPost.setColorFilter(Color.parseColor("#000000")) // ("book.color")
+            viewBining.bookPost.setColorFilter(Color.parseColor(book.backgroundColor)) // ("book.color")
             viewBining.bookPostTitle.text = book.title
             if(book.profileImgUrl != null) {
                 Picasso.get().load(book.profileImgUrl).into(viewBining.bookPostProfile)
