@@ -7,6 +7,8 @@ data class StoryDetailStory(
     val id: Int,
     val likeCnt: Int,
     val liked: Boolean,
+    val open: Boolean,
+    val main: Boolean,
     val nickname: String,
     val profileImgUrl: String,
     val title: String,

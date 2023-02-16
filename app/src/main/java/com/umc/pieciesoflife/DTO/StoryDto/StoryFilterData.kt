@@ -1,6 +1,7 @@
 package com.umc.pieciesoflife.DTO.StoryDto
 
-data class StoryFilterData(
-    val stories: List<StoryFilterStory>,
-    val storyTag: String
+data class Data(
+    val storyTags: List<StoryTagX>,
+    val userPieceCnt: Int,
+    val userStoryCnt: Int
 )

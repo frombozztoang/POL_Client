@@ -1,6 +1,6 @@
 package com.umc.pieciesoflife.DTO.StoryDto
 
-data class StoryFilterStory(
+data class StoryX(
     val backgroundColor: String,
     val date: String,
     val description: String,

@@ -12,10 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.squareup.picasso.Picasso
 import com.umc.pieciesoflife.Adapter.BookDetailRVAdapter
-import com.umc.pieciesoflife.DTO.StoryDto.StoryDetail
-import com.umc.pieciesoflife.DTO.StoryDto.StoryDetailData
-import com.umc.pieciesoflife.DTO.StoryDto.StoryDetailQna
-import com.umc.pieciesoflife.DTO.StoryDto.StoryDetailStory
+import com.umc.pieciesoflife.DTO.StoryDto.*
 import com.umc.pieciesoflife.DataClass.BookDetail
 import com.umc.pieciesoflife.Fragment.HomeFragment
 import com.umc.pieciesoflife.GlobalApplication
@@ -33,9 +30,14 @@ import retrofit2.Response
 class MybookDetailedActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityMybookDetailedBinding
     private var itemId = 0 // 호출한 특정 스토리 아이디
-    private var count : Int = 46 // 좋아요 수
+    private var myId = 0 // 내 id
+    private var writerId = 0 // 작성자 id
+    lateinit var likeData: StoryLikeData // 현재 isLiked 정보
+    lateinit var requestData: StoryLikeData // 요청할 isLiked
+    var likeNum : Int = 1 // 좋아요 개수
     private var newColor : String? = "" // 자서전 배경색
-
+    private var isMain : Boolean = false // 메인 여부
+    private var isOpen : Boolean = true // 공개 여부
     lateinit var storyDetailData : StoryDetailData
     private var bookDetailList: ArrayList<StoryDetailQna> = arrayListOf()
 
@@ -50,9 +52,9 @@ class MybookDetailedActivity : AppCompatActivity() {
         viewBinding.rvDetailed.layoutManager = LinearLayoutManager(this)
 
         itemId = intent.getIntExtra("id", 86) // 호출한 특정 스토리 아이디
-
+        Log.d("Detail", "${itemId}")
         // DTO 연결시도
-        var jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
+        val jwtToken = GlobalApplication.prefs.getString("jwtToken", "default-value")
         storyService.getStoryDetail("Bearer $jwtToken",itemId).enqueue(object : Callback<StoryDetail> {
             // 성공 처리
             override fun onResponse(call: Call<StoryDetail>, response: Response<StoryDetail>) {
@@ -65,15 +67,20 @@ class MybookDetailedActivity : AppCompatActivity() {
                         viewBinding.tvContent.text = it.data.story.description
                         viewBinding.tvDate.text = it.data.story.date.substring(0,10)
 
-                        // 좋아요 버튼 클릭 이벤트
-                        viewBinding.btnLikeDetailed.text = it.data.story.likeCnt.toString()
-                        viewBinding.btnLikeDetailed.isSelected = it.data.story.liked != true
-                        viewBinding.btnLikeDetailed.setOnClickListener {
-                            if (viewBinding.btnLikeDetailed.isSelected) {
-                                count -= 1
-                            }
-                            else count -= 1
-                        }
+                        Log.d("MAIN", "${it.data.story} ")
+                        isMain = it.data.story.main
+                        isOpen = it.data.story.open
+
+                        // 좋아요
+                        likeNum = it.data.story.likeCnt
+                        viewBinding.btnLikeDetailed.text = likeNum.toString()
+                        likeData = StoryLikeData(it.data.story.liked) //서버 좋아요를 객체에 담음
+                        viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
+                        requestData = StoryLikeData(!likeData.isLiked) // like API에 현재 상태의 반대를 보내야
+                        // val likeD = it.data.story.liked
+                        itemId = it.data.story.id
+                        myId = it.data.story.myId
+                        writerId = it.data.story.writerId
 
                         bookDetailList = it.data.qnaList as ArrayList<StoryDetailQna>
                         myBookDetailAdapter.addItems(bookDetailList)
@@ -88,6 +95,42 @@ class MybookDetailedActivity : AppCompatActivity() {
         }
         )
 
+        // 좋아요 버튼 클릭 이벤트
+        viewBinding.btnLikeDetailed.setOnClickListener {
+            storyService.postStoryLike("Bearer $jwtToken", itemId, requestData).enqueue(
+                object : Callback<StoryLike> {
+                    // 성공 처리
+                    override fun onResponse(call: Call<StoryLike>, response: Response<StoryLike>) {
+                        if (response.isSuccessful) { // <--> response.code == 200
+                            response.body()?.let { it ->
+                                Log.d("storyLike", "${response.body()}")
+
+                                if (likeData.isLiked == false && requestData.isLiked == true) {
+                                    likeNum++
+                                    likeData.isLiked = true
+                                    requestData.isLiked = !likeData.isLiked // 앞으로 요청할 상태
+                                    viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
+                                    viewBinding.btnLikeDetailed.text = likeNum.toString()
+                                }
+                                else if (likeData.isLiked == true && requestData.isLiked == false){
+                                    likeNum--
+                                    likeData.isLiked = false
+                                    requestData.isLiked = !likeData.isLiked // 앞으로 요청할 상태
+                                    viewBinding.btnLikeDetailed.isSelected = likeData.isLiked
+                                    viewBinding.btnLikeDetailed.text = likeNum.toString()
+                                }
+                            }
+                        }
+                    }
+                    override fun onFailure(call: Call<StoryLike>, t: Throwable) {
+                        // 포스트 실패
+                        Log.d("storyLike", "에러입니다. ${t.message}")
+                        t.printStackTrace()
+                    }
+                }
+            )
+        }
+
         viewBinding.btnBack.setOnClickListener {
             finish()
         }
@@ -95,7 +138,12 @@ class MybookDetailedActivity : AppCompatActivity() {
         viewBinding.btnMenu.setOnClickListener {
             val intent = Intent(this, DialogBottomAcitivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            // intent.putExtra("color", newColor)
+            intent.putExtra("isMain", isMain) // 현재 main 여부 intent로 전달
+            intent.putExtra("isOpen", isOpen) // 현재 open 여부 intent로 전달
+            intent.putExtra("id", itemId) // 현재 스토리 id intent로 전달
             intent.putExtra("color", newColor)
+            Log.d("StoryDetail", "myBookDetailedActivity에서 DialogBottomAc으로 보내기 $itemId")
             startActivity(intent)
         }
 

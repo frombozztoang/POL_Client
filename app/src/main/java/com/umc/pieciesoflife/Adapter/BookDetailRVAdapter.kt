@@ -16,7 +16,8 @@ class BookDetailRVAdapter(private var bookDetailList: ArrayList<StoryDetailQna>)
             if (bookDetail.question.contains('[')) { // 태그의 시작을 포함하고 있다면
                 val strData = bookDetail.question
                 val strArr = strData.split("[","]")
-                viewBinding.contentTag.text = strArr[1]
+                val str = "#" +  strArr[1]
+                viewBinding.contentTag.text = str
                 viewBinding.contentQuestion.text = strArr[2]
 
                 if (bookDetail.tagId == 1) viewBinding.contentTag.setTextColor(Color.parseColor("#6B9A85"))

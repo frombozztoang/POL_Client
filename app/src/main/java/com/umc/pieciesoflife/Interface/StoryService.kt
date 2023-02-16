@@ -66,14 +66,13 @@ interface StoryService {
     ) : Call<StoryLike>
 
 
-//    // 대표이야기로 설정
-//    @PATCH("story/{storyId}/main")
-//    fun patchStoryMain(
-//        @Header("content-type") contentType : String,
-//        @Header("Authorization") accessToken : String,
-//        @Path("storyId") storyId: Int,
-//        @Body isMain: Boolean
-//    ) : Call<StoryMain>
+    // 대표이야기로 설정
+    @PATCH("story/{storyId}/main")
+    fun patchStoryMain(
+        @Header("Authorization") accessToken : String,
+        @Path("storyId") storyId: Int,
+        @Body isMain: StoryMain
+    ) : Call<StoryMainResult>
 
 
     // 공개로 설정
@@ -81,18 +80,18 @@ interface StoryService {
     fun patchStoryOpen(
         @Header("Authorization") accessToken : String,
         @Path("storyId") storyId: Int,
-        @Body isOpened: Boolean
-    ) : Call<StoryOpen>
+        @Body isOpened: StoryOpen
+    ) : Call<StoryOpenResult>
 
 
-//    // 표지색 설정
-//    @PATCH("story/{storyId}/color")
-//    fun patchStoryColor(
-//        @Header("content-type") contentType : String,
-//        @Header("Authorization") accessToken : String,
-//        @Path("storyId") storyId: Int,
-//        @Body color: String
-//    ) : Call<StoryColor>
+    // 표지색 설정
+    @PATCH("story/{storyId}/color")
+    fun patchStoryColor(
+        @Header("content-type") contentType : String,
+        @Header("Authorization") accessToken : String,
+        @Path("storyId") storyId: Int,
+        @Body color: StoryColor
+    ) : Call<StoryColorResult>
 
 
     // 이야기 삭제
@@ -101,6 +100,6 @@ interface StoryService {
         @Header("content-type") contentType : String,
         @Header("Authorization") accessToken : String,
         @Path("storyId") storyId: Int
-    ) : Call<ResponseBody> //delete는 dto만들필요x일듯. Void사용도 가능
+    ) : Call<Void>
 // StoryPost를 해야될수도, StoryDelete 일수도? (이전주석)
 }

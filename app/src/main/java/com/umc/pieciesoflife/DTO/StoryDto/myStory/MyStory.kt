@@ -1,6 +1,6 @@
-package com.umc.pieciesoflife.DTO.StoryDto
+package com.umc.pieciesoflife.DTO.StoryDto.myStory
 
-data class StoryFilter(
+data class MyStory(
     val `data`: Data,
     val messsage: String,
     val status: Int,

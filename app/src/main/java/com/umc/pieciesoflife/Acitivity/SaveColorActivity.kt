@@ -28,6 +28,8 @@ class SaveColorActivity : AppCompatActivity() {
         var bookTitle = intent.getSerializableExtra("bookTitle") as String
         var bookIntro = intent.getSerializableExtra("bookIntro") as String
 
+        viewBinding.bookPostTitle.setText(bookTitle)
+
         //북포스트 색깔 변경
         viewBinding.colorBtn1.setOnClickListener{
             viewBinding.bookPost.setImageResource(R.drawable.ic_book)
