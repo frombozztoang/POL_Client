@@ -54,13 +54,13 @@
         app:layout_constraintTop_toBottomOf="@+id/book_postTitle" />
 
     <TextView
-        android:id="@+id/textView58"
+        android:id="@+id/finish_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:gravity="center"
         android:letterSpacing="0"
-        android:text="겨울에는방어님의\n첫 자서전을 완성했어요!"
+        android:text="겨울에는방어님의\n 자서전을 완성했어요!"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"

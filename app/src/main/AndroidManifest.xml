@@ -37,8 +37,8 @@
         <activity android:name=".Acitivity.StartNewstoryAcitivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.ChatActivity" android:exported="true"/>
         <activity android:name=".Acitivity.ChatSendActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.ExploreDetailedActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.MybookDetailedActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.ExploreDetailedActivity" android:exported="true" android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.MybookDetailedActivity" android:exported="true" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.NotiActivity" android:exported="true"/>
         <activity android:name=".Acitivity.SaveColorActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.SaveFinalActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>

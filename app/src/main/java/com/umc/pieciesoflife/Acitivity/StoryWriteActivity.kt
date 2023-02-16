@@ -69,11 +69,13 @@ class StoryWriteActivity : AppCompatActivity() {
 
         // 랜덤선택된 태그에 관한 초기 질문 생성
         initQuestion(viewBinding.editTextTextMultiLineWriteStory)
+        setTagInvisible()
 
+        /* 미구현기능 (#)입력시 태그 선택하기
         var str = "" //리스트에 입력할 문자열
 
         //select tag view 보이지 않기
-        setTagInvisible()
+
 
         val edtTxtMine = findViewById<View>(R.id.editTextTextMultiLine_write_story) as EditText
         mspanable = edtTxtMine.text
@@ -172,12 +174,13 @@ class StoryWriteActivity : AppCompatActivity() {
             ) {}
             override fun afterTextChanged(s: Editable) {}
         })
+        */
 
         // 새로운 질문 생성 (다음)
         viewBinding.buttonNext.setOnClickListener {
             val inputText = viewBinding.editTextTextMultiLineWriteStory.text.toString()
             if (inputText.isEmpty()) {
-                Toast.makeText(this, "답변을 입력하지 않으면 넘어갈 수 없습니다. \n어려운 질문은 건너뛰어도 돼요.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "답변을 입력하지 않으면 넘어갈 수 없습니다. \n어려운 질문은 건너뛰어도 돼요.", Toast.LENGTH_SHORT).show()
             } else {
                 answer = viewBinding.editTextTextMultiLineWriteStory.text.toString()
                 val question_new = "[" + tagContent + "]" + question

@@ -5,8 +5,10 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.FragmentManager
+import com.squareup.picasso.Picasso
 import com.umc.pieciesoflife.DTO.StoryDto.StoryPost
 import com.umc.pieciesoflife.DTO.StoryDto.StoryPostResult
 import com.umc.pieciesoflife.DTO.StoryDto.StoryQna
@@ -37,12 +39,14 @@ class SaveFinalActivity : AppCompatActivity() {
         var bookTitle = intent.getSerializableExtra("bookTitle") as String
         var bookIntro = intent.getSerializableExtra("bookIntro") as String
         var bookColor = intent.getSerializableExtra("bookColor") as String
+        var nickname = intent.getSerializableExtra("nickname") as String
+        var profileImgUrl = intent.getSerializableExtra("profileImgUrl") as String
         val manager: FragmentManager = supportFragmentManager
       //  val transaction: FragmentTransaction = manager.beginTransaction()
         val date: LocalDate = LocalDate.now()
         val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         val formatted_date = date.format(formatter)
-
+        val imgProfile = findViewById<ImageView>(R.id.book_postProfile)
 
         //표지 정보 변경
         //표지 색상 변경
@@ -51,6 +55,14 @@ class SaveFinalActivity : AppCompatActivity() {
         //제목
         viewBinding.bookPostTitle.setText(bookTitle)
         viewBinding.textViewTitle.setText(bookTitle)
+        viewBinding.bookPostUserName.setText(nickname)
+        viewBinding.finishText.setText("${nickname}님의\n자서전을 완성했어요!")
+        //프로필
+        if (profileImgUrl != null) {
+            Picasso.get().load(profileImgUrl).into(imgProfile)
+        } else { // 기본 이미지 지정 -> intent로 값 넘겨야 해서 지정
+            imgProfile.setImageResource(R.drawable.ic_default_profileimg)
+        }
         //날짜
         viewBinding.textViewDate.setText(formatted_date)
         //한줄요약

@@ -50,7 +50,7 @@ class ChatSendActivity: AppCompatActivity() {
             database.collection(path).document("CR"+storyId+"_"+myId).set(chatContent)
             // 채팅 말풍성 생성
             database.collection(path).document("CR"+storyId+"_"+myId).collection("chatContent").document("$content").set(messageContent)
-            Toast.makeText(this, "쪽지 발신 성공!", Toast.LENGTH_SHORT ).show()
+            Toast.makeText(this, "쪽지 발신 성공! 이거 진짜 성공한거임 진짜임 DB에 뜸 근데 그 DB는 우리만 볼 수 잇음ㅋ 보고싶으면 .. ", Toast.LENGTH_LONG ).show()
             finish()
         }
 
