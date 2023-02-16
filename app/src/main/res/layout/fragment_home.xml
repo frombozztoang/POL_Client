@@ -104,6 +104,7 @@
         android:layout_marginTop="4dp"
         android:text="Lv.1"
         android:textColor="@color/black"
+        android:textStyle="normal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar_Real" />
 
@@ -113,6 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Lv.2"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar_Real" />
@@ -124,6 +126,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="22dp"
         android:text="Lv.3"
+        android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/seekBar_Real" />
 
@@ -175,6 +178,7 @@
         android:text="님의 대표 이야기"
         android:textColor="@color/black"
         android:textSize="20sp"
+        android:textStyle="normal"
         app:layout_constraintBaseline_toBaselineOf="@+id/tv_name2"
         app:layout_constraintStart_toEndOf="@id/tv_name2" />
 

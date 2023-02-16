@@ -24,6 +24,7 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="16dp"
         android:text="#태그"
+        android:fontFamily="@font/nanummyeongjo"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/Qstart"
         app:layout_constraintTop_toTopOf="parent" />

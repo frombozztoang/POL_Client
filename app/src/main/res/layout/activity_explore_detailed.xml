@@ -45,6 +45,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="32dp"
             android:text="나의 유년시절 이야기"
+            android:fontFamily="@font/nanummyeongjo"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
