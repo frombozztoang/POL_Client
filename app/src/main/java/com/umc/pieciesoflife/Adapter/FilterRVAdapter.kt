@@ -8,7 +8,7 @@ import com.squareup.picasso.Picasso
 import com.umc.pieciesoflife.DTO.StoryDto.StoryFilterDataTagStory
 import com.umc.pieciesoflife.databinding.ItemTagBinding
 
-class FilterRVAdatper (private var bookList: ArrayList<StoryFilterDataTagStory>): RecyclerView.Adapter<FilterRVAdatper.DataViewHolder>() {
+class FilterRVAdapter (private var bookList: ArrayList<StoryFilterDataTagStory>): RecyclerView.Adapter<FilterRVAdapter.DataViewHolder>() {
 
 
     //클릭 interface 정의
@@ -16,10 +16,10 @@ class FilterRVAdatper (private var bookList: ArrayList<StoryFilterDataTagStory>)
         fun onItemClick(position: Int)
     }
     //클릭 리스너 선언
-    private lateinit var mItemClickListner: MyItemClickListener
+    private lateinit var mItemClickListener: MyItemClickListener
     //클릭 리스너 등록
     fun setMyItemClickListener(itemClickListener: MyItemClickListener){
-        mItemClickListner = itemClickListener
+        mItemClickListener = itemClickListener
     }
 
 
@@ -28,12 +28,12 @@ class FilterRVAdatper (private var bookList: ArrayList<StoryFilterDataTagStory>)
         init{
             //itemView의 OnItemClick 상속 및 초기화
             itemView.setOnClickListener {
-                mItemClickListner.onItemClick(adapterPosition)
+                mItemClickListener.onItemClick(adapterPosition)
             }
         }
 
         fun bind(book: StoryFilterDataTagStory){
-            viewBinding.tvTag.text = book.storyTag
+            viewBinding.tvTag.text = "#"+book.storyTag
             viewBinding.bookTitle.text = book.title
             viewBinding.bookDate.text = book.date.substring(0,10)
             viewBinding.bookContent.text = book.description
