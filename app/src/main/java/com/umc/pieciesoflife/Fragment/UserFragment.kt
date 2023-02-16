@@ -151,6 +151,7 @@ class UserFragment : Fragment() {
                             .replace(R.id.fragment_user, UserChatFragment())
                             .commit()
                     }
+
                 }
                 Log.e("ViewPagerFragment", "Page 이거 뜨면 되는거다? ${position + 1}")
             }

@@ -4,7 +4,7 @@ data class ChatRooms(
     val userImg : Int,
     val userName : String,
     val date : String,
-    val content : String,
+    val content : String
 )
 
 

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="11dp"
         android:src="@drawable/ic_baseline_arrow_back_24"
         android:background="@android:color/transparent"/>
@@ -34,7 +34,7 @@
         android:layout_height="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/img_button_chat_send"
         android:text="전송"
@@ -53,7 +53,7 @@
         android:hint="내용 입력하기"
         android:textSize="16dp"
         android:privateImeOptions="defaultInputmode=korean"
-        android:textColor="#B7B7B7"
+        android:textColor="@color/black"
         android:background="@null" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

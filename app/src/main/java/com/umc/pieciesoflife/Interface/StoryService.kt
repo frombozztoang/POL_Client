@@ -3,6 +3,7 @@ package com.umc.pieciesoflife.Interface
 
 import com.umc.pieciesoflife.DTO.StoryDto.Story
 import com.umc.pieciesoflife.DTO.StoryDto.*
+import com.umc.pieciesoflife.DTO.StoryDto.myStory.MyStory
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
@@ -48,6 +49,15 @@ interface StoryService {
         @Query("size") size : Int,
         @Query("sort") sort : String
     ) : Call<StoryFilter>
+
+    // 내가 작성한 자서전 전체조회
+    @GET("story/my")
+    fun getMyStory(
+        @Header("Authorization") accessToken : String,
+        @Query("page") page : Int,
+        @Query("size") size : Int,
+        @Query("sort") sort : String
+    ): Call<MyStory>
 
     // 둘러보기 - 상세보기
     @GET("story/{storyId}")

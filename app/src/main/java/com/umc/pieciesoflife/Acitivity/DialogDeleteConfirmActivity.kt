@@ -1,11 +1,11 @@
 package com.umc.pieciesoflife.Acitivity
 
-import android.content.Intent
+
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Window
 import com.umc.pieciesoflife.Fragment.HomeFragment
-import com.umc.pieciesoflife.databinding.ActivityDialogDeleteBinding
+import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.databinding.ActivityDialogDeleteConfirmBinding
 
 class DialogDeleteConfirmActivity : AppCompatActivity() {
@@ -19,8 +19,7 @@ class DialogDeleteConfirmActivity : AppCompatActivity() {
 
 
         viewBinding.btnOk.setOnClickListener {
-            val intent = Intent(this, HomeFragment::class.java)
-            startActivity(intent)
+            this@DialogDeleteConfirmActivity.finishAffinity()
         }
     }
 }
