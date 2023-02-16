@@ -24,7 +24,7 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="16dp"
         android:text="#태그"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintStart_toEndOf="@+id/Qstart"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,7 +36,7 @@
         android:layout_marginTop="4dp"
         android:text="담긴 이야기가 있나요?"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/content_tag" />
 
@@ -48,6 +48,7 @@
         android:layout_marginTop="14dp"
         android:text="안경이 빨간색이었는데 지금 생각해보면 매우 힙합니다. 많이들 놀리고는 했죠. 그렇지만 어린시절 제 모습 은 정말로 . 60살의 제가 보는 지금의 저도 귀여울까요?"
         android:textSize="14sp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/content_question" />
 

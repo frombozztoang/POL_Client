@@ -16,19 +16,19 @@ class FilterRVAdapter (private var bookList: ArrayList<StoryFilterDataTagStory>)
         fun onItemClick(position: Int)
     }
     //클릭 리스너 선언
-    private lateinit var mItemClickListener: MyItemClickListener
+    private lateinit var mItemClickListner: MyItemClickListener
     //클릭 리스너 등록
     fun setMyItemClickListener(itemClickListener: MyItemClickListener){
-        mItemClickListener = itemClickListener
+        mItemClickListner = itemClickListener
     }
 
 
     // View와 Data 연결 함수
     inner class DataViewHolder(private val viewBinding: ItemTagBinding): RecyclerView.ViewHolder(viewBinding.root) {
-        init{
+        init {
             //itemView의 OnItemClick 상속 및 초기화
             itemView.setOnClickListener {
-                mItemClickListener.onItemClick(adapterPosition)
+                mItemClickListner.onItemClick(adapterPosition)
             }
         }
 
