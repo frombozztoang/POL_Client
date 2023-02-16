@@ -40,9 +40,8 @@ class ExploreFragment : Fragment() {
     private var totalCount = 0 // 전체 아이템 개수
     private var isNext = false // 다음 페이지 유무
     private var page = 1       // 현재 페이지
-    private var size = 8     // 한 번에 가져올 아이템 수
+    private var size = 40    // 한 번에 가져올 아이템 수
     private var cursorId = 0 // 마지막에 가져온 아이템 아이디
-    var nestedScrollView: NestedScrollView? = null
     var like : Boolean = true
 
 
@@ -56,7 +55,7 @@ class ExploreFragment : Fragment() {
         //리사이클러뷰 어댑터 설정
         bookAdapter = StoryRVAdapter(bookList)
         viewBinding.rvExplore.adapter = bookAdapter
-        viewBinding.rvExplore.setHasFixedSize(true)
+        // viewBinding.rvExplore.setHasFixedSize(true)
         viewBinding.rvExplore.layoutManager = LinearLayoutManager(context)
 
 //        // 네스티드 스크롤뷰
@@ -76,15 +75,17 @@ class ExploreFragment : Fragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (scrollPercent(viewBinding.rvExplore) >= 100) {
-                    //dataLoading()
-                    if (viewBinding.btnRecent.isSelected) {
-                        newRecycler()
-                        Log.d("REC", "onScrolled: new")
-                    }
-                    else {
-                        likeRecycler()
-                        Log.d("REC", "onScrolled: like")
-                    }
+                    newRecycler()
+//                    cursorId = cursorId + size
+//                    //dataLoading()
+//                    if (viewBinding.btnRecent.isSelected) {
+//                        newRecycler()
+//                        Log.d("제발", "onScrolled: new")
+//                    }
+//                    else {
+//                        likeRecycler()
+//                        Log.d("제발", "onScrolled: like")
+//                    }
                 }
 
 //                        //최신순 정렬
@@ -252,7 +253,6 @@ class ExploreFragment : Fragment() {
 
     // 최신순
     private fun newRecycler() {
-        cursorId += size
         storyService.getStoryExplore(cursorId,0,size,"recent").enqueue(object : Callback<Story> {
             // 성공 처리
             override fun onResponse(call: Call<Story>, response: Response<Story>) {
@@ -261,7 +261,7 @@ class ExploreFragment : Fragment() {
 //                        viewBinding.progressBar.visibility = View.GONE
                         bookList = it.dataList as ArrayList<StoryData>
                         bookAdapter.addItems(bookList)
-                        Log.d("testtt", "$bookList")
+                        Log.d("제발", "$bookList")
                     }
                 }
             }
@@ -275,7 +275,6 @@ class ExploreFragment : Fragment() {
 
     // 인기순
     private fun likeRecycler() {
-        cursorId += size
         storyService.getStoryExplore(cursorId,0, size,"like").enqueue(object : Callback<Story> {
             // 성공 처리
             override fun onResponse(call: Call<Story>, response: Response<Story>) {
@@ -283,7 +282,7 @@ class ExploreFragment : Fragment() {
                     response.body()?.let {
                         bookList = it.dataList as ArrayList<StoryData>
                         bookAdapter.addItems(bookList)
-                        Log.d("testtt", "$bookList")
+                        Log.d("제발", "$bookList")
                     }
                 }
             }

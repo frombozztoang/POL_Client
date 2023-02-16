@@ -218,7 +218,7 @@ class MyBookFragment : Fragment() {
         myStoryAdapter = MyStoryAdapter(myStoryList)
         viewBinding.rvMybooks.adapter = myStoryAdapter
 
-        storyService.getMyStory("Bearer $jwtToken",0,8, "").enqueue(object : Callback<MyStory> {
+        storyService.getMyStory("Bearer $jwtToken",0,40, "").enqueue(object : Callback<MyStory> {
             // 성공 처리
             override fun onResponse(call: Call<MyStory>, response: Response<MyStory>) {
                 if (response.isSuccessful) { // <--> response.code == 200
