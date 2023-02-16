@@ -217,7 +217,6 @@
         android:text="#행복"
         android:textColor="@color/black"
         android:textSize="16sp"
-        android:fontFamily="@font/nanummyeongjo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

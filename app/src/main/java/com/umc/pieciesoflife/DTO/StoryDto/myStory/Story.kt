@@ -1,13 +1,12 @@
-package com.umc.pieciesoflife.DTO.StoryDto
+package com.umc.pieciesoflife.DTO.StoryDto.myStory
 
-data class StoryFilterStory(
+data class Story(
     val backgroundColor: String,
     val date: String,
     val description: String,
     val id: Int,
     val nickname: String,
     val profileImgUrl: String,
-    val storyTag: String,
     val title: String,
     val userId: Int
 )
