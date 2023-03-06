@@ -124,12 +124,12 @@
             android:layout_marginTop="16dp">
 
             <android.widget.Button
-                android:id="@+id/btn_all"
+                android:id="@+id/btn_date"
                 android:layout_width="58dp"
                 android:layout_height="32dp"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/selector_button_tag_color"
-                android:text="전체"
+                android:text="날짜"
                 android:textColor="@color/selector_button_tag_textcolor"
                 app:cornerRadius="20dp"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -142,49 +142,7 @@
                 android:background="@drawable/selector_button_tag_color"
                 android:text="나이"
                 android:textColor="@color/selector_button_tag_textcolor"
-                app:layout_constraintStart_toEndOf="@id/btn_all" />
-
-            <android.widget.Button
-                android:id="@+id/btn_emo"
-                android:layout_width="58dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="6dp"
-                android:background="@drawable/selector_button_tag_color"
-                android:text="감정"
-                android:textColor="@color/selector_button_tag_textcolor"
-                app:layout_constraintStart_toEndOf="@id/btn_age" />
-
-            <android.widget.Button
-                android:id="@+id/btn_people"
-                android:layout_width="58dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="6dp"
-                android:background="@drawable/selector_button_tag_color"
-                android:text="인물"
-                android:textColor="@color/selector_button_tag_textcolor"
-                app:layout_constraintStart_toEndOf="@id/btn_emo" />
-
-
-            <android.widget.Button
-                android:id="@+id/btn_situ"
-                android:layout_width="58dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="6dp"
-                android:background="@drawable/selector_button_tag_color"
-                android:text="상황"
-                android:textColor="@color/selector_button_tag_textcolor"
-                app:layout_constraintStart_toEndOf="@id/btn_people" />
-
-
-            <android.widget.Button
-                android:id="@+id/btn_place"
-                android:layout_width="58dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="6dp"
-                android:background="@drawable/selector_button_tag_color"
-                android:text="장소"
-                android:textColor="@color/selector_button_tag_textcolor"
-                app:layout_constraintStart_toEndOf="@id/btn_situ" />
+                app:layout_constraintStart_toEndOf="@id/btn_date" />
 
             <android.widget.Button
                 android:id="@+id/btn_year"
@@ -194,7 +152,37 @@
                 android:background="@drawable/selector_button_tag_color"
                 android:text="연도"
                 android:textColor="@color/selector_button_tag_textcolor"
-                app:layout_constraintStart_toEndOf="@+id/btn_place" />
+                app:layout_constraintStart_toEndOf="@+id/btn_age" />
+
+            <android.widget.Button
+                android:id="@+id/btn_emo"
+                android:layout_width="58dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/selector_button_tag_color"
+                android:text="감정"
+                android:textColor="@color/selector_button_tag_textcolor"
+                app:layout_constraintStart_toEndOf="@id/btn_year" />
+
+            <android.widget.Button
+                android:id="@+id/btn_place"
+                android:layout_width="58dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/selector_button_tag_color"
+                android:text="장소"
+                android:textColor="@color/selector_button_tag_textcolor"
+                app:layout_constraintStart_toEndOf="@id/btn_emo" />
+
+            <android.widget.Button
+                android:id="@+id/btn_situ"
+                android:layout_width="58dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="6dp"
+                android:background="@drawable/selector_button_tag_color"
+                android:text="상황"
+                android:textColor="@color/selector_button_tag_textcolor"
+                app:layout_constraintStart_toEndOf="@id/btn_place" />
 
             <android.widget.Button
                 android:id="@+id/btn_object"
@@ -204,7 +192,18 @@
                 android:background="@drawable/selector_button_tag_color"
                 android:text="물건"
                 android:textColor="@color/selector_button_tag_textcolor"
-                app:layout_constraintStart_toEndOf="@id/btn_year" />
+                app:layout_constraintStart_toEndOf="@id/btn_situ" />
+
+            <android.widget.Button
+                android:id="@+id/btn_people"
+                android:layout_width="58dp"
+                android:layout_height="32dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/selector_button_tag_color"
+                android:text="인물"
+                android:textColor="@color/selector_button_tag_textcolor"
+                app:layout_constraintStart_toEndOf="@id/btn_emo" />
 
         </LinearLayout>
     </HorizontalScrollView>
@@ -213,22 +212,13 @@
         android:id="@+id/tv_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="233dp"
+        android:layout_marginTop="193dp"
         android:layout_marginStart="20dp"
-        android:text="#행복"
+        android:text=""
+        android:fontFamily="@font/nanummyeongjobold"
         android:textColor="@color/black"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:id="@+id/view"
-        android:layout_width="300dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="245dp"
-        android:background="#C9C9C9"
-        app:layout_constraintStart_toEndOf="@id/tv_tag"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

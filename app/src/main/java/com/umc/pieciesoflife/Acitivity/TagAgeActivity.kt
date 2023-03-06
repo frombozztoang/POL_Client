@@ -6,30 +6,52 @@ import android.os.Bundle
 import com.umc.pieciesoflife.R
 import android.widget.ImageButton
 import android.content.Intent
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
 import android.widget.Button
+import android.widget.Toast
+import com.umc.pieciesoflife.databinding.ActivityTagAgeBinding
 
 class TagAgeActivity : AppCompatActivity() {
-    var editText: EditText? = null
+    private lateinit var viewBinding: ActivityTagAgeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tag_age)
-        editText = findViewById(R.id.editText_age)
-        val back = findViewById<View>(R.id.button_back) as ImageButton //뒤로가기
-        back.setOnClickListener {
+        viewBinding = ActivityTagAgeBinding.inflate(layoutInflater)
+        setContentView(viewBinding.root)
+
+        var tagHash = HashMap<Int, String>()
+        var TagContent : String = ""
+        var TagId = 1
+
+        //다음
+        viewBinding.buttonNext.setOnClickListener {
+            val inputText = viewBinding.editTextAge.text.toString()
+            if (inputText.isEmpty()) {
+                Toast.makeText(this, "태그를 입력하지 않으면 저장할 수 없습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                TagContent = viewBinding.editTextAge.text.toString()
+                tagHash.put(TagId,TagContent) //태그아이디&태그내용 넣기
+                Log.i("content","$tagHash") //확인
+                val intent = Intent(applicationContext, TagYearActivity::class.java)
+                intent.putExtra("TagHash", tagHash)
+                startActivity(intent)
+            }
+        }
+        //뒤로가기
+        viewBinding.buttonBack.setOnClickListener {
             val intent = Intent(applicationContext, StartNewstoryAcitivity::class.java)
-            startActivity(intent) //다음 Tag 화면 띄우기
+            startActivity(intent) //이전 Tag 화면 띄우기
         }
-        val next = findViewById<View>(R.id.button_next) as Button //다음
-        next.setOnClickListener {
+        //질문 건너뛰기
+        viewBinding.buttonSkipQuestion.setOnClickListener {
             val intent = Intent(applicationContext, TagYearActivity::class.java)
-            // val input = editText.getText().toString() //텍스트 입력값 받아옴
-            startActivity(intent) //다음 Tag 화면 띄우기
-        }
-        val skip = findViewById<View>(R.id.button_skip_question) as Button //이야기 건너뛰기
-        skip.setOnClickListener {
-            val intent = Intent(applicationContext, TagYearActivity::class.java)
+            intent.putExtra("TagHash", tagHash)
             startActivity(intent) //다음 화면 띄우기
         }
+
+
+
     }
 }

@@ -10,11 +10,12 @@
         android:id="@+id/book_post"
         android:layout_width="108dp"
         android:layout_height="130dp"
-        android:layout_marginTop="178dp"
+        android:layout_marginTop="176dp"
+        android:src="@drawable/ic_book"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_book" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/book_postTitle"
@@ -25,6 +26,7 @@
         android:text="안드로이드 시러"
         android:textAlignment="viewStart"
         android:textSize="12dp"
+        android:fontFamily="@font/nanummyeongjo"
         android:textStyle="bold"
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@+id/book_post"
@@ -62,57 +64,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-    <Button
-        android:id="@+id/color_btn5"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="448dp"
-        android:backgroundTint="#F7D698"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-    <Button
-        android:id="@+id/color_btn6"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="448dp"
-        android:backgroundTint="#F8B2E8"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-    <Button
-        android:id="@+id/color_btn7"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="448dp"
-        android:backgroundTint="#90DED3"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
-
-    <Button
-        android:id="@+id/color_btn8"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="276dp"
-        android:layout_marginTop="448dp"
-        android:backgroundTint="#DFE07E"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/textView57"
@@ -120,7 +71,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:gravity="center"
-        android:letterSpacing="0"
         android:text="이야기 표지 색을\n골라주세요."
         android:textColor="#000000"
         android:textSize="20sp"
@@ -135,65 +85,98 @@
         android:layout_marginEnd="20dp"
         android:layout_marginTop="0dp"
         android:background="#00ff0000"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        android:minWidth="0dp"
-        android:minHeight="0dp"
-        android:padding="0dp"
-        android:text="다음"
+        android:text="저장"
         android:textColor="@color/black"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/color_btn1"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="376dp"
-        android:minHeight="0dp"
-        android:minWidth="0dp"
-        android:backgroundTint="#CDB5FA"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="108dp"
+        android:layout_marginBottom="112dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <Button
-        android:id="@+id/color_btn3"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="376dp"
-        android:backgroundTint="#F2ACAC"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        <Button
+            android:id="@+id/color_btn1"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="36dp"
+            android:backgroundTint="#CDB5FA"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/color_btn5" />
 
-    <Button
-        android:id="@+id/color_btn4"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="276dp"
-        android:layout_marginTop="376dp"
-        android:backgroundTint="#B9DF98"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
-    <Button
-        android:id="@+id/color_btn2"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="124dp"
-        android:layout_marginTop="376dp"
-        android:backgroundTint="#9DC4F0"
-        android:insetTop="0dp"
-        android:insetBottom="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        <Button
+            android:id="@+id/color_btn2"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginBottom="36dp"
+            android:backgroundTint="#9DC4F0"
+            app:layout_constraintBottom_toTopOf="@+id/color_btn6"
+            app:layout_constraintStart_toEndOf="@+id/color_btn1" />
+
+
+        <Button
+            android:id="@+id/color_btn3"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginBottom="36dp"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="#F2ACAC"
+            app:layout_constraintStart_toEndOf="@id/color_btn2"
+            app:layout_constraintBottom_toTopOf="@+id/color_btn7"    />
+
+        <Button
+            android:id="@+id/color_btn4"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginBottom="36dp"
+            android:backgroundTint="#B9DF98"
+            app:layout_constraintBottom_toTopOf="@+id/color_btn8"
+            app:layout_constraintStart_toEndOf="@+id/color_btn3"/>
+
+        <Button
+            android:id="@+id/color_btn5"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:backgroundTint="#F7D698"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/color_btn6"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="#F8B2E8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/color_btn5" />
+
+        <Button
+            android:id="@+id/color_btn7"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="#90DED3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/color_btn6"/>
+
+        <Button
+            android:id="@+id/color_btn8"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="40dp"
+            android:backgroundTint="#DFE07E"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/color_btn7"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

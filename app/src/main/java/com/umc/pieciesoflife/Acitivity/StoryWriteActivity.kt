@@ -1,6 +1,7 @@
 package com.umc.pieciesoflife.Acitivity
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.Spannable
@@ -10,32 +11,33 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.umc.pieciesoflife.DTO.Question
-import com.umc.pieciesoflife.Interface.QuestionMake
+import com.umc.pieciesoflife.DTO.QuestionDto.Question
+import com.umc.pieciesoflife.DTO.StoryDto.StoryDetailQna
+import com.umc.pieciesoflife.DTO.StoryDto.StoryQna
+import com.umc.pieciesoflife.DTO.StoryDto.StoryTag
+import com.umc.pieciesoflife.Interface.QuestionService
 import com.umc.pieciesoflife.R
 import com.umc.pieciesoflife.Retrofit.RetrofitClient
-import com.umc.pieciesoflife.Retrofit.RetrofitClient.questionMake
-import com.umc.pieciesoflife.Retrofit.RetrofitClient.storyService
-import com.umc.pieciesoflife.databinding.ActivityChatBinding
 import com.umc.pieciesoflife.databinding.ActivityStoryWriteBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import kotlin.random.Random
 
 
 class StoryWriteActivity : AppCompatActivity() {
     private lateinit var viewBinding: ActivityStoryWriteBinding
     var mspanable: Spannable? = null
     var hashTagIsComing = 0
-
+    var previousQuestion: ArrayList<String> = ArrayList()
+    var questionTag: ArrayList<Int> = ArrayList()
+    lateinit var question: String
+    var tagIds = mutableListOf<Int>()
+    var num : Int = 0
+    lateinit var tagHash : HashMap<Int, String>
+    lateinit var tagContent : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,37 +45,37 @@ class StoryWriteActivity : AppCompatActivity() {
         viewBinding = ActivityStoryWriteBinding.inflate(layoutInflater)
         setContentView(viewBinding.root)
 
-        val call = RetrofitClient.questionMake
-        call.response().enqueue(object: Callback<Question>{
-            // 성공 처리
-            override fun onResponse(call: Call<Question>, response: Response<Question>) {
-                if(response.isSuccessful()) { // <--> response.code == 200
-                    val result = response.body()
-                    Log.d("testt", "결과는 ${result}")
-                    Log.i(javaClass.simpleName, "api 받아오기 성공 : ${response.body()?.questionTemplate}")
+        tagHash = intent.getSerializableExtra("TagHash") as HashMap<Int, String>
+        Log.d("TagHash", "$tagHash")
 
-                }
+        // tagContent에 값이 있을 시에, tagIds에 add
+        for (i: Int in 1..7) {
+            val tagContent_tmp = tagHash[i]
+            if (tagContent_tmp != null) {
+                tagIds.add(i)
             }
-            // 실패 처리
-            override fun onFailure(call: Call<Question>, t: Throwable) {
-                t.printStackTrace()
-                Log.d("testt", "에러입니다. ${t.message}")
-            }
-        })
+        }
+        Log.d("TagIds", "$tagIds")
 
-        //태그 담을 리스트
-        val ageTagList: ArrayList<String> = arrayListOf<String>()
-        val matterTagList: ArrayList<String> = arrayListOf<String>()
-        val moodTagList: ArrayList<String> = arrayListOf<String>()
-        val objectTagList: ArrayList<String> = arrayListOf<String>()
-        val personTagList: ArrayList<String> = arrayListOf<String>()
-        val placeTagList: ArrayList<String> = arrayListOf<String>()
-        val yearTagList: ArrayList<String> = arrayListOf<String>()
+        // 랜덤 태그 생성
+        num = tagIds.random()
+        randomTag(num)
+        tagContent = tagHash[num].toString() //태그 컨텐츠도 질문태그에 맞게 업데이트
+        Log.d("num", "$num")
 
+        val answerList : ArrayList<String> = arrayListOf<String>()
+        val questionList : ArrayList<String> = arrayListOf<String>()
+        var answer: String = ""
+
+        // 랜덤선택된 태그에 관한 초기 질문 생성
+        initQuestion(viewBinding.editTextTextMultiLineWriteStory)
+        setTagInvisible()
+
+        /* 미구현기능 (#)입력시 태그 선택하기
         var str = "" //리스트에 입력할 문자열
 
         //select tag view 보이지 않기
-        setTagInvisible()
+
 
         val edtTxtMine = findViewById<View>(R.id.editTextTextMultiLine_write_story) as EditText
         mspanable = edtTxtMine.text
@@ -83,11 +85,11 @@ class StoryWriteActivity : AppCompatActivity() {
                 var startChar: String? = null
                 try {
                     startChar = Character.toString(s[start])
-                    Log.i(javaClass.simpleName, "CHARACTER OF NEW WORD: $startChar")
+                    //Log.i(javaClass.simpleName, "CHARACTER OF NEW WORD: $startChar")
                 } catch (ex: Exception) {
                     startChar = ""
                 }
-                Log.i(javaClass.simpleName, "Start: $start count: $count")
+                //Log.i(javaClass.simpleName, "Start: $start count: $count")
 
                 if (startChar == "#") {
                     //태그 선택 화면 보이기
@@ -100,73 +102,66 @@ class StoryWriteActivity : AppCompatActivity() {
                     hashTagIsComing = 0
                 }
                 if (hashTagIsComing != 0) {
-                    str= concat(str,startChar) as String
+                    str = concat(str, startChar) as String
                     changeTheColorDefault(s.toString().substring(start), start, start + count)
                     hashTagIsComing++
 
                     //태그 버튼 선택 ->리스트에 인풋&글자 색 바꾸기&태그 선택화면 내리기
                     viewBinding.tagAgeButton.setOnClickListener { //나이 버튼 선택
                         //문자열 색깔 바꾸기
-                        changeAgeColor(s.toString().substring(start), start-1, start + count)
+                        changeAgeColor(s.toString().substring(start), start - 1, start + count)
                         //리스트에 문자열 입력하기
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        ageTagList.add(str)
-                        str="" //str 초기화
+                        str = edtTxtMine.text.toString().substring(start, start + count) //str 문자열 자르기
+                        //Log.i(javaClass.simpleName, "str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str = "" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagMatterButton.setOnClickListener { //상황 버튼 선택
-                        changeMatterColor(s.toString().substring(start), start-1, start + count)
-                        str=edtTxtMine.text.toString().substring(start,start+count)
-                        Log.i(javaClass.simpleName,"str :$str")
-                        matterTagList.add(str)
-                        str=""
+                        changeMatterColor(s.toString().substring(start), start - 1, start + count)
+                        str = edtTxtMine.text.toString().substring(start, start + count)
+                        //Log.i(javaClass.simpleName, "str :$str")
+                        str = ""
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagMoodButton.setOnClickListener { //감정 버튼 선택
-                        changeMoodColor(s.toString().substring(start), start-1, start + count)
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        moodTagList.add(str)
-                        str="" //str 초기화
+                        changeMoodColor(s.toString().substring(start), start - 1, start + count)
+                        str = edtTxtMine.text.toString().substring(start, start + count) //str 문자열 자르기
+                        //Log.i(javaClass.simpleName, "str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str = "" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagObjectButton.setOnClickListener { //물건 버튼 선택
-                        changeObjectColor(s.toString().substring(start), start-1, start + count)
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        objectTagList.add(str)
-                        str="" //str 초기화
+                        changeObjectColor(s.toString().substring(start), start - 1, start + count)
+                        str = edtTxtMine.text.toString().substring(start, start + count) //str 문자열 자르기
+                        //Log.i(javaClass.simpleName, "str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str = "" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagPersonButton.setOnClickListener { //인물  버튼 선택
-                        changePersonColor(s.toString().substring(start), start-1, start + count)
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        personTagList.add(str)
-                        str="" //str 초기화
+                        changePersonColor(s.toString().substring(start), start - 1, start + count)
+                        str = edtTxtMine.text.toString().substring(start, start + count) //str 문자열 자르기
+                        //Log.i(javaClass.simpleName, "str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str = "" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagPlaceButton.setOnClickListener { //장소 버튼 선택
-                        changePlaceColor(s.toString().substring(start), start-1, start + count)
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        placeTagList.add(str)
-                        str="" //str 초기화
+                        changePlaceColor(s.toString().substring(start), start - 1, start + count)
+                        str = edtTxtMine.text.toString().substring(start, start + count) //str 문자열 자르기
+                        //Log.i(javaClass.simpleName, "str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str = "" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
                     viewBinding.tagYearButton.setOnClickListener { //연도 버튼 선택
-                        changeYearColor(s.toString().substring(start), start-1, start + count)
-                        str=edtTxtMine.text.toString().substring(start,start+count) //str 문자열 자르기
-                        Log.i(javaClass.simpleName,"str :$str") //str 문자열 잘 받아와졌는지 확인
-                        yearTagList.add(str)
-                        str="" //str 초기화
+                        changeYearColor(s.toString().substring(start), start - 1, start + count)
+                        str = edtTxtMine.text.toString().substring(start, start + count) //str 문자열 자르기
+                        //Log.i(javaClass.simpleName, "str :$str") //str 문자열 잘 받아와졌는지 확인
+                        str = "" //str 초기화
                         setTagInvisible()
                         hashTagIsComing = 0
                     }
@@ -176,51 +171,127 @@ class StoryWriteActivity : AppCompatActivity() {
             override fun beforeTextChanged(
                 s: CharSequence, start: Int, count: Int,
                 after: Int
-            ) {
-                // TODO Auto-generated method stub
-            }
-
-            override fun afterTextChanged(s: Editable) {
-                // TODO Auto-generated method stub
-            }
+            ) {}
+            override fun afterTextChanged(s: Editable) {}
         })
+        */
 
-        /*age=findViewById(R.id.textView48);
-        Intent intent_data = getIntent();
-        String input=intent_data.getStringExtra("age");
-        if (input!=null)
-            age.setText(input);*/
+        // 새로운 질문 생성 (다음)
+        viewBinding.buttonNext.setOnClickListener {
+            val inputText = viewBinding.editTextTextMultiLineWriteStory.text.toString()
+            if (inputText.isEmpty()) {
+                Toast.makeText(this, "답변을 입력하지 않으면 넘어갈 수 없습니다. \n어려운 질문은 건너뛰어도 돼요.", Toast.LENGTH_SHORT).show()
+            } else {
+                answer = viewBinding.editTextTextMultiLineWriteStory.text.toString()
+                val question_new = "[" + tagContent + "]" + question
+                answerList.add(answer)
+                questionList.add(question_new)
+                questionTag.add(num)
+                Log.d("num", "$num")
+                Log.i("answerList", "$answerList")
+                Log.i("questionList", "$questionList")
+                Log.i("questionTag", "$questionTag")
 
-        //이 파트가 api 이용해서 답변 저장, 질문 새로고침 해야함. 일단 skip.
-        /*Button next = (Button) findViewById(R.id.button_next); //다음 질문 새로고침
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), );
-                startActivity(intent); //다음 화면 띄우기
+                //랜덤 질문
+                num = tagIds.random()
+                randomTag(num)
+                Log.d("updated_num", "$num")
+                tagContent = tagHash[num].toString() //태그 컨텐츠도 질문태그에 맞게 업데이트
+
+                // 랜덤 선택된 태그에 관한 질문 생성
+                initQuestion(viewBinding.editTextTextMultiLineWriteStory)
+
+                //edit Text 초기화
+                viewBinding.editTextTextMultiLineWriteStory.setText("")
+                viewBinding.editTextTextMultiLineWriteStory.setSelection(viewBinding.editTextTextMultiLineWriteStory.text.length)
             }
-        });*/
-
-        val next = findViewById<View>(R.id.button_next) as Button //다음 질문 생성버튼
-        next.setOnClickListener {
-
         }
-        val back = findViewById<View>(R.id.button_back) as ImageButton //뒤로가기
-        back.setOnClickListener {
+        // 질문 건너뛰기 - 새로운 질문 생성
+        viewBinding.buttonSkipQuestion.setOnClickListener {
+            //랜덤 질문
+            num = tagIds.random()
+            randomTag(num)
+            Log.d("updated_num", "$num")
+            tagContent = tagHash[num].toString() //태그 컨텐츠도 질문태그에 맞게 업데이트
+            // 랜덤 선택된 태그에 관한 질문 생성
+            initQuestion(viewBinding.editTextTextMultiLineWriteStory)
+        }
+        // 뒤로가기 - 이전 Tag 화면 띄우기
+        viewBinding.buttonBack.setOnClickListener {
             val intent = Intent(applicationContext, TagPersonActivity::class.java)
-            startActivity(intent) //다음 Tag 화면 띄우기
+            startActivity(intent)
         }
-        val stop = findViewById<View>(R.id.button_finish) as Button //이야기 그만하기
-        stop.setOnClickListener {
+        // 이야기 완성하기 - 이야기 저장
+        viewBinding.buttonFinish.setOnClickListener {
+            //StoryTag
+   //         private var bookDetailList: ArrayList<StoryDetailQna> = arrayListOf()
+   //         bookDetailList = it.data.qnaList as ArrayList<StoryDetailQna>
+
+            val tagIdList = tagHash.keys.toList()
+            val tagContentList = tagHash.values.toList()
+            val storyTagList : ArrayList<StoryTag> = ArrayList<StoryTag>()
+            for (i in tagIdList.indices) {
+                if (tagIdList[i] == null || tagContentList[i] == null) {
+                    continue
+                }
+                storyTagList.add(StoryTag(tagContentList[i]!!, tagIdList[i]!!)) //나는 이렇게 넣어야한다고 생각햇는데 그냥 이중배열로 넣는거면 수정만 하면 될듯
+            }
+
+            //QnaTag
+            val storyQnaList = ArrayList<StoryQna>()
+            for (i in answerList.indices) {
+                if (answerList[i] == null || questionList[i] == null || questionTag[i] == null) {
+                }
+                storyQnaList.add(StoryQna(answerList[i], questionList[i], questionTag[i]))
+            }
+            Log.i("storyTagList","$storyTagList")
+            Log.i("storyQnaList","$storyQnaList")
+
             val intent = Intent(applicationContext, SaveTitleActivity::class.java)
-            startActivity(intent) //다음 화면 띄우기
-        }
-        val skip = findViewById<View>(R.id.button_skip_question) as Button //이야기 건너뛰기
-        skip.setOnClickListener {
-            val intent = Intent(applicationContext, SaveTitleActivity::class.java)
-            startActivity(intent) //다음 화면 띄우기
+            intent.putExtra("storyTagList",storyTagList)
+            intent.putExtra("storyQnaList",storyQnaList)
+            startActivity(intent)
         }
     }
+
+    // 랜덤 태그 생성
+    fun randomTag(num : Int){
+        viewBinding.textViewTag.setText("#"+tagHash.get(num))
+        if (num==1)         viewBinding.textViewTag.setTextColor(Color.parseColor("#6B9A85"))
+        if (num==2)         viewBinding.textViewTag.setTextColor(Color.parseColor("#A56E4E"))
+        if (num==3)         viewBinding.textViewTag.setTextColor(Color.parseColor("#567DA7"))
+        if (num==4)         viewBinding.textViewTag.setTextColor(Color.parseColor("#5F8D8D"))
+        if (num==5)         viewBinding.textViewTag.setTextColor(Color.parseColor("#93666F"))
+        if (num==6)         viewBinding.textViewTag.setTextColor(Color.parseColor("#8D8565"))
+        if (num==7)         viewBinding.textViewTag.setTextColor(Color.parseColor("#9467A3"))
+    }
+
+    // 랜덤 선택된 태그에 관한 질문 생성
+    fun initQuestion(editText: EditText) {
+        val call: QuestionService = RetrofitClient.questionService
+        call.getQuestion(num).enqueue(object: Callback<Question>{
+            // 성공 처리
+            override fun onResponse(call: Call<Question>, response: Response<Question>) {
+                if(response.isSuccessful()) { // <--> response.code == 200
+                    response.body()?.let {
+                        question = it.data.questionTemplate
+                        if (!previousQuestion.contains(question)) {
+                            viewBinding.tvQuestion.setText(question)
+                            previousQuestion.add(question)
+                        }
+                        else
+                            initQuestion(viewBinding.editTextTextMultiLineWriteStory)
+                    }
+                }
+            }
+            // 실패 처리
+            override fun onFailure(call: Call<Question>, t: Throwable) {
+                Log.d("testt", "에러입니다. ${t.message}")
+                t.printStackTrace()
+            }
+        })
+    }
+
     fun setTagVisible(){
         viewBinding.selectTagView.visibility=View.VISIBLE
         viewBinding.tagAgeButton.visibility=View.VISIBLE

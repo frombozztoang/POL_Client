@@ -33,8 +33,8 @@
             android:layout_height="25dp"
             android:layout_marginTop="11dp"
             android:layout_marginEnd="15dp"
-            android:src="@drawable/ic_menu"
             android:background="@android:color/transparent"
+            android:src="@drawable/ic_menu"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/white" />
@@ -46,10 +46,11 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="32dp"
             android:text="나의 유년시절 이야기"
+            android:fontFamily="@font/nanummyeongjo"
             android:textColor="@android:color/white"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_back"/>
+            app:layout_constraintTop_toBottomOf="@id/btn_back" />
 
         <TextView
             android:id="@+id/tv_name_detailed"
@@ -111,12 +112,12 @@
             android:background="@drawable/img_button_like"
             android:drawableLeft="@drawable/button_heart_click"
             android:includeFontPadding="false"
+            android:paddingHorizontal="20dp"
             android:text="64"
             android:textColor="@color/white"
-            android:paddingHorizontal="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_date"/>
+            app:layout_constraintTop_toBottomOf="@+id/tv_date" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -130,19 +131,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"/>
-
-    <Button
-        android:id="@+id/btn_write"
-        android:layout_width="155dp"
-        android:layout_height="40dp"
-        android:layout_marginBottom="32dp"
-        android:background="@drawable/img_button_chat_send"
-        android:drawableLeft="@drawable/ic_pencil"
-        android:paddingHorizontal="10dp"
-        android:text="이야기 이어쓰기"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

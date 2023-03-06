@@ -23,6 +23,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="27dp"
         android:text="안드로이드 시러"
+        android:fontFamily="@font/nanummyeongjo"
         android:textAlignment="viewStart"
         android:textSize="12dp"
         android:textStyle="bold"
@@ -54,13 +55,13 @@
         app:layout_constraintTop_toBottomOf="@+id/book_postTitle" />
 
     <TextView
-        android:id="@+id/textView58"
+        android:id="@+id/finish_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:gravity="center"
         android:letterSpacing="0"
-        android:text="겨울에는방어님의\n첫 자서전을 완성했어요!"
+        android:text="겨울에는방어님의\n 자서전을 완성했어요!"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -88,6 +89,7 @@
         android:gravity="center"
         android:text="나의 유년시절 이야기"
         android:textColor="#000000"
+        android:fontFamily="@font/nanummyeongjo"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -107,7 +109,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_date2"
+        android:id="@+id/textView_Intro"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="422dp"

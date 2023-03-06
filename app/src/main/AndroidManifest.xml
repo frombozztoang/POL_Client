@@ -5,9 +5,13 @@
     <!--인터넷 허용-->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <!--갤러리 권한-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <application
         android:name=".GlobalApplication"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,14 +21,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pieciesoflife"
         tools:targetApi="31">
-        <activity
-            android:name=".Acitivity.LoginActivity"
-            android:exported="true">
+        <activity android:name=".Acitivity.MainActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
+        </activity>
+        <activity
+            android:name=".Acitivity.LoginActivity"
+            android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -32,8 +37,8 @@
         <activity android:name=".Acitivity.StartNewstoryAcitivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.ChatActivity" android:exported="true"/>
         <activity android:name=".Acitivity.ChatSendActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.ExploreDetailedActivity" android:exported="true"/>
-        <activity android:name=".Acitivity.MybookDetailedActivity" android:exported="true"/>
+        <activity android:name=".Acitivity.ExploreDetailedActivity" android:exported="true" android:taskAffinity="com.als2019.multiFinish"/>
+        <activity android:name=".Acitivity.MybookDetailedActivity" android:exported="true" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.NotiActivity" android:exported="true"/>
         <activity android:name=".Acitivity.SaveColorActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.SaveFinalActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
@@ -48,21 +53,21 @@
         <activity android:name=".Acitivity.TagPlaceActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.TagYearActivity" android:exported="true"  android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogBottomAcitivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogColorActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogDeleteActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogDeleteConfirmActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogPublicActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogPublicConfirmActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogStoryActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogStoryConfirmActivity" android:exported="true" android:screenOrientation="portrait"
-            android:theme="@style/round_dialog_activity"/>
+            android:theme="@style/round_dialog_activity" android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.DialogUserEditActivity" android:exported="true" android:theme="@style/Theme.AppCompat.DayNight.Dialog"    android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".Acitivity.UserEditActivity" android:exported="true"    android:taskAffinity="com.als2019.multiFinish"/>
         <activity android:name=".BottomNavBar.BottomNavBarActivity" android:exported="true"/>
@@ -78,7 +83,6 @@
                     android:scheme="kakao10b956924e3663c525109092e81593ec" />
             </intent-filter>
         </activity>
-
 
     </application>
 
