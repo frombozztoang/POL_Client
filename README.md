@@ -49,8 +49,5 @@ Type	설명
 
 [CHORE]	그 외 자잘한 수정
 
-Issue Convention
-
-제목 자유롭게 작성하고 관련 Label을 설정해주세요
 
 
